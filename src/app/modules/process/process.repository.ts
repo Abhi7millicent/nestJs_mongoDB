@@ -5,7 +5,7 @@ import { GenericRepository } from 'src/core/repository/generic.repository';
 import { Process } from './process.schema';
 
 @Injectable()
-export class ProcessBasicDataRepository extends GenericRepository<Process> {
+export class ProcessRepository extends GenericRepository<Process> {
   constructor(@InjectModel(Process.name) userModel: Model<Process>) {
     super(userModel);
   }

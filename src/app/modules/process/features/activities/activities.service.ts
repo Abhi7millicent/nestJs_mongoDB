@@ -1,14 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ProcessBasicDataRepository } from '../../process.repository';
 import { findPath, generateId } from '../../utils/process.utils';
 import { PROCESS } from '../../constant/process.constants';
 import { ActivityDto } from './dto/activities.dto';
+import { ProcessRepository } from '../../process.repository';
 
 @Injectable()
 export class ActivitiesService {
-  constructor(
-    private readonly processBasicDataRepository: ProcessBasicDataRepository,
-  ) {}
+  constructor(private readonly processRepository: ProcessRepository) {}
 
   async updateActivity(
     processId: string,
@@ -20,14 +18,14 @@ export class ActivitiesService {
       last_modified_on: new Date(),
     };
     delete activityDto.last_modified_by;
-    const data = await this.processBasicDataRepository.updateByKey(
+    const data = await this.processRepository.updateByKey(
       processId,
       findPath(PROCESS, 'activities'),
       activityId,
       activityDto,
     );
     if (data.acknowledged) {
-      const updateResponseDto = await this.processBasicDataRepository.update(
+      const updateResponseDto = await this.processRepository.update(
         { _id: processId },
         auditData,
       );
@@ -41,7 +39,7 @@ export class ActivitiesService {
     processId: string,
     activityId: string,
   ): Promise<any> {
-    return this.processBasicDataRepository.deleteByKey(
+    return this.processRepository.deleteByKey(
       processId,
       findPath(PROCESS, 'activities'),
       activityId,
@@ -52,7 +50,7 @@ export class ActivitiesService {
     processId: string,
     activityId: string,
   ): Promise<any> {
-    return this.processBasicDataRepository.softDeleteByKey(
+    return this.processRepository.softDeleteByKey(
       processId,
       findPath(PROCESS, 'activities'),
       activityId,
@@ -70,14 +68,14 @@ export class ActivitiesService {
     delete activityDto.last_modified_by;
 
     try {
-      const data = await this.processBasicDataRepository.createByKey(
+      const data = await this.processRepository.createByKey(
         processId,
         findPath(PROCESS, 'activities'),
         activityDto,
       );
 
       if (data._id === activityDto._id) {
-        const updateResponseDto = await this.processBasicDataRepository.update(
+        const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
         );

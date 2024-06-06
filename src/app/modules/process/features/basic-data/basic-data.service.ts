@@ -1,17 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { ProcessBasicDataRepository } from '../../process.repository';
+import { ProcessRepository } from '../../process.repository';
 import { Process } from '../../process.schema';
 
 @Injectable()
-export class ProcessBasicDataService {
-  constructor(
-    private readonly processBasicDataRepository: ProcessBasicDataRepository,
-  ) {}
+export class BasicDataService {
+  constructor(private readonly processRepository: ProcessRepository) {}
 
   async createProcessBasicData(createProcessDto: Partial<Process>) {
     try {
       const createdProcess =
-        await this.processBasicDataRepository.create(createProcessDto);
+        await this.processRepository.create(createProcessDto);
       return createdProcess;
     } catch (error) {
       throw new Error(`Error creating process: ${error}`);
@@ -19,7 +17,7 @@ export class ProcessBasicDataService {
   }
 
   async getAllProcessBasicData() {
-    const process = await this.processBasicDataRepository.findAll({
+    const process = await this.processRepository.findAll({
       is_deleted: 'false',
     });
     process.forEach((process) => {
@@ -31,14 +29,14 @@ export class ProcessBasicDataService {
   }
 
   async getProcessBasicDataById(id: string) {
-    return this.processBasicDataRepository.findById(id);
+    return this.processRepository.findById(id);
   }
 
   async updateProcessBasicData(
     id: string,
     data: Partial<Process>,
   ): Promise<any> {
-    const updateResponse = await this.processBasicDataRepository.update(
+    const updateResponse = await this.processRepository.update(
       { _id: id },
       data,
     );
@@ -46,10 +44,10 @@ export class ProcessBasicDataService {
   }
 
   async deleteProcessBasicData(id: string) {
-    return this.processBasicDataRepository.delete(id);
+    return this.processRepository.delete(id);
   }
 
   async softDeleteProcessBasicData(id: string) {
-    return this.processBasicDataRepository.softDelete(id);
+    return this.processRepository.softDelete(id);
   }
 }

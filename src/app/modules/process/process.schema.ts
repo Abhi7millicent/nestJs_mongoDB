@@ -16,11 +16,10 @@ class IoInfo {
 }
 
 class Activity {
-
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // activity_id: MongooseSchema.Types.ObjectId;
 
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -43,7 +42,7 @@ class Activity {
 
   @Prop({ required: true })
   accounts_postings!: string;
-  
+
   @Prop({ required: true, default: false })
   is_deleted!: boolean;
 }
@@ -52,7 +51,7 @@ class Workflow {
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // workflow_id: MongooseSchema.Types.ObjectId;
 
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -87,7 +86,7 @@ class Kpi {
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // kpi_id: MongooseSchema.Types.ObjectId;
 
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -125,7 +124,7 @@ class Report {
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // report_id: MongooseSchema.Types.ObjectId;
 
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -169,7 +168,7 @@ class AnalyticalDashboard {
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // analytical_dashboard_id: MongooseSchema.Types.ObjectId;
 
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -221,11 +220,10 @@ class ProcessControlAndMonitoring {
 
   @Prop({ type: [AnalyticalDashboard], default: [] })
   analytical_dashboards!: AnalyticalDashboard[];
-  
 }
 
 class QueriesAndResponses {
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -239,7 +237,7 @@ class QueriesAndResponses {
 }
 
 class MDO {
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -361,7 +359,7 @@ class ProcessDocument {
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // Process_document_id: MongooseSchema.Types.ObjectId;
 
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -396,7 +394,7 @@ class AutomationScenario {
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // automation_scenario_id: MongooseSchema.Types.ObjectId;
 
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -428,7 +426,7 @@ class ComplianceScenarioData {
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // compliance_scenario_id: MongooseSchema.Types.ObjectId;
 
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -454,7 +452,7 @@ class ComplianceScenarioData {
 }
 
 class AuditTrailScenarios {
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -494,7 +492,7 @@ class ProcessControl {
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // process_control_id: MongooseSchema.Types.ObjectId;
 
-   @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String })
   _id: string;
 
   @Prop({ required: true })
@@ -514,7 +512,7 @@ class ProcessControl {
 }
 
 @Schema({ collection: 'process_basic_data1' })
-export class ProcessBasicData extends Document {
+export class Process extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   _id: MongooseSchema.Types.ObjectId;
 
@@ -597,4 +595,4 @@ export class ProcessBasicData extends Document {
   public controls!: ProcessControl[];
 }
 
-export const ProcessBasicDataSchema = SchemaFactory.createForClass(ProcessBasicData);
+export const ProcessSchema = SchemaFactory.createForClass(Process);

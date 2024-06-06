@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProcessBasicDataRepository } from '../../process.repository';
-import { ActivityDto } from './activities.dto';
 import { findPath, generateId } from '../../utils/process.utils';
 import { PROCESS } from '../../constant/process.constants';
+import { ActivityDto } from './dto/activities.dto';
 
 @Injectable()
-export class ProcessActivityService {
+export class ActivitiesService {
   constructor(
     private readonly processBasicDataRepository: ProcessBasicDataRepository,
   ) {}

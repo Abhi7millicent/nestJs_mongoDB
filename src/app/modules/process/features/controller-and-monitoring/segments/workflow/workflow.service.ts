@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ProcessBasicDataRepository } from 'src/app/modules/process/process.repository';
-import { WorkflowsDto } from './workflows.dto';
 import { findPath } from 'src/app/modules/process/utils/process.utils';
 import {
   PROCESS,
@@ -8,9 +7,10 @@ import {
   workflow,
 } from 'src/app/modules/process/constant/process.constants';
 import { generateId } from 'src/shared/helper/genrate-id.helper';
+import { WorkflowsDto } from './dto/workflows.dto';
 
 @Injectable()
-export class ProcessWorkflowService {
+export class WorkflowsService {
   constructor(
     private readonly processBasicDataRepository: ProcessBasicDataRepository,
   ) {}

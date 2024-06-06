@@ -1,47 +1,88 @@
 import {
   Controller,
-  Get,
   Post,
   Put,
-  Delete,
   Param,
   Body,
+  HttpCode,
+  HttpStatus,
+  NotFoundException,
+  HttpException,
 } from '@nestjs/common';
-import { ProcessBasicData } from '../../process.basic.data.schema';
-import { ProcessBasicDataService } from '../basic-data/process-basic-data.service';
+import { ActivitiesService } from './activities.service';
+import { ActivityDto } from './dto/activities.dto';
 
 @Controller('process-basic-data')
-export class ProcessBasicDataController {
-  constructor(
-    private readonly processBasicDataService: ProcessBasicDataService,
-  ) {}
-  @Post()
-  async create(@Body() createProcessDto: ProcessBasicData) {
-    return this.processBasicDataService.createProcessBasicData(
-      createProcessDto,
+export class ActivitiesController {
+  constructor(private readonly activitiesService: ActivitiesService) {}
+
+  @Post('activities/:id')
+  @HttpCode(HttpStatus.CREATED) // Setting default success status code to 201 Created
+  async addActivity(@Param('id') id: string, @Body() activityDto: ActivityDto) {
+    try {
+      const data = await this.activitiesService.addActivity(id, activityDto);
+      return {
+        statusCode: HttpStatus.CREATED,
+        message: 'Activity created successfully',
+        data: data,
+      };
+    } catch (error) {
+      console.error('Error in addActivity controller method:', error.message);
+
+      // Handle specific known errors
+      if (error instanceof NotFoundException) {
+        throw new HttpException(
+          {
+            statusCode: HttpStatus.NOT_FOUND,
+            message: error.message,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      } else {
+        // Handle unexpected errors
+        throw new HttpException(
+          {
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: 'Internal server error',
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    }
+  }
+
+  @Put(':processId/activities/:activityId')
+  async updateActivity(
+    @Param('processId') processId: string,
+    @Param('activityId') activityId: string,
+    @Body() activityData: any,
+  ): Promise<any> {
+    return this.activitiesService.updateActivity(
+      processId,
+      activityId,
+      activityData,
     );
   }
 
-  @Get()
-  async getAll(): Promise<ProcessBasicData[]> {
-    return this.processBasicDataService.getAllProcessBasicData();
+  @Put(':processId/activities-delete/:activityId')
+  async updateActivityIsDeleted(
+    @Param('processId') processId: string,
+    @Param('activityId') activityId: string,
+  ) {
+    return this.activitiesService.updateActivityIsDeleted(
+      processId,
+      activityId,
+    );
   }
 
-  @Get(':id')
-  async getById(@Param('id') id: string): Promise<ProcessBasicData> {
-    return this.processBasicDataService.getProcessBasicDataById(id);
-  }
-
-  @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() data: Partial<ProcessBasicData>,
-  ): Promise<ProcessBasicData> {
-    return this.processBasicDataService.updateProcessBasicData(id, data);
-  }
-
-  @Delete(':id')
-  async delete(@Param('id') id: string): Promise<ProcessBasicData> {
-    return this.processBasicDataService.deleteProcessBasicData(id);
+  @Put(':processId/activities-soft-delete/:activityId')
+  async updateActivityIsSoftDeleted(
+    @Param('processId') processId: string,
+    @Param('activityId') activityId: string,
+  ) {
+    return this.activitiesService.updateActivityIsSoftDeleted(
+      processId,
+      activityId,
+    );
   }
 }

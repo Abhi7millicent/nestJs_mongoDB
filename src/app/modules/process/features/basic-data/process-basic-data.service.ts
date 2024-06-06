@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ProcessBasicDataRepository } from '../../process.repository';
-import { ProcessBasicData } from '../../process.basic.data.schema';
+import { Process } from '../../process.schema';
 
 @Injectable()
 export class ProcessBasicDataService {
@@ -8,7 +8,7 @@ export class ProcessBasicDataService {
     private readonly processBasicDataRepository: ProcessBasicDataRepository,
   ) {}
 
-  async createProcessBasicData(createProcessDto: Partial<ProcessBasicData>) {
+  async createProcessBasicData(createProcessDto: Partial<Process>) {
     try {
       const createdProcess =
         await this.processBasicDataRepository.create(createProcessDto);
@@ -36,7 +36,7 @@ export class ProcessBasicDataService {
 
   async updateProcessBasicData(
     id: string,
-    data: Partial<ProcessBasicData>,
+    data: Partial<Process>,
   ): Promise<any> {
     const updateResponse = await this.processBasicDataRepository.update(
       { _id: id },

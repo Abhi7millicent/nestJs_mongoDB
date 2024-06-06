@@ -7,8 +7,8 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { ProcessBasicData } from '../../process.basic.data.schema';
 import { ProcessBasicDataService } from './process-basic-data.service';
+import { Process } from '../../process.schema';
 
 @Controller('process-basic-data')
 export class ProcessBasicDataController {
@@ -16,32 +16,32 @@ export class ProcessBasicDataController {
     private readonly processBasicDataService: ProcessBasicDataService,
   ) {}
   @Post()
-  async create(@Body() createProcessDto: ProcessBasicData) {
+  async create(@Body() createProcessDto: Process) {
     return this.processBasicDataService.createProcessBasicData(
       createProcessDto,
     );
   }
 
   @Get()
-  async getAll(): Promise<ProcessBasicData[]> {
+  async getAll(): Promise<Process[]> {
     return this.processBasicDataService.getAllProcessBasicData();
   }
 
   @Get(':id')
-  async getById(@Param('id') id: string): Promise<ProcessBasicData> {
+  async getById(@Param('id') id: string): Promise<Process> {
     return this.processBasicDataService.getProcessBasicDataById(id);
   }
 
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body() data: Partial<ProcessBasicData>,
-  ): Promise<ProcessBasicData> {
+    @Body() data: Partial<Process>,
+  ): Promise<Process> {
     return this.processBasicDataService.updateProcessBasicData(id, data);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string): Promise<ProcessBasicData> {
+  async delete(@Param('id') id: string): Promise<Process> {
     return this.processBasicDataService.deleteProcessBasicData(id);
   }
 }

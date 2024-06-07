@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ActivitiesModule } from './features/activities/activities.module';
 import { BasicDataModule } from './features/basic-data/basic-data.module';
-import { WorkflowModule } from './features/controller-and-monitoring/segments/workflow/workflow.module';
+import { ControllerMonitoringModule } from './features/controller-and-monitoring/controller-and-monitoring.module';
 
 @Module({
-  imports: [ActivitiesModule, BasicDataModule, WorkflowModule],
+  imports: [ActivitiesModule, BasicDataModule, ControllerMonitoringModule],
 })
 export class ProcessModule {}

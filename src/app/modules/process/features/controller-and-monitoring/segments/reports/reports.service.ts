@@ -40,7 +40,7 @@ export class ReportsService {
     }
   }
 
-  async addWorkflows(processId: string, reportsDto: ReportsDto): Promise<any> {
+  async addReports(processId: string, reportsDto: ReportsDto): Promise<any> {
     try {
       reportsDto._id = generateId(workflow);
 

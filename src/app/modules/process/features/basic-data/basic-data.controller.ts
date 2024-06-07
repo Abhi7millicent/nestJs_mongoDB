@@ -7,29 +7,25 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { ProcessBasicDataService } from './process-basic-data.service';
+import { BasicDataService } from './basic-data.service';
 import { Process } from '../../process.schema';
 
 @Controller('process-basic-data')
-export class ProcessBasicDataController {
-  constructor(
-    private readonly processBasicDataService: ProcessBasicDataService,
-  ) {}
+export class BasicDataController {
+  constructor(private readonly basicDataService: BasicDataService) { }
   @Post()
   async create(@Body() createProcessDto: Process) {
-    return this.processBasicDataService.createProcessBasicData(
-      createProcessDto,
-    );
+    return this.basicDataService.createProcessBasicData(createProcessDto);
   }
 
   @Get()
   async getAll(): Promise<Process[]> {
-    return this.processBasicDataService.getAllProcessBasicData();
+    return this.basicDataService.getAllProcessBasicData();
   }
 
   @Get(':id')
   async getById(@Param('id') id: string): Promise<Process> {
-    return this.processBasicDataService.getProcessBasicDataById(id);
+    return this.basicDataService.getProcessBasicDataById(id);
   }
 
   @Put(':id')
@@ -37,11 +33,11 @@ export class ProcessBasicDataController {
     @Param('id') id: string,
     @Body() data: Partial<Process>,
   ): Promise<Process> {
-    return this.processBasicDataService.updateProcessBasicData(id, data);
+    return this.basicDataService.updateProcessBasicData(id, data);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<Process> {
-    return this.processBasicDataService.deleteProcessBasicData(id);
+    return this.basicDataService.deleteProcessBasicData(id);
   }
 }

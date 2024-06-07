@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { ProcessDocumentDto } from './dto/process-document.dto';
-import { PROCESS, process_document, process_document_id } from '../../constant/process.constants';
+import {
+  PROCESS,
+  process_document,
+  process_document_id,
+} from '../../constant/process.constants';
 import { generateId } from 'src/shared/helper/generate-id.helper';
-import { ProcessBasicDataRepository } from '../../process.repository';
+import { ProcessRepository } from '../../process.repository';
 import { findPath } from '../../utils/process.utils';
 
 @Injectable()
 export class ProcessDocumentService {
-  constructor(
-    private readonly processBasicDataRepository: ProcessBasicDataRepository,
-  ) { }
+  constructor(private readonly processRepository: ProcessRepository) { }
 
   async create(processId: string, processDocumentDto: ProcessDocumentDto) {
     try {
@@ -21,13 +23,13 @@ export class ProcessDocumentService {
       };
 
       delete processDocumentDto.last_modified_by;
-      const data = await this.processBasicDataRepository.createByKey(
+      const data = await this.processRepository.createByKey(
         processId,
         findPath(PROCESS, process_document),
         processDocumentDto,
       );
       if (data._id === processDocumentDto._id) {
-        const updateResponseDto = await this.processBasicDataRepository.update(
+        const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
         );
@@ -62,14 +64,14 @@ export class ProcessDocumentService {
       last_modified_on: new Date(),
     };
     delete updateProcessDocumentDto.last_modified_by;
-    const data = await this.processBasicDataRepository.updateByKey(
+    const data = await this.processRepository.updateByKey(
       processId,
       findPath(PROCESS, process_document),
       pdId,
       updateProcessDocumentDto,
     );
     if (data.acknowledged) {
-      const updateResponseDto = await this.processBasicDataRepository.update(
+      const updateResponseDto = await this.processRepository.update(
         { _id: processId },
         auditData,
       );
@@ -83,19 +85,18 @@ export class ProcessDocumentService {
     processId: string,
     pdId: string,
   ): Promise<any> {
-    return this.processBasicDataRepository.deleteByKey(
+    return this.processRepository.deleteByKey(
       processId,
       findPath(PROCESS, process_document),
       pdId,
     );
   }
 
-
   async updateProcessDocumentsIsSoftDeleted(
     processId: string,
     pdId: string,
   ): Promise<any> {
-    return this.processBasicDataRepository.softDeleteByKey(
+    return this.processRepository.softDeleteByKey(
       processId,
       findPath(PROCESS, process_document),
       pdId,

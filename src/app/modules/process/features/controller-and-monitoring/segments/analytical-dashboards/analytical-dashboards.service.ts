@@ -2,32 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { findPath } from 'src/app/modules/process/utils/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
 import { generateId } from 'src/shared/helper/generate-id.helper';
-import { WorkflowsDto } from './dto/workflows.dto';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
 import {
   controlAndMonitoring,
   workflow,
 } from '../../constant/controller-and-monitoring.constant';
+import { AnalyticalDashboardsDto } from './dto/analytical-dashboards.dto';
 
 @Injectable()
-export class WorkflowsService {
-  constructor(private readonly processRepository: ProcessRepository) { }
+export class AnalyticalDashboardsService {
+  constructor(private readonly processRepository: ProcessRepository) {}
 
-  async updateWorkflow(
+  async updateAnalyticalDashboards(
     processId: string,
-    workflowId: string,
-    workflowsDto: WorkflowsDto,
+    AnalyticalDashboardsId: string,
+    analyticalDashboardsDto: AnalyticalDashboardsDto,
   ): Promise<any> {
     const auditData = {
-      last_modified_by: workflowsDto.last_modified_by,
+      last_modified_by: analyticalDashboardsDto.last_modified_by,
       last_modified_on: new Date(),
     };
-    delete workflowsDto.last_modified_by;
+    delete analyticalDashboardsDto.last_modified_by;
     const data = await this.processRepository.updateByKey(
       processId,
-      findPath(PROCESS, controlAndMonitoring['workflows']),
-      workflowId,
-      workflowsDto,
+      findPath(PROCESS, controlAndMonitoring['analytical_dashboards']),
+      AnalyticalDashboardsId,
+      analyticalDashboardsDto,
     );
     if (data.acknowledged) {
       const updateResponseDto = await this.processRepository.update(
@@ -40,26 +40,26 @@ export class WorkflowsService {
     }
   }
 
-  async addWorkflows(
+  async addAnalyticalDashboards(
     processId: string,
-    workflowsDto: WorkflowsDto,
+    analyticalDashboardsDto: AnalyticalDashboardsDto,
   ): Promise<any> {
     try {
-      workflowsDto._id = generateId(workflow);
+      analyticalDashboardsDto._id = generateId(workflow);
 
       const auditData = {
-        last_modified_by: workflowsDto.last_modified_by,
+        last_modified_by: analyticalDashboardsDto.last_modified_by,
         last_modified_on: new Date(),
       };
 
-      delete workflowsDto.last_modified_by;
+      delete analyticalDashboardsDto.last_modified_by;
       const data = await this.processRepository.createByKey(
         processId,
-        findPath(PROCESS, controlAndMonitoring['workflows']),
-        workflowsDto,
+        findPath(PROCESS, controlAndMonitoring['analytical_dashboards']),
+        analyticalDashboardsDto,
       );
       console.log('data:', data);
-      if (data._id === workflowsDto._id) {
+      if (data._id === analyticalDashboardsDto._id) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -69,30 +69,30 @@ export class WorkflowsService {
 
       return data;
     } catch (error) {
-      console.error('Error in addWorkflows:', error);
-      throw new Error(`Failed to add workflows: ${error.message}`);
+      console.error('Error in addAnalyticalDashboards:', error);
+      throw new Error(`Failed to add AnalyticalDashboards: ${error.message}`);
     }
   }
 
-  async updateWorkflowsIsDeleted(
+  async updateAnalyticalDashboardsIsDeleted(
     processId: string,
-    workflowId: string,
+    AnalyticalDashboardsId: string,
   ): Promise<any> {
     return this.processRepository.deleteByKey(
       processId,
-      findPath(PROCESS, controlAndMonitoring['workflows']),
-      workflowId,
+      findPath(PROCESS, controlAndMonitoring['analytical_dashboards']),
+      AnalyticalDashboardsId,
     );
   }
 
-  async updateWorkflowsIsSoftDeleted(
+  async updateAnalyticalDashboardsIsSoftDeleted(
     processId: string,
-    workflowId: string,
+    AnalyticalDashboardsId: string,
   ): Promise<any> {
     return this.processRepository.softDeleteByKey(
       processId,
-      findPath(PROCESS, controlAndMonitoring['workflows']),
-      workflowId,
+      findPath(PROCESS, controlAndMonitoring['analytical_dashboards']),
+      AnalyticalDashboardsId,
     );
   }
 

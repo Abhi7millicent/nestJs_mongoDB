@@ -1,4 +1,3 @@
-
 export const PROCESS = {
     activities: "activities",
     control_and_monitoring: {
@@ -40,7 +39,7 @@ export const workflow = "wf_";
 export const queries_and_responses_id = "qr_";
 export const queries_and_responses = "queries_and_responses";
 export const process_document_id = "pd_";
-export const process_document = "ProcessDocument";
+export const process_document = "documents";
 
 //   export enum process { [key in controlAndMonitoringData]: string } = {
 //     [controlAndMonitoringData.I]: "workflows",
@@ -48,4 +47,3 @@ export const process_document = "ProcessDocument";
 //     [controlAndMonitoringData.III]: "reports",
 //     [controlAndMonitoringData.IV]: "analytical_dashboards",
 //   };
-

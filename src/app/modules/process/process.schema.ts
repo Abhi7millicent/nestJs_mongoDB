@@ -368,11 +368,11 @@ class ProcessDocument {
   @Prop({ required: true })
   desc!: string;
 
-  @Prop({ required: true })
-  type!: string;
+  @Prop({ type: [String], required: true })
+  type!: string[];
 
-  @Prop({ required: true })
-  source!: string;
+  @Prop({ type: [String], required: true })
+  source!: string[];
 
   @Prop({ required: true })
   number_range!: string;
@@ -380,11 +380,11 @@ class ProcessDocument {
   @Prop({ required: true })
   storage_requirements!: string;
 
-  @Prop({ required: true })
-  attachments!: string;
+  @Prop({ type: [String], required: true })
+  attachments!: string[];
 
-  @Prop({ required: true })
-  activity_id!: string;
+  @Prop({ type: [String], required: true })
+  activity_id!: string[];
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;
@@ -511,7 +511,7 @@ class ProcessControl {
   is_deleted!: boolean;
 }
 
-@Schema({ collection: 'process_basic_data1' })
+@Schema({ collection: 'process_basic_data2' })
 export class Process extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   _id: MongooseSchema.Types.ObjectId;

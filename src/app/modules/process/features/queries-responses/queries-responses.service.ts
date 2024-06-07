@@ -6,14 +6,12 @@ import {
   queries_and_responses_id,
 } from '../../constant/process.constants';
 import { generateId } from 'src/shared/helper/generate-id.helper';
-import { ProcessBasicDataRepository } from '../../process.repository';
 import { findPath } from '../../utils/process.utils';
+import { ProcessRepository } from '../../process.repository';
 
 @Injectable()
 export class QueriesResponsesService {
-  constructor(
-    private readonly processBasicDataRepository: ProcessBasicDataRepository,
-  ) { }
+  constructor(private readonly processRepository: ProcessRepository) { }
 
   /**
    * This TypeScript function creates a new entry in a database collection, updates audit data, and
@@ -38,13 +36,13 @@ export class QueriesResponsesService {
       };
 
       delete queriesResponseDto.last_modified_by;
-      const data = await this.processBasicDataRepository.createByKey(
+      const data = await this.processRepository.createByKey(
         processId,
         findPath(PROCESS, queries_and_responses),
         queriesResponseDto,
       );
       if (data._id === queriesResponseDto._id) {
-        const updateResponseDto = await this.processBasicDataRepository.update(
+        const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
         );
@@ -91,14 +89,14 @@ export class QueriesResponsesService {
       last_modified_on: new Date(),
     };
     delete updateQueriesResponseDto.last_modified_by;
-    const data = await this.processBasicDataRepository.updateByKey(
+    const data = await this.processRepository.updateByKey(
       processId,
       findPath(PROCESS, queries_and_responses),
       qrId,
       updateQueriesResponseDto,
     );
     if (data.acknowledged) {
-      const updateResponseDto = await this.processBasicDataRepository.update(
+      const updateResponseDto = await this.processRepository.update(
         { _id: processId },
         auditData,
       );
@@ -116,7 +114,7 @@ export class QueriesResponsesService {
    * represents the unique identifier of a specific query or response that you want to delete from the
    * database.
    * @returns The `updatequeriesresponseIsDeleted` function is returning a Promise that resolves to the
-   * result of calling the `deleteByKey` method on the `processBasicDataRepository` object. The
+   * result of calling the `deleteByKey` method on the `processRepository` object. The
    * `deleteByKey` method is deleting a specific entry identified by the `processId` and `qrId`
    * parameters from a data repository.
    */
@@ -124,13 +122,12 @@ export class QueriesResponsesService {
     processId: string,
     qrId: string,
   ): Promise<any> {
-    return this.processBasicDataRepository.deleteByKey(
+    return this.processRepository.deleteByKey(
       processId,
       findPath(PROCESS, queries_and_responses),
       qrId,
     );
   }
-
 
   /**
    * This function updates the isSoftDeleted property of queries and responses for a specific process and
@@ -140,14 +137,14 @@ export class QueriesResponsesService {
    * @param {string} workflowId - The `workflowId` parameter is a string that represents the unique
    * identifier of a workflow. It is used to identify a specific workflow within a process.
    * @returns The `updateQueriesResponsesIsSoftDeleted` function is returning the result of calling the
-   * `softDeleteByKey` method on `processBasicDataRepository` with the provided `processId`, the result
+   * `softDeleteByKey` method on `processRepository` with the provided `processId`, the result
    * of calling `findPath(PROCESS, queries_and_responses)`, and the `workflowId` as arguments.
    */
   async updateQueriesResponsesIsSoftDeleted(
     processId: string,
     workflowId: string,
   ): Promise<any> {
-    return this.processBasicDataRepository.softDeleteByKey(
+    return this.processRepository.softDeleteByKey(
       processId,
       findPath(PROCESS, queries_and_responses),
       workflowId,

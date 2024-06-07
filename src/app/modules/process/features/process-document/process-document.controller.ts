@@ -11,13 +11,13 @@ import {
 import { ProcessDocumentService } from './process-document.service';
 import { ProcessDocumentDto } from './dto/process-document.dto';
 
-@Controller('process-document')
+@Controller('api/process')
 export class ProcessDocumentController {
   constructor(
     private readonly processDocumentService: ProcessDocumentService,
   ) { }
 
-  @Post('/:id')
+  @Post('process-document/:id')
   create(
     @Param('id') id: string,
     @Body() createProcessDocumentDto: ProcessDocumentDto,

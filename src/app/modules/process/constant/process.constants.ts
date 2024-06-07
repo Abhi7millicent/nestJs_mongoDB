@@ -40,6 +40,8 @@ export const queries_and_responses_id = "qr_";
 export const queries_and_responses = "queries_and_responses";
 export const process_document_id = "pd_";
 export const process_document = "documents";
+export const process_controls_id = "pc_";
+export const process_controls = "documents";
 
 //   export enum process { [key in controlAndMonitoringData]: string } = {
 //     [controlAndMonitoringData.I]: "workflows",

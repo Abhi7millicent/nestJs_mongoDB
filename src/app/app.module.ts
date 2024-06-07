@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppConfig } from 'src/config/app.config';
 import { ConfigModule } from 'src/config/config.module';
 import { DatabaseConfig } from 'src/database/database.config';
-import { ModulesModule } from './modules/modules.module';
+import { Modules } from './modules/modules';
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import { ModulesModule } from './modules/modules.module';
       useClass: DatabaseConfig,
       inject: [AppConfig],
     }),
-    ModulesModule,
+    Modules,
   ],
   // controllers: [],
   providers: [DatabaseConfig],

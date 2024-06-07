@@ -4,4 +4,4 @@ import { ProcessModule } from './process/process.module';
 @Module({
   imports: [ProcessModule],
 })
-export class ModulesModule {}
+export class Modules {}

@@ -7,7 +7,7 @@ export class AppConfig {
 
   constructor() {
     const environment = process.env.NODE_ENV || 'dev';
-    const envFilePath = path.resolve(__dirname, `../../${environment}.env`);
+    const envFilePath = path.resolve(__dirname, `../../dev.env`);
     this.envConfig = dotenv.parse(fs.readFileSync(envFilePath));
   }
 

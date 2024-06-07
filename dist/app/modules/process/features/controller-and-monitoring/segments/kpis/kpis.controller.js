@@ -68,7 +68,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], KPIsController.prototype, "updateKPIsIsSoftDeleted", null);
 exports.KPIsController = KPIsController = __decorate([
-    (0, common_1.Controller)('process-basic-data'),
+    (0, common_1.Controller)('api/process-basic-data'),
     __metadata("design:paramtypes", [kpis_service_1.KPIsService])
 ], KPIsController);
 //# sourceMappingURL=kpis.controller.js.map

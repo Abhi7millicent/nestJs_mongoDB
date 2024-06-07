@@ -4,7 +4,7 @@ import { Process } from '../../process.schema';
 
 @Injectable()
 export class BasicDataService {
-  constructor(private readonly processRepository: ProcessRepository) {}
+  constructor(private readonly processRepository: ProcessRepository) { }
 
   async createProcessBasicData(createProcessDto: Partial<Process>) {
     try {

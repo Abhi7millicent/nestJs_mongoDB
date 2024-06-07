@@ -6,7 +6,7 @@ import { ProcessRepository } from '../../process.repository';
 
 @Injectable()
 export class ActivitiesService {
-  constructor(private readonly processRepository: ProcessRepository) {}
+  constructor(private readonly processRepository: ProcessRepository) { }
 
   async updateActivity(
     processId: string,

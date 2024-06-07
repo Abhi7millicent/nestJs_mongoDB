@@ -11,7 +11,7 @@ import {
 
 @Injectable()
 export class WorkflowsService {
-  constructor(private readonly processRepository: ProcessRepository) {}
+  constructor(private readonly processRepository: ProcessRepository) { }
 
   async updateWorkflow(
     processId: string,

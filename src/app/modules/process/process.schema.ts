@@ -63,20 +63,20 @@ class Workflow {
   @Prop({ required: true })
   technology!: string;
 
-  @Prop({ required: true })
-  levels!: string;
+  @Prop({ type: [String], required: true })
+  levels!: string[];
 
-  @Prop({ required: true })
-  roles!: string;
+  @Prop({ type: [String], required: true })
+  roles!: string[];
 
-  @Prop({ required: true })
-  activity_id!: string;
+  @Prop({ type: [String], required: true })
+  activity_id!: string[];
 
-  @Prop({ required: true })
-  automation_id!: string;
+  @Prop({ type: [String], required: true })
+  automation_id!: string[];
 
-  @Prop({ required: true })
-  integration_scenario_id!: string;
+  @Prop({ type: [String], required: true })
+  integration_scenario_id!: string[];
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;
@@ -98,23 +98,23 @@ class Kpi {
   @Prop({ required: true })
   calculation_logic!: string;
 
-  @Prop({ required: true })
-  complexity_level!: string;
+  @Prop({ type: [String], required: true })
+  complexity_level!: string[];
 
-  @Prop({ required: true })
-  type!: string;
+  @Prop({ type: [String], required: true })
+  type!: string[];
 
-  @Prop({ required: true })
-  role!: string;
+  @Prop({ type: [String], required: true })
+  role!: string[];
 
-  @Prop({ required: true })
-  activity_id!: string;
+  @Prop({ type: [String], required: true })
+  activity_id!: string[];
 
-  @Prop({ required: true })
-  automation_id!: string;
+  @Prop({ type: [String], required: true })
+  automation_id!: string[];
 
-  @Prop({ required: true })
-  integration_scenario_id!: string;
+  @Prop({ type: [String], required: true })
+  integration_scenario_id!: string[];
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;
@@ -133,32 +133,32 @@ class Report {
   @Prop({ required: true })
   description!: string;
 
-  @Prop({ required: true })
-  attachments!: string;
+  @Prop({ type: [String], required: true })
+  attachments!: string[];
 
-  @Prop({ required: true })
-  complexity_level!: string;
+  @Prop({ type: [String], required: true })
+  complexity_level!: string[];
 
-  @Prop({ required: true })
-  type!: string;
+  @Prop({ type: [String], required: true })
+  type!: string[];
 
-  @Prop({ required: true })
-  application!: string;
+  @Prop({ type: [String], required: true })
+  application!: string[];
 
-  @Prop({ required: true })
-  source_data!: string;
+  @Prop({ type: [String], required: true })
+  source_data!: string[];
 
-  @Prop({ required: true })
-  role!: string;
+  @Prop({ type: [String], required: true })
+  role!: string[];
 
-  @Prop({ required: true })
-  activity_id!: string;
+  @Prop({ type: [String], required: true })
+  activity_id!: string[];
 
-  @Prop({ required: true })
-  automation_id!: string;
+  @Prop({ type: [String], required: true })
+  automation_id!: string[];
 
-  @Prop({ required: true })
-  integration_scenario_id!: string;
+  @Prop({ type: [String], required: true })
+  integration_scenario_id!: string[];
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;
@@ -177,32 +177,32 @@ class AnalyticalDashboard {
   @Prop({ required: true })
   description!: string;
 
-  @Prop({ required: true })
-  attachments!: string;
+  @Prop({ type: [String], required: true })
+  attachments!: string[];
 
-  @Prop({ required: true })
-  complexity_level!: string;
+  @Prop({ type: [String], required: true })
+  complexity_level!: string[];
 
-  @Prop({ required: true })
-  type!: string;
+  @Prop({ type: [String], required: true })
+  type!: string[];
 
-  @Prop({ required: true })
-  dashboard_application!: string;
+  @Prop({ type: [String], required: true })
+  dashboard_application!: string[];
 
-  @Prop({ required: true })
-  source_data!: string;
+  @Prop({ type: [String], required: true })
+  source_data!: string[];
 
-  @Prop({ required: true })
-  role!: string;
+  @Prop({ type: [String], required: true })
+  role!: string[];
 
-  @Prop({ required: true })
-  activity_id!: string;
+  @Prop({ type: [String], required: true })
+  activity_id!: string[];
 
-  @Prop({ required: true })
-  automation_id!: string;
+  @Prop({ type: [String], required: true })
+  automation_id!: string[];
 
-  @Prop({ required: true })
-  integration_scenario_id!: string;
+  @Prop({ type: [String], required: true })
+  integration_scenario_id!: string[];
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;

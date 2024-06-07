@@ -10,9 +10,9 @@ import {
 import { ReportsService } from './reports.service';
 import { ReportsDto } from './dto/reports.dto';
 
-@Controller('process')
+@Controller('api/process')
 export class WorkflowsController {
-  constructor(private readonly reportsService: ReportsService) {}
+  constructor(private readonly reportsService: ReportsService) { }
 
   @Post('reports/:id')
   async addReports(@Param('id') id: string, @Body() reportsDto: ReportsDto) {

@@ -2,11 +2,11 @@ import { Controller, Post, Put, Param, Body } from '@nestjs/common';
 import { AnalyticalDashboardsService } from './analytical-dashboards.service';
 import { AnalyticalDashboardsDto } from './dto/analytical-dashboards.dto';
 
-@Controller('process-basic-data')
+@Controller('api/process-basic-data')
 export class AnalyticalDashboardsController {
   constructor(
     private readonly analyticalDashboardsService: AnalyticalDashboardsService,
-  ) {}
+  ) { }
 
   @Post('analytical-Dashboards/:id')
   async addAnalyticalDashboards(

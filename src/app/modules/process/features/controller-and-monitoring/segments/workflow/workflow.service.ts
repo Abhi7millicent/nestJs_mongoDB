@@ -6,14 +6,14 @@ import {
   controlAndMonitoring,
   workflow,
 } from 'src/app/modules/process/constant/process.constants';
-import { generateId } from 'src/shared/helper/genrate-id.helper';
+import { generateId } from 'src/shared/helper/generate-id.helper';
 import { WorkflowsDto } from './dto/workflows.dto';
 
 @Injectable()
 export class WorkflowsService {
   constructor(
     private readonly processBasicDataRepository: ProcessBasicDataRepository,
-  ) {}
+  ) { }
 
   async updateWorkflow(
     processId: string,

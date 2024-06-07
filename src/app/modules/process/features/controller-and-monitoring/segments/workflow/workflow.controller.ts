@@ -12,7 +12,7 @@ import { WorkflowsDto } from './dto/workflows.dto';
 
 @Controller('process-basic-data')
 export class WorkflowsController {
-  constructor(private readonly workflowsService: WorkflowsService) {}
+  constructor(private readonly workflowsService: WorkflowsService) { }
 
   @Post('work-flows/:id')
   async addWorkflows(

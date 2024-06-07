@@ -27,16 +27,20 @@ export enum controlAndMonitoringData {
     II = "kpis",
     III = "reports",
     IV = "analytical_dashboards"
-  }
-  
-  export const controlAndMonitoring: { [key in controlAndMonitoringData]: string } = {
+}
+
+export const controlAndMonitoring: { [key in controlAndMonitoringData]: string } = {
     [controlAndMonitoringData.I]: "workflows",
     [controlAndMonitoringData.II]: "kpis",
     [controlAndMonitoringData.III]: "reports",
     [controlAndMonitoringData.IV]: "analytical_dashboards",
-  };
+};
 
-  export const workflow = "wf_";
+export const workflow = "wf_";
+export const queries_and_responses_id = "qr_";
+export const queries_and_responses = "queries_and_responses";
+export const process_document_id = "pd_";
+export const process_document = "ProcessDocument";
 
 //   export enum process { [key in controlAndMonitoringData]: string } = {
 //     [controlAndMonitoringData.I]: "workflows",

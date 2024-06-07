@@ -6,9 +6,9 @@ import { AnalyticalDashboardsDto } from './dto/analytical-dashboards.dto';
 export class AnalyticalDashboardsController {
   constructor(
     private readonly analyticalDashboardsService: AnalyticalDashboardsService,
-  ) { }
+  ) {}
 
-  @Post('analytical-Dashboards/:id')
+  @Post('analytical-dashboards/:id')
   async addAnalyticalDashboards(
     @Param('id') id: string,
     @Body() analyticalDashboardsDto: AnalyticalDashboardsDto,
@@ -19,7 +19,7 @@ export class AnalyticalDashboardsController {
     );
   }
 
-  @Put(':processId/analytical-Dashboards/:analyticalDashboardsId')
+  @Put(':processId/analytical-dashboards/:analyticalDashboardsId')
   async updateAnalyticalDashboards(
     @Param('processId') processId: string,
     @Param('analyticalDashboardsId') analyticalDashboardsId: string,
@@ -32,7 +32,7 @@ export class AnalyticalDashboardsController {
     );
   }
 
-  @Put(':processId/analytical-Dashboards-delete/:analyticalDashboardsId')
+  @Put(':processId/analytical-dashboards-delete/:analyticalDashboardsId')
   async updateAnalyticalDashboardsIsDeleted(
     @Param('processId') processId: string,
     @Param('analyticalDashboardsId') analyticalDashboardsId: string,
@@ -43,7 +43,7 @@ export class AnalyticalDashboardsController {
     );
   }
 
-  @Put(':processId/analytical-Dashboards-soft-delete/:analyticalDashboardsId')
+  @Put(':processId/analytical-dashboards-soft-delete/:analyticalDashboardsId')
   async updateAnalyticalDashboardsIsSoftDeleted(
     @Param('processId') processId: string,
     @Param('analyticalDashboardsId') analyticalDashboardsId: string,

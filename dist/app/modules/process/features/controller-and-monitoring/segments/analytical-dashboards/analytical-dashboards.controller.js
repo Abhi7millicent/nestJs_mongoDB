@@ -35,7 +35,7 @@ let AnalyticalDashboardsController = class AnalyticalDashboardsController {
 };
 exports.AnalyticalDashboardsController = AnalyticalDashboardsController;
 __decorate([
-    (0, common_1.Post)('analytical-Dashboards/:id'),
+    (0, common_1.Post)('analytical-dashboards/:id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AnalyticalDashboardsController.prototype, "addAnalyticalDashboards", null);
 __decorate([
-    (0, common_1.Put)(':processId/analytical-Dashboards/:analyticalDashboardsId'),
+    (0, common_1.Put)(':processId/analytical-dashboards/:analyticalDashboardsId'),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('analyticalDashboardsId')),
     __param(2, (0, common_1.Body)()),
@@ -52,7 +52,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AnalyticalDashboardsController.prototype, "updateAnalyticalDashboards", null);
 __decorate([
-    (0, common_1.Put)(':processId/analytical-Dashboards-delete/:analyticalDashboardsId'),
+    (0, common_1.Put)(':processId/analytical-dashboards-delete/:analyticalDashboardsId'),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('analyticalDashboardsId')),
     __metadata("design:type", Function),
@@ -60,7 +60,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AnalyticalDashboardsController.prototype, "updateAnalyticalDashboardsIsDeleted", null);
 __decorate([
-    (0, common_1.Put)(':processId/analytical-Dashboards-soft-delete/:analyticalDashboardsId'),
+    (0, common_1.Put)(':processId/analytical-dashboards-soft-delete/:analyticalDashboardsId'),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('analyticalDashboardsId')),
     __metadata("design:type", Function),

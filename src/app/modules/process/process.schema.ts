@@ -28,14 +28,14 @@ class Activity {
   @Prop({ required: true })
   description!: string;
 
-  @Prop({ required: true })
-  performed_at!: string;
+  @Prop({ type: [String], required: true })
+  performed_at!: string[];
 
-  @Prop({ required: true })
-  performed_by!: string;
+  @Prop({ type: [String], required: true })
+  performed_by!: string[];
 
-  @Prop({ required: true })
-  performed_where!: string;
+  @Prop({ type: [String], required: true })
+  performed_where!: string[];
 
   @Prop({ required: true })
   value_calculation_logic!: string;

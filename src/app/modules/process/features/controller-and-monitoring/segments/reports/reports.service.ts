@@ -2,32 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { findPath } from 'src/app/modules/process/utils/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
 import { generateId } from 'src/shared/helper/generate-id.helper';
-import { WorkflowsDto } from './dto/workflows.dto';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
 import {
   controlAndMonitoring,
   workflow,
 } from '../../constant/controller-and-monitoring.constant';
+import { ReportsDto } from './dto/reports.dto';
 
 @Injectable()
-export class WorkflowsService {
+export class ReportsService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
-  async updateWorkflow(
+  async updateReports(
     processId: string,
-    workflowId: string,
-    workflowsDto: WorkflowsDto,
+    reportId: string,
+    reportsDto: ReportsDto,
   ): Promise<any> {
     const auditData = {
-      last_modified_by: workflowsDto.last_modified_by,
+      last_modified_by: reportsDto.last_modified_by,
       last_modified_on: new Date(),
     };
-    delete workflowsDto.last_modified_by;
+    delete reportsDto.last_modified_by;
     const data = await this.processRepository.updateByKey(
       processId,
-      findPath(PROCESS, controlAndMonitoring['workflows']),
-      workflowId,
-      workflowsDto,
+      findPath(PROCESS, controlAndMonitoring['reports']),
+      reportId,
+      reportsDto,
     );
     if (data.acknowledged) {
       const updateResponseDto = await this.processRepository.update(
@@ -40,26 +40,23 @@ export class WorkflowsService {
     }
   }
 
-  async addWorkflows(
-    processId: string,
-    workflowsDto: WorkflowsDto,
-  ): Promise<any> {
+  async addWorkflows(processId: string, reportsDto: ReportsDto): Promise<any> {
     try {
-      workflowsDto._id = generateId(workflow);
+      reportsDto._id = generateId(workflow);
 
       const auditData = {
-        last_modified_by: workflowsDto.last_modified_by,
+        last_modified_by: reportsDto.last_modified_by,
         last_modified_on: new Date(),
       };
 
-      delete workflowsDto.last_modified_by;
+      delete reportsDto.last_modified_by;
       const data = await this.processRepository.createByKey(
         processId,
-        findPath(PROCESS, controlAndMonitoring['workflows']),
-        workflowsDto,
+        findPath(PROCESS, controlAndMonitoring['reports']),
+        reportsDto,
       );
       console.log('data:', data);
-      if (data._id === workflowsDto._id) {
+      if (data._id === reportsDto._id) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -69,40 +66,40 @@ export class WorkflowsService {
 
       return data;
     } catch (error) {
-      console.error('Error in addWorkflows:', error);
-      throw new Error(`Failed to add workflows: ${error.message}`);
+      console.error('Error in addReport:', error);
+      throw new Error(`Failed to add Report: ${error.message}`);
     }
   }
 
-  async updateWorkflowsIsDeleted(
+  async updateReportsIsDeleted(
     processId: string,
-    workflowId: string,
+    reportId: string,
   ): Promise<any> {
     return this.processRepository.deleteByKey(
       processId,
-      findPath(PROCESS, controlAndMonitoring['workflows']),
-      workflowId,
+      findPath(PROCESS, controlAndMonitoring['reports']),
+      reportId,
     );
   }
 
-  async updateWorkflowsIsSoftDeleted(
+  async updateReportsIsSoftDeleted(
     processId: string,
-    workflowId: string,
+    reportId: string,
   ): Promise<any> {
     return this.processRepository.softDeleteByKey(
       processId,
-      findPath(PROCESS, controlAndMonitoring['workflows']),
-      workflowId,
+      findPath(PROCESS, controlAndMonitoring['reports']),
+      reportId,
     );
   }
 
-  // async addWorkflows(processId: string, workflowsDto: WorkflowsDto): Promise<ProcessBasicData> {
-  //     workflowsDto._id = 'wf_' + Math.random().toString(36).substring(2, 11);
+  // async addWorkflows(processId: string, reportsDto: reportsDto): Promise<ProcessBasicData> {
+  //     reportsDto._id = 'wf_' + Math.random().toString(36).substring(2, 11);
   //     const process = await this.processRepository.findById(processId);
   //     if (!process) {
   //       throw new Error('Process not found');
   //     }
-  //     process.control_and_monitoring.workflows.push(workflowsDto);
+  //     process.control_and_monitoring.workflows.push(reportsDto);
   //     process.markModified('control_and_monitoring');
   //     process.last_modified_by = "Editor";
   //     process.last_modified_on = new Date;

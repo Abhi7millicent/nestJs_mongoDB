@@ -7,8 +7,8 @@ var ComplianceAndScenariosData;
     ComplianceAndScenariosData["II"] = "audit_trail";
 })(ComplianceAndScenariosData || (exports.ComplianceAndScenariosData = ComplianceAndScenariosData = {}));
 exports.ComplianceAndScenarios = {
-    [ComplianceAndScenariosData.I]: 'compliance_scenarios_data',
-    [ComplianceAndScenariosData.II]: 'audit_trail',
+    [ComplianceAndScenariosData.I]: 'compliance_scenario_data',
+    [ComplianceAndScenariosData.II]: 'audit_trail_scenarios',
 };
 exports.Compliance_Scenarios_id = 'cs_';
 exports.audit_trail_id = 'at_';

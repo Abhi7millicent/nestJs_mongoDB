@@ -6,8 +6,8 @@ export enum ComplianceAndScenariosData {
 export const ComplianceAndScenarios: {
   [key in ComplianceAndScenariosData]: string;
 } = {
-  [ComplianceAndScenariosData.I]: 'compliance_scenarios_data',
-  [ComplianceAndScenariosData.II]: 'audit_trail',
+  [ComplianceAndScenariosData.I]: 'compliance_scenario_data',
+  [ComplianceAndScenariosData.II]: 'audit_trail_scenarios',
 };
 
 export const Compliance_Scenarios_id = 'cs_';

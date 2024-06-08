@@ -5,7 +5,7 @@ import { generateId } from 'src/shared/helper/generate-id.helper';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
 import {
   controlAndMonitoring,
-  workflow,
+  kpis,
 } from '../../constant/controller-and-monitoring.constant';
 import { KPIsDto } from './dto/kpis.dto';
 
@@ -42,7 +42,7 @@ export class KPIsService {
 
   async addKPIs(processId: string, kpisDto: KPIsDto): Promise<any> {
     try {
-      kpisDto._id = generateId(workflow);
+      kpisDto._id = generateId(kpis);
 
       const auditData = {
         last_modified_by: kpisDto.last_modified_by,

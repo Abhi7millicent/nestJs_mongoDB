@@ -5,7 +5,7 @@ import { generateId } from 'src/shared/helper/generate-id.helper';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
 import {
   controlAndMonitoring,
-  workflow,
+  reports,
 } from '../../constant/controller-and-monitoring.constant';
 import { ReportsDto } from './dto/reports.dto';
 
@@ -42,7 +42,7 @@ export class ReportsService {
 
   async addReports(processId: string, reportsDto: ReportsDto): Promise<any> {
     try {
-      reportsDto._id = generateId(workflow);
+      reportsDto._id = generateId(reports);
 
       const auditData = {
         last_modified_by: reportsDto.last_modified_by,

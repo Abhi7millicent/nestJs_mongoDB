@@ -37,7 +37,7 @@ let KPIsService = class KPIsService {
     }
     async addKPIs(processId, kpisDto) {
         try {
-            kpisDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.workflow);
+            kpisDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.kpis);
             const auditData = {
                 last_modified_by: kpisDto.last_modified_by,
                 last_modified_on: new Date(),

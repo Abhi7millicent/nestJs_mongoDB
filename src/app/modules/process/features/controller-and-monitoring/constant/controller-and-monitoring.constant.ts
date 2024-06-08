@@ -15,3 +15,6 @@ export const controlAndMonitoring: {
 };
 
 export const workflow = 'wf_';
+export const kpis = 'kpis_';
+export const reports = 'report_';
+export const analytical_dashboards = 'ad_';

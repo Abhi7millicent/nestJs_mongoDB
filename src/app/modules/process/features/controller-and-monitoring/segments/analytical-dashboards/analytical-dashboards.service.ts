@@ -4,8 +4,8 @@ import { PROCESS } from 'src/app/modules/process/constant/process.constants';
 import { generateId } from 'src/shared/helper/generate-id.helper';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
 import {
+  analytical_dashboards,
   controlAndMonitoring,
-  workflow,
 } from '../../constant/controller-and-monitoring.constant';
 import { AnalyticalDashboardsDto } from './dto/analytical-dashboards.dto';
 
@@ -45,7 +45,7 @@ export class AnalyticalDashboardsService {
     analyticalDashboardsDto: AnalyticalDashboardsDto,
   ): Promise<any> {
     try {
-      analyticalDashboardsDto._id = generateId(workflow);
+      analyticalDashboardsDto._id = generateId(analytical_dashboards);
 
       const auditData = {
         last_modified_by: analyticalDashboardsDto.last_modified_by,

@@ -20,16 +20,6 @@ export declare const PROCESS: {
     };
     controls: string;
 };
-export declare enum controlAndMonitoringData {
-    I = "workflows",
-    II = "kpis",
-    III = "reports",
-    IV = "analytical_dashboards"
-}
-export declare const controlAndMonitoring: {
-    [key in controlAndMonitoringData]: string;
-};
-export declare const workflow = "wf_";
 export declare const queries_and_responses_id = "qr_";
 export declare const queries_and_responses = "queries_and_responses";
 export declare const process_document_id = "pd_";

@@ -37,7 +37,7 @@ let AnalyticalDashboardsService = class AnalyticalDashboardsService {
     }
     async addAnalyticalDashboards(processId, analyticalDashboardsDto) {
         try {
-            analyticalDashboardsDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.workflow);
+            analyticalDashboardsDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.analytical_dashboards);
             const auditData = {
                 last_modified_by: analyticalDashboardsDto.last_modified_by,
                 last_modified_on: new Date(),

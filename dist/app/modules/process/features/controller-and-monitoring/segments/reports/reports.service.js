@@ -37,7 +37,7 @@ let ReportsService = class ReportsService {
     }
     async addReports(processId, reportsDto) {
         try {
-            reportsDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.workflow);
+            reportsDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.reports);
             const auditData = {
                 last_modified_by: reportsDto.last_modified_by,
                 last_modified_on: new Date(),

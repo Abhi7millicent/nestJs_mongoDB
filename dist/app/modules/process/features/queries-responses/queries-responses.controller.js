@@ -97,7 +97,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], QueriesResponsesController.prototype, "remove", null);
 exports.QueriesResponsesController = QueriesResponsesController = __decorate([
-    (0, common_1.Controller)('api/process/'),
+    (0, common_1.Controller)('api/process'),
     __metadata("design:paramtypes", [queries_responses_service_1.QueriesResponsesService])
 ], QueriesResponsesController);
 //# sourceMappingURL=queries-responses.controller.js.map

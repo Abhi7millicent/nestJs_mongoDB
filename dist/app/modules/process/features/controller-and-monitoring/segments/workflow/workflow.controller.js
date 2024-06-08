@@ -68,7 +68,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WorkflowsController.prototype, "updateWorkflowsIsSoftDeleted", null);
 exports.WorkflowsController = WorkflowsController = __decorate([
-    (0, common_1.Controller)('process-basic-data'),
+    (0, common_1.Controller)('api/process'),
     __metadata("design:paramtypes", [workflow_service_1.WorkflowsService])
 ], WorkflowsController);
 //# sourceMappingURL=workflow.controller.js.map

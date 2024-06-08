@@ -10,9 +10,9 @@ import {
 import { BasicDataService } from './basic-data.service';
 import { Process } from '../../process.schema';
 
-@Controller('process-basic-data')
+@Controller('api/process')
 export class BasicDataController {
-  constructor(private readonly basicDataService: BasicDataService) { }
+  constructor(private readonly basicDataService: BasicDataService) {}
   @Post()
   async create(@Body() createProcessDto: Process) {
     return this.basicDataService.createProcessBasicData(createProcessDto);

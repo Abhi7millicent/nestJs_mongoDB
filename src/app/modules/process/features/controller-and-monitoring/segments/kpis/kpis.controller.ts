@@ -10,9 +10,9 @@ import {
 import { KPIsService } from './kpis.service';
 import { KPIsDto } from './dto/kpis.dto';
 
-@Controller('api/process-basic-data')
+@Controller('api/process')
 export class KPIsController {
-  constructor(private readonly kpisService: KPIsService) { }
+  constructor(private readonly kpisService: KPIsService) {}
 
   @Post('kpis/:id')
   async addKPIs(@Param('id') id: string, @Body() kpisDto: KPIsDto) {

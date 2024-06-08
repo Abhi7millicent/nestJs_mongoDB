@@ -10,9 +10,9 @@ import {
 import { WorkflowsService } from './workflow.service';
 import { WorkflowsDto } from './dto/workflows.dto';
 
-@Controller('process-basic-data')
+@Controller('api/process')
 export class WorkflowsController {
-  constructor(private readonly workflowsService: WorkflowsService) { }
+  constructor(private readonly workflowsService: WorkflowsService) {}
 
   @Post('work-flows/:id')
   async addWorkflows(

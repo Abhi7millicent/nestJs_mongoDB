@@ -11,11 +11,11 @@ import {
 import { QueriesResponsesService } from './queries-responses.service';
 import { QueriesResponseDto } from './dto/queries-response.dto';
 
-@Controller('api/process/')
+@Controller('api/process')
 export class QueriesResponsesController {
   constructor(
     private readonly queriesResponsesService: QueriesResponsesService,
-  ) { }
+  ) {}
 
   @Post('queries-responses/:id')
   create(

@@ -178,21 +178,21 @@ declare class ComplianceScenarioData {
     _id: string;
     title: string;
     description: string;
-    attachments: string;
-    activity_id: string;
-    automation_id: string;
-    integration_scenario_id: string;
+    attachments: string[];
+    activity_id: string[];
+    automation_id: string[];
+    integration_scenario_id: string[];
     is_deleted: boolean;
 }
 declare class AuditTrailScenarios {
     _id: string;
     title: string;
     description: string;
-    activity_id: string;
-    automation_id: string;
-    attachments: string;
-    integration_scenario_id: string;
-    role: string;
+    activity_id: string[];
+    automation_id: string[];
+    attachments: string[];
+    integration_scenario_id: string[];
+    role: string[];
     is_deleted: boolean;
 }
 declare class ComplianceScenario {

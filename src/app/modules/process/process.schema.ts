@@ -423,9 +423,6 @@ class AutomationScenario {
 }
 
 class ComplianceScenarioData {
-  // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
-  // compliance_scenario_id: MongooseSchema.Types.ObjectId;
-
   @Prop({ required: true, type: String })
   _id: string;
 
@@ -435,17 +432,17 @@ class ComplianceScenarioData {
   @Prop({ required: true })
   description!: string;
 
-  @Prop({ required: true })
-  attachments!: string;
+  @Prop({ type: [String], required: true })
+  attachments!: string[];
 
-  @Prop({ required: true })
-  activity_id!: string;
+  @Prop({ type: [String], required: true })
+  activity_id!: string[];
 
-  @Prop({ required: true })
-  automation_id!: string;
+  @Prop({ type: [String], required: true })
+  automation_id!: string[];
 
-  @Prop({ required: true })
-  integration_scenario_id!: string;
+  @Prop({ type: [String], required: true })
+  integration_scenario_id!: string[];
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;
@@ -461,20 +458,20 @@ class AuditTrailScenarios {
   @Prop({ required: true })
   description!: string;
 
-  @Prop({ required: true })
-  activity_id!: string;
+  @Prop({ type: [String], required: true })
+  activity_id!: string[];
 
-  @Prop({ required: true })
-  automation_id!: string;
+  @Prop({ type: [String], required: true })
+  automation_id!: string[];
 
-  @Prop({ required: true })
-  attachments!: string;
+  @Prop({ type: [String], required: true })
+  attachments!: string[];
 
-  @Prop({ required: true })
-  integration_scenario_id!: string;
+  @Prop({ type: [String], required: true })
+  integration_scenario_id!: string[];
 
-  @Prop({ required: true })
-  role!: string;
+  @Prop({ type: [String], required: true })
+  role!: string[];
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;

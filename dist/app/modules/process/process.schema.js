@@ -543,20 +543,20 @@ __decorate([
     __metadata("design:type", String)
 ], ComplianceScenarioData.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], ComplianceScenarioData.prototype, "attachments", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], ComplianceScenarioData.prototype, "activity_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], ComplianceScenarioData.prototype, "automation_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], ComplianceScenarioData.prototype, "integration_scenario_id", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
@@ -577,24 +577,24 @@ __decorate([
     __metadata("design:type", String)
 ], AuditTrailScenarios.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], AuditTrailScenarios.prototype, "activity_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], AuditTrailScenarios.prototype, "automation_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], AuditTrailScenarios.prototype, "attachments", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], AuditTrailScenarios.prototype, "integration_scenario_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], AuditTrailScenarios.prototype, "role", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),

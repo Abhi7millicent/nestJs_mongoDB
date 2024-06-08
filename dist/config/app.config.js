@@ -8,7 +8,6 @@ class AppConfig {
     constructor() {
         const environment = 'dev';
         const envFilePath = path.resolve(__dirname, `../../${environment}.env`);
-        console.log('envFilePath:', envFilePath);
         this.envConfig = dotenv.parse(fs.readFileSync(envFilePath));
     }
     get(key) {

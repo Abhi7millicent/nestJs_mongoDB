@@ -34,3 +34,5 @@ export declare const queries_and_responses_id = "qr_";
 export declare const queries_and_responses = "queries_and_responses";
 export declare const process_document_id = "pd_";
 export declare const process_document = "documents";
+export declare const process_controls_id = "pc_";
+export declare const process_controls = "documents";

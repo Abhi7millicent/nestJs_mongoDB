@@ -12,58 +12,58 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueriesResponsesController = void 0;
+exports.ProcessControlsController = void 0;
 const common_1 = require("@nestjs/common");
-const queries_responses_service_1 = require("./queries-responses.service");
-const queries_response_dto_1 = require("./dto/queries-response.dto");
-let QueriesResponsesController = class QueriesResponsesController {
-    constructor(queriesResponsesService) {
-        this.queriesResponsesService = queriesResponsesService;
+const process_controls_service_1 = require("./process-controls.service");
+const process_controls_dto_1 = require("./dto/process-controls.dto");
+let ProcessControlsController = class ProcessControlsController {
+    constructor(processControlsService) {
+        this.processControlsService = processControlsService;
     }
-    create(id, queriesResponseDto) {
-        return this.queriesResponsesService.create(id, queriesResponseDto);
+    create(id, processControlsDto) {
+        return this.processControlsService.create(id, processControlsDto);
     }
     findAll() {
-        return this.queriesResponsesService.findAll();
+        return this.processControlsService.findAll();
     }
     findOne(id) {
-        return this.queriesResponsesService.findOne(+id);
+        return this.processControlsService.findOne(+id);
     }
     async updateQueriesResponse(processId, qrId, workflowData) {
-        return this.queriesResponsesService.update(processId, qrId, workflowData);
+        return this.processControlsService.update(processId, qrId, workflowData);
     }
     async updatequeriesresponseIsDeleted(processId, qrId) {
-        return this.queriesResponsesService.updatequeriesresponseIsDeleted(processId, qrId);
+        return this.processControlsService.updatequeriesresponseIsDeleted(processId, qrId);
     }
     async updateQueriesResponsesIsSoftDeleted(processId, qrId) {
-        return this.queriesResponsesService.updateQueriesResponsesIsSoftDeleted(processId, qrId);
+        return this.processControlsService.updateQueriesResponsesIsSoftDeleted(processId, qrId);
     }
     remove(id) {
-        return this.queriesResponsesService.remove(+id);
+        return this.processControlsService.remove(+id);
     }
 };
-exports.QueriesResponsesController = QueriesResponsesController;
+exports.ProcessControlsController = ProcessControlsController;
 __decorate([
-    (0, common_1.Post)('queries-responses/:id'),
+    (0, common_1.Post)('process-controls/:id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, queries_response_dto_1.QueriesResponseDto]),
+    __metadata("design:paramtypes", [String, process_controls_dto_1.ProcessControlsDto]),
     __metadata("design:returntype", void 0)
-], QueriesResponsesController.prototype, "create", null);
+], ProcessControlsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], QueriesResponsesController.prototype, "findAll", null);
+], ProcessControlsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], QueriesResponsesController.prototype, "findOne", null);
+], ProcessControlsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Put)(':processId/queriesresponse/:qrId'),
     __param(0, (0, common_1.Param)('processId')),
@@ -72,7 +72,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", Promise)
-], QueriesResponsesController.prototype, "updateQueriesResponse", null);
+], ProcessControlsController.prototype, "updateQueriesResponse", null);
 __decorate([
     (0, common_1.Put)(':processId/qr-delete/:qrId'),
     __param(0, (0, common_1.Param)('processId')),
@@ -80,7 +80,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
-], QueriesResponsesController.prototype, "updatequeriesresponseIsDeleted", null);
+], ProcessControlsController.prototype, "updatequeriesresponseIsDeleted", null);
 __decorate([
     (0, common_1.Put)(':processId/qr-soft-delete/:qrId'),
     __param(0, (0, common_1.Param)('processId')),
@@ -88,16 +88,16 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
-], QueriesResponsesController.prototype, "updateQueriesResponsesIsSoftDeleted", null);
+], ProcessControlsController.prototype, "updateQueriesResponsesIsSoftDeleted", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], QueriesResponsesController.prototype, "remove", null);
-exports.QueriesResponsesController = QueriesResponsesController = __decorate([
+], ProcessControlsController.prototype, "remove", null);
+exports.ProcessControlsController = ProcessControlsController = __decorate([
     (0, common_1.Controller)('api/process/'),
-    __metadata("design:paramtypes", [queries_responses_service_1.QueriesResponsesService])
-], QueriesResponsesController);
-//# sourceMappingURL=queries-responses.controller.js.map
+    __metadata("design:paramtypes", [process_controls_service_1.ProcessControlsService])
+], ProcessControlsController);
+//# sourceMappingURL=process-controls.controller.js.map

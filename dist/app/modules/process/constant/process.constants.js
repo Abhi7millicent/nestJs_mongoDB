@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.process_document = exports.process_document_id = exports.queries_and_responses = exports.queries_and_responses_id = exports.workflow = exports.controlAndMonitoring = exports.controlAndMonitoringData = exports.PROCESS = void 0;
+exports.process_controls = exports.process_controls_id = exports.process_document = exports.process_document_id = exports.queries_and_responses = exports.queries_and_responses_id = exports.workflow = exports.controlAndMonitoring = exports.controlAndMonitoringData = exports.PROCESS = void 0;
 exports.PROCESS = {
     activities: "activities",
     control_and_monitoring: {
@@ -41,4 +41,6 @@ exports.queries_and_responses_id = "qr_";
 exports.queries_and_responses = "queries_and_responses";
 exports.process_document_id = "pd_";
 exports.process_document = "documents";
+exports.process_controls_id = "pc_";
+exports.process_controls = "documents";
 //# sourceMappingURL=process.constants.js.map

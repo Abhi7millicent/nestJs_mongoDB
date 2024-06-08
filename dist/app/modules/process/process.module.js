@@ -13,6 +13,7 @@ const basic_data_module_1 = require("./features/basic-data/basic-data.module");
 const controller_and_monitoring_module_1 = require("./features/controller-and-monitoring/controller-and-monitoring.module");
 const process_document_module_1 = require("./features/process-document/process-document.module");
 const queries_responses_module_1 = require("./features/queries-responses/queries-responses.module");
+const compliance_scenarios_module_1 = require("./features/compliance-scenarios/compliance-scenarios.module");
 let ProcessModule = class ProcessModule {
 };
 exports.ProcessModule = ProcessModule;
@@ -24,6 +25,7 @@ exports.ProcessModule = ProcessModule = __decorate([
             controller_and_monitoring_module_1.ControllerMonitoringModule,
             process_document_module_1.ProcessDocumentModule,
             queries_responses_module_1.QueriesResponsesModule,
+            compliance_scenarios_module_1.ComplianceScenariosModule,
         ],
     })
 ], ProcessModule);

@@ -9,26 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueriesResponsesService = void 0;
+exports.ProcessControlsService = void 0;
 const common_1 = require("@nestjs/common");
 const process_constants_1 = require("../../constant/process.constants");
 const generate_id_helper_1 = require("../../../../../shared/helper/generate-id.helper");
 const process_utils_1 = require("../../utils/process.utils");
 const process_repository_1 = require("../../process.repository");
-let QueriesResponsesService = class QueriesResponsesService {
+let ProcessControlsService = class ProcessControlsService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
-    async create(processId, queriesResponseDto) {
+    async create(processId, processControlsDto) {
         try {
-            queriesResponseDto._id = (0, generate_id_helper_1.generateId)(process_constants_1.queries_and_responses_id);
+            processControlsDto._id = (0, generate_id_helper_1.generateId)(process_constants_1.process_controls_id);
             const auditData = {
-                last_modified_by: queriesResponseDto.last_modified_by,
+                last_modified_by: processControlsDto.last_modified_by,
                 last_modified_on: new Date(),
             };
-            delete queriesResponseDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.queries_and_responses), queriesResponseDto);
-            if (data._id === queriesResponseDto._id) {
+            delete processControlsDto.last_modified_by;
+            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_controls), processControlsDto);
+            if (data._id === processControlsDto._id) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
@@ -45,13 +45,13 @@ let QueriesResponsesService = class QueriesResponsesService {
     findOne(id) {
         return `This action returns a #${id} queriesResponse`;
     }
-    async update(processId, qrId, updateQueriesResponseDto) {
+    async update(processId, qrId, updateprocessControlsDto) {
         const auditData = {
-            last_modified_by: updateQueriesResponseDto.last_modified_by,
+            last_modified_by: updateprocessControlsDto.last_modified_by,
             last_modified_on: new Date(),
         };
-        delete updateQueriesResponseDto.last_modified_by;
-        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.queries_and_responses), qrId, updateQueriesResponseDto);
+        delete updateprocessControlsDto.last_modified_by;
+        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_controls), qrId, updateprocessControlsDto);
         if (data.acknowledged) {
             const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
             return updateResponseDto;
@@ -61,18 +61,18 @@ let QueriesResponsesService = class QueriesResponsesService {
         }
     }
     async updatequeriesresponseIsDeleted(processId, qrId) {
-        return this.processRepository.deleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.queries_and_responses), qrId);
+        return this.processRepository.deleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_controls), qrId);
     }
     async updateQueriesResponsesIsSoftDeleted(processId, workflowId) {
-        return this.processRepository.softDeleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.queries_and_responses), workflowId);
+        return this.processRepository.softDeleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_controls), workflowId);
     }
     remove(id) {
         return `This action removes a #${id} queriesResponse`;
     }
 };
-exports.QueriesResponsesService = QueriesResponsesService;
-exports.QueriesResponsesService = QueriesResponsesService = __decorate([
+exports.ProcessControlsService = ProcessControlsService;
+exports.ProcessControlsService = ProcessControlsService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [process_repository_1.ProcessRepository])
-], QueriesResponsesService);
-//# sourceMappingURL=queries-responses.service.js.map
+], ProcessControlsService);
+//# sourceMappingURL=process-controls.service.js.map

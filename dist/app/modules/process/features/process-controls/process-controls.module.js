@@ -6,23 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueriesResponsesModule = void 0;
+exports.ProcessControlsModule = void 0;
 const common_1 = require("@nestjs/common");
-const queries_responses_service_1 = require("./queries-responses.service");
-const queries_responses_controller_1 = require("./queries-responses.controller");
+const process_controls_service_1 = require("./process-controls.service");
+const process_controls_controller_1 = require("./process-controls.controller");
 const process_repository_1 = require("../../process.repository");
 const mongoose_1 = require("@nestjs/mongoose");
 const process_schema_1 = require("../../process.schema");
-let QueriesResponsesModule = class QueriesResponsesModule {
+let ProcessControlsModule = class ProcessControlsModule {
 };
-exports.QueriesResponsesModule = QueriesResponsesModule;
-exports.QueriesResponsesModule = QueriesResponsesModule = __decorate([
+exports.ProcessControlsModule = ProcessControlsModule;
+exports.ProcessControlsModule = ProcessControlsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: process_schema_1.Process.name, schema: process_schema_1.ProcessSchema }]),
         ],
-        controllers: [queries_responses_controller_1.QueriesResponsesController],
-        providers: [queries_responses_service_1.QueriesResponsesService, process_repository_1.ProcessRepository],
+        controllers: [process_controls_controller_1.ProcessControlsController],
+        providers: [process_controls_service_1.ProcessControlsService, process_repository_1.ProcessRepository],
     })
-], QueriesResponsesModule);
-//# sourceMappingURL=queries-responses.module.js.map
+], ProcessControlsModule);
+//# sourceMappingURL=process-controls.module.js.map

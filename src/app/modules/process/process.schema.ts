@@ -246,7 +246,7 @@ class MDO {
   @Prop({ required: true })
   description!: string;
 
-  @Prop({ required: true })
+  @Prop({ type: [String], required: true })
   activity_id!: string;
 
   @Prop({ required: true, default: false })
@@ -281,8 +281,8 @@ class DataManagement {
   @Prop({ required: true })
   public data_residency!: string;
 
-  @Prop({ required: true })
-  public activity_id!: string;
+  @Prop({ type: [String], required: true })
+  public activity_id!: string[];
 }
 
 class DataManagementData {
@@ -306,35 +306,35 @@ class IntegrationScenario {
   @Prop({ required: true })
   public description!: string;
 
-  @Prop({ required: true })
-  public data_provider!: string;
+  @Prop({ type: [String], required: true })
+  public data_provider!: string[];
 
-  @Prop({ required: true })
-  public data_consumer!: string;
+  @Prop({ type: [String], required: true })
+  public data_consumer!: string[];
 
-  @Prop({ required: true })
-  public api_provider!: string;
+  @Prop({ type: [String], required: true })
+  public api_provider!: string[];
 
-  @Prop({ required: true })
-  public calling_system!: string;
+  @Prop({ type: [String], required: true })
+  public calling_system!: string[];
 
-  @Prop({ required: true })
-  public type!: string;
+  @Prop({ type: [String], required: true })
+  public type!: string[];
 
-  @Prop({ required: true })
-  public data_volume_year!: string;
+  @Prop({ type: [String], required: true })
+  public data_volume_year!: string[];
 
-  @Prop({ required: true })
-  public mode!: string;
+  @Prop({ type: [String], required: true })
+  public mode!: string[];
 
-  @Prop({ required: true })
-  public data_type!: string;
+  @Prop({ type: [String], required: true })
+  public data_type!: string[];
 
-  @Prop({ required: true })
-  public protocol!: string;
+  @Prop({ type: [String], required: true })
+  public protocol!: string[];
 
-  @Prop({ required: true })
-  public tool!: string;
+  @Prop({ type: [String], required: true })
+  public tool!: string[];
 
   @Prop({ required: true })
   public data_record_size!: string;
@@ -348,11 +348,11 @@ class IntegrationScenario {
   @Prop({ required: true })
   public data_consumer_authentication!: string;
 
-  @Prop({ required: true })
-  public activity_id!: string;
+  @Prop({ type: [String], required: true })
+  public activity_id!: string[];
 
-  @Prop({ required: true })
-  public mdo_id!: string;
+  @Prop({ type: [String], required: true })
+  public mdo_id!: string[];
 }
 
 class ProcessDocument {
@@ -409,14 +409,14 @@ class AutomationScenario {
   @Prop({ required: true })
   technology!: string;
 
-  @Prop({ required: true })
-  activity_id!: string;
+  @Prop({ type: [String], required: true })
+  activity_id!: string[];
 
-  @Prop({ required: true })
-  mdo_id!: string;
+  @Prop({ type: [String], required: true })
+  mdo_id!: string[];
 
-  @Prop({ required: true })
-  integration_scenario_id!: string;
+  @Prop({ type: [String], required: true })
+  integration_scenario_id!: string[];
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;
@@ -498,11 +498,11 @@ class ProcessControl {
   @Prop({ required: true })
   description!: string;
 
-  @Prop({ required: true })
-  activity_id!: string;
+  @Prop({ type: [String], required: true })
+  activity_id!: string[];
 
-  @Prop({ required: true })
-  mdo_id!: string;
+  @Prop({ type: [String], required: true })
+  mdo_id!: string[];
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;

@@ -98,7 +98,7 @@ export declare class DataManagement {
     data_security: string;
     data_retention: string;
     data_residency: string;
-    activity_id: string;
+    activity_id: string[];
 }
 export declare class DataManagementData {
     master_data_objects: MDO[];
@@ -108,22 +108,22 @@ export declare class IntegrationScenario {
     _id: string;
     title: string;
     description: string;
-    data_provider: string;
-    data_consumer: string;
-    api_provider: string;
-    calling_system: string;
-    type: string;
-    data_volume_year: string;
-    mode: string;
-    data_type: string;
-    protocol: string;
-    tool: string;
+    data_provider: string[];
+    data_consumer: string[];
+    api_provider: string[];
+    calling_system: string[];
+    type: string[];
+    data_volume_year: string[];
+    mode: string[];
+    data_type: string[];
+    protocol: string[];
+    tool: string[];
     data_record_size: string;
     yoy_data_growth: string;
     data_provider_authentication: string;
     data_consumer_authentication: string;
-    activity_id: string;
-    mdo_id: string;
+    activity_id: string[];
+    mdo_id: string[];
 }
 export declare class ProcessDocument {
     _id: string;
@@ -143,9 +143,9 @@ export declare class AutomationScenario {
     title: string;
     desc: string;
     technology: string;
-    activity_id: string;
-    mdo_id: string;
-    integration_scenario_id: string;
+    activity_id: string[];
+    mdo_id: string[];
+    integration_scenario_id: string[];
     is_deleted: boolean;
 }
 export declare class ComplianceScenarioData {
@@ -177,8 +177,8 @@ export declare class ProcessControl {
     _id: string;
     title: string;
     description: string;
-    activity_id: string;
-    mdo_id: string;
+    activity_id: string[];
+    mdo_id: string[];
     is_deleted: boolean;
 }
 export declare class CreateProcessDto {
@@ -189,23 +189,23 @@ export declare class CreateProcessDto {
     version_id: string;
     sop_reference: string;
     owner_name: string;
-    owner_role_designation?: string;
-    release_status?: string;
-    description?: string;
+    owner_role_designation: string;
+    release_status: string;
+    description: string;
     trigger: string;
     created_by: string;
-    created_on?: Date;
-    last_modified_by?: string;
-    last_modified_on?: Date;
-    is_deleted?: boolean;
-    io_info?: IoInfo;
-    activities?: Activity[];
-    control_and_monitoring?: ProcessControlAndMonitoring;
-    queries_and_responses?: QueriesAndResponses[];
-    data_management?: DataManagementData;
-    integration_scenario?: IntegrationScenario;
-    documents?: ProcessDocument[];
-    automation_scenarios?: AutomationScenario[];
-    compliance_scenarios?: ComplianceScenario;
-    controls?: ProcessControl[];
+    created_on: Date;
+    last_modified_by: string;
+    last_modified_on: Date;
+    is_deleted: boolean;
+    io_info: IoInfo;
+    activities: Activity[];
+    control_and_monitoring: ProcessControlAndMonitoring;
+    queries_and_responses: QueriesAndResponses[];
+    data_management: DataManagementData;
+    integration_scenario: IntegrationScenario;
+    documents: ProcessDocument[];
+    automation_scenarios: AutomationScenario[];
+    compliance_scenarios: ComplianceScenario;
+    controls: ProcessControl[];
 }

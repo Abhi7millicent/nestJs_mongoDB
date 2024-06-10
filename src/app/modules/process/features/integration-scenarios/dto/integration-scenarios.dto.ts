@@ -12,34 +12,34 @@ export class UpdateIntegrationScenarioDto {
   description: string;
 
   @IsString()
-  data_provider: string;
+  data_provider: string[];
 
   @IsString()
-  data_consumer: string;
+  data_consumer: string[];
 
   @IsString()
-  api_provider: string;
+  api_provider: string[];
 
   @IsString()
-  calling_system: string;
+  calling_system: string[];
 
   @IsString()
-  type: string;
+  type: string[];
 
   @IsString()
-  data_volume_year: string;
+  data_volume_year: string[];
 
   @IsString()
-  mode: string;
+  mode: string[];
 
   @IsString()
-  data_type: string;
+  data_type: string[];
 
   @IsString()
-  protocol: string;
+  protocol: string[];
 
   @IsString()
-  tool: string;
+  tool: string[];
 
   @IsString()
   data_record_size: string;
@@ -54,10 +54,10 @@ export class UpdateIntegrationScenarioDto {
   data_consumer_authentication: string;
 
   @IsString()
-  activity_id: string;
+  activity_id: string[];
 
   @IsString()
-  mdo_id: string;
+  mdo_id: string[];
 
   @IsString()
   last_modified_by: string;

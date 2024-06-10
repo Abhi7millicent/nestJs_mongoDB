@@ -124,7 +124,7 @@ declare class DataManagement {
     data_security: string;
     data_retention: string;
     data_residency: string;
-    activity_id: string;
+    activity_id: string[];
 }
 declare class DataManagementData {
     master_data_objects: MDO[];
@@ -134,22 +134,22 @@ declare class IntegrationScenario {
     _id: string;
     title: string;
     description: string;
-    data_provider: string;
-    data_consumer: string;
-    api_provider: string;
-    calling_system: string;
-    type: string;
-    data_volume_year: string;
-    mode: string;
-    data_type: string;
-    protocol: string;
-    tool: string;
+    data_provider: string[];
+    data_consumer: string[];
+    api_provider: string[];
+    calling_system: string[];
+    type: string[];
+    data_volume_year: string[];
+    mode: string[];
+    data_type: string[];
+    protocol: string[];
+    tool: string[];
     data_record_size: string;
     yoy_data_growth: string;
     data_provider_authentication: string;
     data_consumer_authentication: string;
-    activity_id: string;
-    mdo_id: string;
+    activity_id: string[];
+    mdo_id: string[];
 }
 declare class ProcessDocument {
     _id: string;
@@ -169,9 +169,9 @@ declare class AutomationScenario {
     title: string;
     desc: string;
     technology: string;
-    activity_id: string;
-    mdo_id: string;
-    integration_scenario_id: string;
+    activity_id: string[];
+    mdo_id: string[];
+    integration_scenario_id: string[];
     is_deleted: boolean;
 }
 declare class ComplianceScenarioData {
@@ -203,8 +203,8 @@ declare class ProcessControl {
     _id: string;
     title: string;
     description: string;
-    activity_id: string;
-    mdo_id: string;
+    activity_id: string[];
+    mdo_id: string[];
     is_deleted: boolean;
 }
 export declare class Process extends Document {

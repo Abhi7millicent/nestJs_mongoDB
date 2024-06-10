@@ -28,43 +28,43 @@ __decorate([
 ], UpdateIntegrationScenarioDto.prototype, "description", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "data_provider", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "data_consumer", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "api_provider", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "calling_system", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "type", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "data_volume_year", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "mode", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "data_type", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "protocol", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "tool", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
@@ -84,11 +84,11 @@ __decorate([
 ], UpdateIntegrationScenarioDto.prototype, "data_consumer_authentication", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "activity_id", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], UpdateIntegrationScenarioDto.prototype, "mdo_id", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),

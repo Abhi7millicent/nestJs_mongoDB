@@ -315,7 +315,7 @@ __decorate([
     __metadata("design:type", String)
 ], MDO.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
     __metadata("design:type", String)
 ], MDO.prototype, "activity_id", void 0);
 __decorate([
@@ -357,8 +357,8 @@ __decorate([
     __metadata("design:type", String)
 ], DataManagement.prototype, "data_residency", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], DataManagement.prototype, "activity_id", void 0);
 class DataManagementData {
 }
@@ -385,44 +385,44 @@ __decorate([
     __metadata("design:type", String)
 ], IntegrationScenario.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "data_provider", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "data_consumer", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "api_provider", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "calling_system", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "type", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "data_volume_year", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "mode", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "data_type", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "protocol", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "tool", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
@@ -441,12 +441,12 @@ __decorate([
     __metadata("design:type", String)
 ], IntegrationScenario.prototype, "data_consumer_authentication", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "activity_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], IntegrationScenario.prototype, "mdo_id", void 0);
 class ProcessDocument {
 }
@@ -513,16 +513,16 @@ __decorate([
     __metadata("design:type", String)
 ], AutomationScenario.prototype, "technology", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], AutomationScenario.prototype, "activity_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], AutomationScenario.prototype, "mdo_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], AutomationScenario.prototype, "integration_scenario_id", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
@@ -625,12 +625,12 @@ __decorate([
     __metadata("design:type", String)
 ], ProcessControl.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], ProcessControl.prototype, "activity_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
 ], ProcessControl.prototype, "mdo_id", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),

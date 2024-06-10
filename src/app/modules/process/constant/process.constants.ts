@@ -42,6 +42,7 @@ export const process_document_id = 'pd_';
 export const process_document = 'documents';
 export const process_controls_id = 'pc_';
 export const process_controls = 'documents';
+export const integration_scenario = 'integration_scenario';
 
 //   export enum process { [key in controlAndMonitoringData]: string } = {
 //     [controlAndMonitoringData.I]: "workflows",

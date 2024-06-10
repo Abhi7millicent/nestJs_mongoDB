@@ -1,7 +1,7 @@
 import { ProcessRepository } from '../../process.repository';
 import { UpdateIntegrationScenarioDto } from './dto/integration-scenarios.dto';
-export declare class ProcessControlsService {
+export declare class IntegrationScenarioService {
     private readonly processRepository;
     constructor(processRepository: ProcessRepository);
-    update(processId: string, qrId: string, updateIntegrationScenarioDto: UpdateIntegrationScenarioDto): Promise<any>;
+    update(processId: string, integrationScenarioId: string, updateIntegrationScenarioDto: UpdateIntegrationScenarioDto): Promise<any>;
 }

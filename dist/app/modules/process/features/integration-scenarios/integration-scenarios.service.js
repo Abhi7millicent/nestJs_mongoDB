@@ -9,22 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessControlsService = void 0;
+exports.IntegrationScenarioService = void 0;
 const common_1 = require("@nestjs/common");
 const process_constants_1 = require("../../constant/process.constants");
 const process_utils_1 = require("../../utils/process.utils");
 const process_repository_1 = require("../../process.repository");
-let ProcessControlsService = class ProcessControlsService {
+let IntegrationScenarioService = class IntegrationScenarioService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
-    async update(processId, qrId, updateIntegrationScenarioDto) {
+    async update(processId, integrationScenarioId, updateIntegrationScenarioDto) {
         const auditData = {
             last_modified_by: updateIntegrationScenarioDto.last_modified_by,
             last_modified_on: new Date(),
         };
         delete updateIntegrationScenarioDto.last_modified_by;
-        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_controls), qrId, updateIntegrationScenarioDto);
+        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.integration_scenario), integrationScenarioId, updateIntegrationScenarioDto);
         if (data.acknowledged) {
             const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
             return updateResponseDto;
@@ -34,9 +34,9 @@ let ProcessControlsService = class ProcessControlsService {
         }
     }
 };
-exports.ProcessControlsService = ProcessControlsService;
-exports.ProcessControlsService = ProcessControlsService = __decorate([
+exports.IntegrationScenarioService = IntegrationScenarioService;
+exports.IntegrationScenarioService = IntegrationScenarioService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [process_repository_1.ProcessRepository])
-], ProcessControlsService);
+], IntegrationScenarioService);
 //# sourceMappingURL=integration-scenarios.service.js.map

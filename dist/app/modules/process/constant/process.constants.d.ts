@@ -26,3 +26,4 @@ export declare const process_document_id = "pd_";
 export declare const process_document = "documents";
 export declare const process_controls_id = "pc_";
 export declare const process_controls = "documents";
+export declare const integration_scenario = "integration_scenario";

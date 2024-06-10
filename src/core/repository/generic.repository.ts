@@ -165,9 +165,12 @@ export abstract class GenericRepository<T> {
       let currentObj: any = value;
       let parentObj: any = null;
       let lastKey: string = '';
-
       for (const key of keyPath) {
         if (!currentObj[key]) {
+          // const updateObject = { [`${keyPath}`]: { ...data } };
+          // console.log('updateObject:', updateObject);
+          // return updateObject;
+          // console.log('currentObj:', currentObj[key]);
           throw new NotFoundException(ErrorMessage.KEY_NOT_FOUND(key));
         }
         parentObj = currentObj;
@@ -176,8 +179,13 @@ export abstract class GenericRepository<T> {
       }
 
       if (!Array.isArray(currentObj)) {
-        console.log('currentObj:', currentObj);
-        throw new Error(ErrorMessage.ARRAY_NOT_FOUND(keyPath.join('.')));
+        const updateObject = { [`${keyPath}`]: { ...data } };
+        // console.log('updateObject:', updateObject);
+        return await this.model
+          .updateOne({ _id: id }, { $set: updateObject as any })
+          .exec();
+        // console.log('currentObj:', currentObj);
+        // throw new Error(ErrorMessage.ARRAY_NOT_FOUND(keyPath.join('.')));
       }
 
       const subDocIndex = currentObj.findIndex(

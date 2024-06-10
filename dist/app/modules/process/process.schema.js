@@ -748,7 +748,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Process.prototype, "controls", void 0);
 exports.Process = Process = __decorate([
-    (0, mongoose_1.Schema)({ collection: 'process_basic_data4' })
+    (0, mongoose_1.Schema)({ collection: 'process_basic_data2' })
 ], Process);
 exports.ProcessSchema = mongoose_1.SchemaFactory.createForClass(Process);
 //# sourceMappingURL=process.schema.js.map

@@ -11,6 +11,7 @@ import { Process, ProcessSchema } from './process.schema';
 import { ProcessController } from './process.controller';
 import { ProcessService } from './process.service';
 import { ProcessRepository } from './process.repository';
+import { IntegrationScenarioModule } from './features/integration-scenarios/integration-scenarios.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ProcessRepository } from './process.repository';
     QueriesResponsesModule,
     ComplianceScenariosModule,
     ProcessControlsModule,
+    IntegrationScenarioModule,
   ],
   controllers: [ProcessController],
   providers: [ProcessService, ProcessRepository],

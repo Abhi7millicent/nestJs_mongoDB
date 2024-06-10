@@ -100,8 +100,10 @@ class GenericRepository {
                 lastKey = key;
             }
             if (!Array.isArray(currentObj)) {
-                console.log('currentObj:', currentObj);
-                throw new Error(error_message_1.ErrorMessage.ARRAY_NOT_FOUND(keyPath.join('.')));
+                const updateObject = { [`${keyPath}`]: { ...data } };
+                return await this.model
+                    .updateOne({ _id: id }, { $set: updateObject })
+                    .exec();
             }
             const subDocIndex = currentObj.findIndex((doc) => doc._id.toString() === subId);
             if (subDocIndex === -1) {

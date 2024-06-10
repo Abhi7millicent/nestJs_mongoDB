@@ -6,9 +6,15 @@ import { ProcessDocumentModule } from './features/process-document/process-docum
 import { QueriesResponsesModule } from './features/queries-responses/queries-responses.module';
 import { ComplianceScenariosModule } from './features/compliance-scenarios/compliance-scenarios.module';
 import { ProcessControlsModule } from './features/process-controls/process-controls.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Process, ProcessSchema } from './process.schema';
+import { ProcessController } from './process.controller';
+import { ProcessService } from './process.service';
+import { ProcessRepository } from './process.repository';
 
 @Module({
   imports: [
+    MongooseModule.forFeature([{ name: Process.name, schema: ProcessSchema }]),
     ActivitiesModule,
     BasicDataModule,
     ControllerMonitoringModule,
@@ -17,5 +23,7 @@ import { ProcessControlsModule } from './features/process-controls/process-contr
     ComplianceScenariosModule,
     ProcessControlsModule,
   ],
+  controllers: [ProcessController],
+  providers: [ProcessService, ProcessRepository],
 })
 export class ProcessModule {}

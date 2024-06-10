@@ -6,7 +6,7 @@ import { ProcessRepository } from '../../process.repository';
 
 @Injectable()
 export class ActivitiesService {
-  constructor(private readonly processRepository: ProcessRepository) { }
+  constructor(private readonly processRepository: ProcessRepository) {}
 
   async updateActivity(
     processId: string,
@@ -57,24 +57,92 @@ export class ActivitiesService {
     );
   }
 
-  async addActivity(processId: string, activityDto: ActivityDto): Promise<any> {
-    activityDto._id = generateId('activity_');
+  // async addActivity(processId: string, activityDto: ActivityDto[]): Promise<any> {
+  //   activityDto._id = generateId('activity_');
 
+  //   const auditData = {
+  //     last_modified_by: activityDto.last_modified_by,
+  //     last_modified_on: new Date(),
+  //   };
+
+  //   delete activityDto.last_modified_by;
+
+  //   try {
+  //     const data = await this.processRepository.createByKey(
+  //       processId,
+  //       findPath(PROCESS, 'activities'),
+  //       activityDto,
+  //     );
+
+  //     if (data._id === activityDto._id) {
+  //       const updateResponseDto = await this.processRepository.update(
+  //         { _id: processId },
+  //         auditData,
+  //       );
+  //       console.log('updateMetaData:', updateResponseDto);
+  //     }
+
+  //     return data;
+  //   } catch (error) {
+  //     if (error instanceof NotFoundException) {
+  //       console.error('Not Found Exception:', error.message);
+  //       throw error;
+  //     } else {
+  //       console.error('Unexpected Error:', error.message);
+  //       throw error;
+  //     }
+  //   }
+  // }
+
+  async addActivities(
+    processId: string,
+    activitiesDto: ActivityDto[],
+  ): Promise<any> {
     const auditData = {
-      last_modified_by: activityDto.last_modified_by,
+      last_modified_by: activitiesDto[0].last_modified_by,
       last_modified_on: new Date(),
     };
 
-    delete activityDto.last_modified_by;
+    // Prepare the activities
+    const activitiesToCreate = activitiesDto.filter(
+      (activityDto) => !activityDto._id,
+    );
+    const activitiesToUpdate = activitiesDto.filter(
+      (activityDto) => activityDto._id,
+    );
+
+    // Assign IDs to new activities
+    activitiesToCreate.forEach((activityDto) => {
+      activityDto._id = generateId('activity_');
+      delete activityDto.last_modified_by;
+    });
 
     try {
-      const data = await this.processRepository.createByKey(
-        processId,
-        findPath(PROCESS, 'activities'),
-        activityDto,
+      // Create new activities
+      const createPromises = activitiesToCreate.map((activityDto) =>
+        this.processRepository.createByKey(
+          processId,
+          findPath(PROCESS, 'activities'),
+          activityDto,
+        ),
       );
 
-      if (data._id === activityDto._id) {
+      // Update existing activities
+      const updatePromises = activitiesToUpdate.map((activityDto) =>
+        this.updateActivity(processId, activityDto._id, activityDto),
+      );
+
+      const createResults = await Promise.all(createPromises);
+      const updateResults = await Promise.all(updatePromises);
+
+      const allInsertionsSuccessful = createResults.every(
+        (data, index) => data._id === activitiesToCreate[index]._id,
+      );
+
+      if (
+        allInsertionsSuccessful ||
+        updateResults.every((result) => result.acknowledged)
+      ) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -82,7 +150,10 @@ export class ActivitiesService {
         console.log('updateMetaData:', updateResponseDto);
       }
 
-      return data;
+      return {
+        created: createResults,
+        updated: updateResults,
+      };
     } catch (error) {
       if (error instanceof NotFoundException) {
         console.error('Not Found Exception:', error.message);

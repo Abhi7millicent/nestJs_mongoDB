@@ -12,68 +12,67 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BasicDataController = void 0;
+exports.ProcessController = void 0;
 const common_1 = require("@nestjs/common");
-const basic_data_service_1 = require("./basic-data.service");
-const process_schema_1 = require("../../process.schema");
-let BasicDataController = class BasicDataController {
-    constructor(basicDataService) {
-        this.basicDataService = basicDataService;
+const process_service_1 = require("./process.service");
+const process_schema_1 = require("./process.schema");
+let ProcessController = class ProcessController {
+    constructor(processService) {
+        this.processService = processService;
     }
     async create(createProcessDto) {
-        return this.basicDataService.createProcessBasicData(createProcessDto);
+        return this.processService.createProcessBasicData(createProcessDto);
     }
     async getAll() {
-        return this.basicDataService.getAllProcessBasicData();
+        return this.processService.getAllProcess();
     }
     async getById(id) {
-        return this.basicDataService.getProcessBasicDataById(id);
-    }
-    async update(id, data) {
-        return this.basicDataService.updateProcessBasicData(id, data);
+        return this.processService.getProcessById(id);
     }
     async delete(id) {
-        return this.basicDataService.deleteProcessBasicData(id);
+        return this.processService.deleteProcess(id);
+    }
+    async softDelete(id) {
+        return this.processService.softDeleteProcess(id);
     }
 };
-exports.BasicDataController = BasicDataController;
+exports.ProcessController = ProcessController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [process_schema_1.Process]),
     __metadata("design:returntype", Promise)
-], BasicDataController.prototype, "create", null);
+], ProcessController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], BasicDataController.prototype, "getAll", null);
+], ProcessController.prototype, "getAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], BasicDataController.prototype, "getById", null);
-__decorate([
-    (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
-    __metadata("design:returntype", Promise)
-], BasicDataController.prototype, "update", null);
+], ProcessController.prototype, "getById", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], BasicDataController.prototype, "delete", null);
-exports.BasicDataController = BasicDataController = __decorate([
-    (0, common_1.Controller)('api/process-data'),
-    __metadata("design:paramtypes", [basic_data_service_1.BasicDataService])
-], BasicDataController);
-//# sourceMappingURL=basic-data.controller.js.map
+], ProcessController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProcessController.prototype, "softDelete", null);
+exports.ProcessController = ProcessController = __decorate([
+    (0, common_1.Controller)('api/process'),
+    __metadata("design:paramtypes", [process_service_1.ProcessService])
+], ProcessController);
+//# sourceMappingURL=process.controller.js.map

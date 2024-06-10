@@ -6,5 +6,5 @@ export declare class ActivitiesService {
     updateActivity(processId: string, activityId: string, activityDto: ActivityDto): Promise<any>;
     updateActivityIsDeleted(processId: string, activityId: string): Promise<any>;
     updateActivityIsSoftDeleted(processId: string, activityId: string): Promise<any>;
-    addActivity(processId: string, activityDto: ActivityDto): Promise<any>;
+    addActivities(processId: string, activitiesDto: ActivityDto[]): Promise<any>;
 }

@@ -39,20 +39,32 @@ let ActivitiesService = class ActivitiesService {
     async updateActivityIsSoftDeleted(processId, activityId) {
         return this.processRepository.softDeleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'activities'), activityId);
     }
-    async addActivity(processId, activityDto) {
-        activityDto._id = (0, process_utils_1.generateId)('activity_');
+    async addActivities(processId, activitiesDto) {
         const auditData = {
-            last_modified_by: activityDto.last_modified_by,
+            last_modified_by: activitiesDto[0].last_modified_by,
             last_modified_on: new Date(),
         };
-        delete activityDto.last_modified_by;
+        const activitiesToCreate = activitiesDto.filter((activityDto) => !activityDto._id);
+        const activitiesToUpdate = activitiesDto.filter((activityDto) => activityDto._id);
+        activitiesToCreate.forEach((activityDto) => {
+            activityDto._id = (0, process_utils_1.generateId)('activity_');
+            delete activityDto.last_modified_by;
+        });
         try {
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'activities'), activityDto);
-            if (data._id === activityDto._id) {
+            const createPromises = activitiesToCreate.map((activityDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'activities'), activityDto));
+            const updatePromises = activitiesToUpdate.map((activityDto) => this.updateActivity(processId, activityDto._id, activityDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === activitiesToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
-            return data;
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
         }
         catch (error) {
             if (error instanceof common_1.NotFoundException) {

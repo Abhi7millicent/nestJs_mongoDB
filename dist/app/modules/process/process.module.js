@@ -15,12 +15,18 @@ const process_document_module_1 = require("./features/process-document/process-d
 const queries_responses_module_1 = require("./features/queries-responses/queries-responses.module");
 const compliance_scenarios_module_1 = require("./features/compliance-scenarios/compliance-scenarios.module");
 const process_controls_module_1 = require("./features/process-controls/process-controls.module");
+const mongoose_1 = require("@nestjs/mongoose");
+const process_schema_1 = require("./process.schema");
+const process_controller_1 = require("./process.controller");
+const process_service_1 = require("./process.service");
+const process_repository_1 = require("./process.repository");
 let ProcessModule = class ProcessModule {
 };
 exports.ProcessModule = ProcessModule;
 exports.ProcessModule = ProcessModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            mongoose_1.MongooseModule.forFeature([{ name: process_schema_1.Process.name, schema: process_schema_1.ProcessSchema }]),
             activities_module_1.ActivitiesModule,
             basic_data_module_1.BasicDataModule,
             controller_and_monitoring_module_1.ControllerMonitoringModule,
@@ -29,6 +35,8 @@ exports.ProcessModule = ProcessModule = __decorate([
             compliance_scenarios_module_1.ComplianceScenariosModule,
             process_controls_module_1.ProcessControlsModule,
         ],
+        controllers: [process_controller_1.ProcessController],
+        providers: [process_service_1.ProcessService, process_repository_1.ProcessRepository],
     })
 ], ProcessModule);
 //# sourceMappingURL=process.module.js.map

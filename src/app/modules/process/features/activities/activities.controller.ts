@@ -18,9 +18,12 @@ export class ActivitiesController {
 
   @Post('activities/:id')
   @HttpCode(HttpStatus.CREATED) // Setting default success status code to 201 Created
-  async addActivity(@Param('id') id: string, @Body() activityDto: ActivityDto) {
+  async addActivity(
+    @Param('id') id: string,
+    @Body() activityDto: ActivityDto[],
+  ) {
     try {
-      const data = await this.activitiesService.addActivity(id, activityDto);
+      const data = await this.activitiesService.addActivities(id, activityDto);
       return {
         statusCode: HttpStatus.CREATED,
         message: 'Activity created successfully',

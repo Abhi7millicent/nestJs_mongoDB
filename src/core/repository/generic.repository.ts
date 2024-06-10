@@ -19,11 +19,19 @@ export abstract class GenericRepository<T> {
    * @param entity  Takes a partial document (entity) containing the data to be created.
    * @returns
    */
+  // async create(entity: Partial<T>): Promise<T> {
+  //   try {
+  //     return await this.model.create(entity);
+  //   } catch (error) {
+  //     throw new Error(ErrorMessage.NOT_CREATED);
+  //   }
+  // }
   async create(entity: Partial<T>): Promise<T> {
     try {
       return await this.model.create(entity);
     } catch (error) {
-      throw new Error(ErrorMessage.NOT_CREATED);
+      console.error('Error creating entity:', error.message);
+      throw new Error('Error creating entity');
     }
   }
 
@@ -168,6 +176,7 @@ export abstract class GenericRepository<T> {
       }
 
       if (!Array.isArray(currentObj)) {
+        console.log('currentObj:', currentObj);
         throw new Error(ErrorMessage.ARRAY_NOT_FOUND(keyPath.join('.')));
       }
 

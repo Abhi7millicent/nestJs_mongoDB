@@ -14,9 +14,10 @@ import { Process } from './process.schema';
 @Controller('api/process')
 export class ProcessController {
   constructor(private readonly processService: ProcessService) {}
+
   @Post()
-  async create(@Body() createProcessDto: Process) {
-    return this.processService.createProcessBasicData(createProcessDto);
+  async createProcess(@Body() createProcessDto: CreateProcessDto) {
+    return this.processService.createProcess(createProcessDto);
   }
 
   @Get()

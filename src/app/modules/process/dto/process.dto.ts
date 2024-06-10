@@ -1,158 +1,268 @@
-import {
-  IsArray,
-  IsBoolean,
-  IsDateString,
-  IsNotEmpty,
-  IsObject,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
-import { Type } from 'class-transformer';
-import { Date } from 'mongoose';
-
-class IoInfoDto {
-  @IsString()
-  inputs: string;
-
-  @IsString()
-  outputs: string;
-
-  @IsString()
-  business_outcome: string;
-
-  @IsString()
-  major_requirements: string;
+export class IoInfo {
+  public inputs: string;
+  public outputs: string;
+  public business_outcome: string;
+  public major_requirements: string;
 }
 
-class ControlAndMonitoringDto {
-  @IsArray()
-  @IsString({ each: true })
-  workflows: string[];
-
-  @IsArray()
-  @IsString({ each: true })
-  kpis: string[];
-
-  @IsArray()
-  @IsString({ each: true })
-  reports: string[];
-
-  @IsArray()
-  @IsString({ each: true })
-  analytical_dashboards: string[];
+export class Activity {
+  public _id: string;
+  public sr_no: string;
+  public description: string;
+  public performed_at: string[];
+  public performed_by: string[];
+  public performed_where: string[];
+  public value_calculation_logic: string;
+  public accounts_postings: string;
+  public is_deleted: boolean;
 }
 
-class DataManagementDto {
-  @IsArray()
-  @IsObject({ each: true })
-  master_data_objects: object[];
-
-  @IsObject()
-  data_management_info: object;
+export class Workflow {
+  public _id: string;
+  public title: string;
+  public description: string;
+  public technology: string;
+  public levels: string[];
+  public roles: string[];
+  public activity_id: string[];
+  public automation_id: string[];
+  public integration_scenario_id: string[];
+  public is_deleted: boolean;
 }
 
-class ComplianceScenariosDto {
-  @IsArray()
-  @IsObject({ each: true })
-  compliance_scenario_data: object[];
+export class Kpi {
+  public _id: string;
+  public title: string;
+  public description: string;
+  public calculation_logic: string;
+  public complexity_level: string[];
+  public type: string[];
+  public role: string[];
+  public activity_id: string[];
+  public automation_id: string[];
+  public integration_scenario_id: string[];
+  public is_deleted: boolean;
+}
 
-  @IsArray()
-  @IsObject({ each: true })
-  audit_trail_scenarios: object[];
+export class Report {
+  public _id: string;
+  public title: string;
+  public description: string;
+  public attachments: string[];
+  public complexity_level: string[];
+  public type: string[];
+  public application: string[];
+  public source_data: string[];
+  public role: string[];
+  public activity_id: string[];
+  public automation_id: string[];
+  public integration_scenario_id: string[];
+  public is_deleted: boolean;
+}
+
+export class AnalyticalDashboard {
+  public _id: string;
+  public title: string;
+  public description: string;
+  public attachments: string[];
+  public complexity_level: string[];
+  public type: string[];
+  public dashboard_application: string[];
+  public source_data: string[];
+  public role: string[];
+  public activity_id: string[];
+  public automation_id: string[];
+  public integration_scenario_id: string[];
+  public is_deleted: boolean;
+}
+
+export class ProcessControlAndMonitoring {
+  public workflows: Workflow[] = [];
+  public kpis: Kpi[] = [];
+  public reports: Report[] = [];
+  public analytical_dashboards: AnalyticalDashboard[] = [];
+}
+
+export class QueriesAndResponses {
+  public _id: string;
+  public query: string;
+  public response: string;
+  public is_deleted: boolean;
+}
+
+export class MDO {
+  public _id: string;
+  public title: string;
+  public description: string;
+  public activity_id: string;
+  public is_deleted: boolean;
+}
+
+export class DataManagement {
+  public _id: string;
+  public average_transactions: string;
+  public maximum_transactions_month: string;
+  public maximum_transactions_day: string;
+  public average_line_items: string;
+  public data_security: string;
+  public data_retention: string;
+  public data_residency: string;
+  public activity_id: string;
+}
+
+export class DataManagementData {
+  public master_data_objects: MDO[] = [];
+  public data_management_info: DataManagement;
+}
+
+export class IntegrationScenario {
+  public _id: string;
+  public title: string;
+  public description: string;
+  public data_provider: string;
+  public data_consumer: string;
+  public api_provider: string;
+  public calling_system: string;
+  public type: string;
+  public data_volume_year: string;
+  public mode: string;
+  public data_type: string;
+  public protocol: string;
+  public tool: string;
+  public data_record_size: string;
+  public yoy_data_growth: string;
+  public data_provider_authentication: string;
+  public data_consumer_authentication: string;
+  public activity_id: string;
+  public mdo_id: string;
+}
+
+export class ProcessDocument {
+  public _id: string;
+  public title: string;
+  public desc: string;
+  public type: string[];
+  public source: string[];
+  public number_range: string;
+  public storage_requirements: string;
+  public attachments: string[];
+  public activity_id: string[];
+  public is_deleted: boolean;
+}
+
+export class AutomationScenario {
+  public _id: string;
+  public type: string;
+  public title: string;
+  public desc: string;
+  public technology: string;
+  public activity_id: string;
+  public mdo_id: string;
+  public integration_scenario_id: string;
+  public is_deleted: boolean;
+}
+
+export class ComplianceScenarioData {
+  public _id: string;
+  public title: string;
+  public description: string;
+  public attachments: string[];
+  public activity_id: string[];
+  public automation_id: string[];
+  public integration_scenario_id: string[];
+  public is_deleted: boolean;
+}
+
+export class AuditTrailScenarios {
+  public _id: string;
+  public title: string;
+  public description: string;
+  public activity_id: string[];
+  public automation_id: string[];
+  public attachments: string[];
+  public integration_scenario_id: string[];
+  public role: string[];
+  public is_deleted: boolean;
+}
+
+export class ComplianceScenario {
+  public compliance_scenario_data: ComplianceScenarioData[] = [];
+  public audit_trail_scenarios: AuditTrailScenarios[] = [];
+}
+
+export class ProcessControl {
+  public _id: string;
+  public title: string;
+  public description: string;
+  public activity_id: string;
+  public mdo_id: string;
+  public is_deleted: boolean;
 }
 
 export class CreateProcessDto {
-  @IsArray()
-  @IsString({ each: true })
   function_id: string[];
-
-  @IsArray()
-  @IsString({ each: true })
   sub_function_id: string[];
-
-  @IsString()
   title: string;
-
-  @IsString()
   version_type: string;
-
-  @IsString()
   version_id: string;
-
-  @IsString()
   sop_reference: string;
-
-  @IsString()
   owner_name: string;
-
-  @IsString()
-  owner_role_designation: string;
-
-  @IsString()
-  release_status: string;
-
-  @IsString()
-  description: string;
-
-  @IsString()
+  owner_role_designation?: string;
+  release_status?: string;
+  description?: string;
   trigger: string;
-
-  @IsString()
   created_by: string;
-
-  @IsDateString()
-  created_on: Date;
-
-  @IsString()
-  last_modified_by: string;
-
-  @IsDateString()
-  last_modified_on: Date;
-
-  @IsBoolean()
-  is_deleted: boolean;
-
-  @IsObject()
-  @ValidateNested()
-  @Type(() => IoInfoDto)
-  io_info: IoInfoDto;
-
-  @IsArray()
-  @IsObject({ each: true })
-  activities: object[];
-
-  @IsObject()
-  @ValidateNested()
-  @Type(() => ControlAndMonitoringDto)
-  control_and_monitoring: ControlAndMonitoringDto;
-
-  @IsArray()
-  @IsObject({ each: true })
-  queries_and_responses: object[];
-
-  @IsObject()
-  @ValidateNested()
-  @Type(() => DataManagementDto)
-  data_management: DataManagementDto;
-
-  @IsObject()
-  integration_scenario: object;
-
-  @IsArray()
-  @IsObject({ each: true })
-  documents: object[];
-
-  @IsArray()
-  @IsObject({ each: true })
-  automation_scenarios: object[];
-
-  @IsObject()
-  @ValidateNested()
-  @Type(() => ComplianceScenariosDto)
-  compliance_scenarios: ComplianceScenariosDto;
-
-  @IsArray()
-  @IsObject({ each: true })
-  controls: object[];
+  created_on?: Date = new Date();
+  last_modified_by?: string = '';
+  last_modified_on?: Date = new Date();
+  is_deleted?: boolean = false;
+  io_info?: IoInfo = {
+    inputs: '',
+    outputs: '',
+    business_outcome: '',
+    major_requirements: '',
+  };
+  activities?: Activity[] = [];
+  control_and_monitoring?: ProcessControlAndMonitoring =
+    new ProcessControlAndMonitoring();
+  queries_and_responses?: QueriesAndResponses[] = [];
+  data_management?: DataManagementData = {
+    master_data_objects: [],
+    data_management_info: {
+      _id: '',
+      average_transactions: '',
+      maximum_transactions_month: '',
+      maximum_transactions_day: '',
+      average_line_items: '',
+      data_security: '',
+      data_retention: '',
+      data_residency: '',
+      activity_id: '',
+    },
+  };
+  integration_scenario?: IntegrationScenario = {
+    _id: '',
+    title: '',
+    description: '',
+    data_provider: '',
+    data_consumer: '',
+    api_provider: '',
+    calling_system: '',
+    type: '',
+    data_volume_year: '',
+    mode: '',
+    data_type: '',
+    protocol: '',
+    tool: '',
+    data_record_size: '',
+    yoy_data_growth: '',
+    data_provider_authentication: '',
+    data_consumer_authentication: '',
+    activity_id: '',
+    mdo_id: '',
+  };
+  documents?: ProcessDocument[] = [];
+  automation_scenarios?: AutomationScenario[] = [];
+  compliance_scenarios?: ComplianceScenario = new ComplianceScenario();
+  controls?: ProcessControl[] = [];
 }

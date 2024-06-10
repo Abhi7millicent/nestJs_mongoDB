@@ -2,16 +2,16 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 
 class IoInfo {
-  @Prop({ required: true })
+  @Prop({ required: false })
   public inputs!: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   public outputs!: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   public business_outcome!: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   public major_requirements!: string;
 }
 
@@ -508,7 +508,7 @@ class ProcessControl {
   is_deleted!: boolean;
 }
 
-@Schema({ collection: 'process_basic_data2' })
+@Schema({ collection: 'process_basic_data4' })
 export class Process extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   _id: MongooseSchema.Types.ObjectId;
@@ -561,7 +561,7 @@ export class Process extends Document {
   @Prop({ required: true, default: false })
   is_deleted!: boolean;
 
-  @Prop({ type: IoInfo, required: true })
+  @Prop({ type: IoInfo, required: false })
   public io_info!: IoInfo;
 
   @Prop({ type: [Activity], default: [] })

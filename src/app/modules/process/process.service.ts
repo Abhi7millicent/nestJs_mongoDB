@@ -7,13 +7,25 @@ import { Process } from './process.schema';
 export class ProcessService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
-  async createProcessBasicData(createProcessDto: Partial<Process>) {
+  // async createProcessBasicData(createProcessDto: any) {
+  //   try {
+  //     const createdProcess =
+  //       await this.processRepository.create(createProcessDto);
+  //     return createdProcess;
+  //   } catch (error) {
+  //     throw new Error(`Error creating process: ${error}`);
+  //   }
+  // }
+
+  async createProcess(createProcessDto: CreateProcessDto): Promise<Process> {
     try {
+      console.log('createProcessDto:', createProcessDto);
       const createdProcess =
         await this.processRepository.create(createProcessDto);
       return createdProcess;
     } catch (error) {
-      throw new Error(`Error creating process: ${error}`);
+      // Handle error
+      throw new Error('Failed to create process.');
     }
   }
 

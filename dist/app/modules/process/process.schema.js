@@ -15,19 +15,19 @@ const mongoose_2 = require("mongoose");
 class IoInfo {
 }
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], IoInfo.prototype, "inputs", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], IoInfo.prototype, "outputs", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], IoInfo.prototype, "business_outcome", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], IoInfo.prototype, "major_requirements", void 0);
 class Activity {
@@ -708,7 +708,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Process.prototype, "is_deleted", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: IoInfo, required: true }),
+    (0, mongoose_1.Prop)({ type: IoInfo, required: false }),
     __metadata("design:type", IoInfo)
 ], Process.prototype, "io_info", void 0);
 __decorate([
@@ -748,7 +748,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Process.prototype, "controls", void 0);
 exports.Process = Process = __decorate([
-    (0, mongoose_1.Schema)({ collection: 'process_basic_data2' })
+    (0, mongoose_1.Schema)({ collection: 'process_basic_data4' })
 ], Process);
 exports.ProcessSchema = mongoose_1.SchemaFactory.createForClass(Process);
 //# sourceMappingURL=process.schema.js.map

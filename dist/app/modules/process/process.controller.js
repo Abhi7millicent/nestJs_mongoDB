@@ -15,13 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProcessController = void 0;
 const common_1 = require("@nestjs/common");
 const process_service_1 = require("./process.service");
-const process_schema_1 = require("./process.schema");
+const process_dto_1 = require("./dto/process.dto");
 let ProcessController = class ProcessController {
     constructor(processService) {
         this.processService = processService;
     }
-    async create(createProcessDto) {
-        return this.processService.createProcessBasicData(createProcessDto);
+    async createProcess(createProcessDto) {
+        return this.processService.createProcess(createProcessDto);
     }
     async getAll() {
         return this.processService.getAllProcess();
@@ -41,9 +41,9 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [process_schema_1.Process]),
+    __metadata("design:paramtypes", [process_dto_1.CreateProcessDto]),
     __metadata("design:returntype", Promise)
-], ProcessController.prototype, "create", null);
+], ProcessController.prototype, "createProcess", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

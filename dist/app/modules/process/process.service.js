@@ -16,13 +16,14 @@ let ProcessService = class ProcessService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
-    async createProcessBasicData(createProcessDto) {
+    async createProcess(createProcessDto) {
         try {
+            console.log('createProcessDto:', createProcessDto);
             const createdProcess = await this.processRepository.create(createProcessDto);
             return createdProcess;
         }
         catch (error) {
-            throw new Error(`Error creating process: ${error}`);
+            throw new Error('Failed to create process.');
         }
     }
     async getAllProcess() {

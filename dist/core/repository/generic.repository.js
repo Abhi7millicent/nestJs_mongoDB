@@ -12,7 +12,8 @@ class GenericRepository {
             return await this.model.create(entity);
         }
         catch (error) {
-            throw new Error(error_message_1.ErrorMessage.NOT_CREATED);
+            console.error('Error creating entity:', error.message);
+            throw new Error('Error creating entity');
         }
     }
     async createByKey(id, keyPath, data) {
@@ -99,6 +100,7 @@ class GenericRepository {
                 lastKey = key;
             }
             if (!Array.isArray(currentObj)) {
+                console.log('currentObj:', currentObj);
                 throw new Error(error_message_1.ErrorMessage.ARRAY_NOT_FOUND(keyPath.join('.')));
             }
             const subDocIndex = currentObj.findIndex((doc) => doc._id.toString() === subId);

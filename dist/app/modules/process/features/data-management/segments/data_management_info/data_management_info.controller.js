@@ -26,9 +26,8 @@ let DataManagementInfoController = class DataManagementInfoController {
 };
 exports.DataManagementInfoController = DataManagementInfoController;
 __decorate([
-    (0, common_1.Put)(':processId/integration-scenario/:dataManagementId'),
+    (0, common_1.Put)(':processId/data-management-info'),
     __param(0, (0, common_1.Param)('processId')),
-    __param(1, (0, common_1.Param)('dataManagementId')),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, data_management_info_dto_1.DataManagementDto]),

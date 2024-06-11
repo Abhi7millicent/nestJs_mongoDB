@@ -10,7 +10,7 @@ import {
 import { BasicDataService } from './basic-data.service';
 import { Process } from '../../process.schema';
 
-@Controller('api/process-data')
+@Controller('api/process')
 export class BasicDataController {
   constructor(private readonly basicDataService: BasicDataService) {}
   @Post()
@@ -28,7 +28,7 @@ export class BasicDataController {
     return this.basicDataService.getProcessBasicDataById(id);
   }
 
-  @Put(':id')
+  @Put('update/:id')
   async update(
     @Param('id') id: string,
     @Body() data: Partial<Process>,

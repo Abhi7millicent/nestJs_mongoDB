@@ -17,10 +17,11 @@ export class DataManagementInfoController {
     private readonly dataManagementInfoService: DataManagementInfoService,
   ) {}
 
-  @Put(':processId/integration-scenario/:dataManagementId')
+  @Put(':processId/data-management-info')
   async updateIntegrationScenario(
     @Param('processId') processId: string,
-    @Param('dataManagementId') dataManagementId: string,
+    // @Param('dataManagementId') dataManagementId: string,
+    dataManagementId: string,
     @Body() dataManagementDto: DataManagementDto,
   ): Promise<any> {
     return this.dataManagementInfoService.update(

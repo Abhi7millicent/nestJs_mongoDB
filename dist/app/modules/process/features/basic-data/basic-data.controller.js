@@ -58,7 +58,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BasicDataController.prototype, "getById", null);
 __decorate([
-    (0, common_1.Put)(':id'),
+    (0, common_1.Put)('update/:id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -73,7 +73,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BasicDataController.prototype, "delete", null);
 exports.BasicDataController = BasicDataController = __decorate([
-    (0, common_1.Controller)('api/process-data'),
+    (0, common_1.Controller)('api/process'),
     __metadata("design:paramtypes", [basic_data_service_1.BasicDataService])
 ], BasicDataController);
 //# sourceMappingURL=basic-data.controller.js.map

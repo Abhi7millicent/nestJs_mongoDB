@@ -8,18 +8,15 @@ import {
   Body,
 } from '@nestjs/common';
 import { WorkflowsService } from './workflow.service';
-import { WorkflowsDto } from './dto/workflows.dto';
+import { UpsertWorkflowsDto } from './dto/workflows.dto';
 
 @Controller('api/process')
 export class WorkflowsController {
   constructor(private readonly workflowsService: WorkflowsService) {}
 
-  @Post('work-flows/:id')
-  async addWorkflows(
-    @Param('id') id: string,
-    @Body() workflowsDto: WorkflowsDto[],
-  ) {
-    return this.workflowsService.addWorkflows(id, workflowsDto);
+  @Post('work-flows')
+  async addWorkflows(@Body() createWorkflowsDto: UpsertWorkflowsDto) {
+    return this.workflowsService.Upsert(createWorkflowsDto);
   }
 
   @Put(':processId/workflows/:workflowId')

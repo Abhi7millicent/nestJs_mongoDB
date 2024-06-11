@@ -15,13 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActivitiesController = void 0;
 const common_1 = require("@nestjs/common");
 const activities_service_1 = require("./activities.service");
+const activities_dto_1 = require("./dto/activities.dto");
 let ActivitiesController = class ActivitiesController {
     constructor(activitiesService) {
         this.activitiesService = activitiesService;
     }
-    async addActivity(id, activityDto) {
+    async addActivity(createActivityDto) {
         try {
-            const data = await this.activitiesService.addActivities(id, activityDto);
+            const data = await this.activitiesService.Upsert(createActivityDto);
             return {
                 statusCode: common_1.HttpStatus.CREATED,
                 message: 'Activity created successfully',
@@ -56,12 +57,11 @@ let ActivitiesController = class ActivitiesController {
 };
 exports.ActivitiesController = ActivitiesController;
 __decorate([
-    (0, common_1.Post)('activities/:id'),
+    (0, common_1.Post)('/activities'),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [activities_dto_1.UpsertActivityDto]),
     __metadata("design:returntype", Promise)
 ], ActivitiesController.prototype, "addActivity", null);
 __decorate([

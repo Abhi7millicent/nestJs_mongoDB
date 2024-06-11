@@ -15,35 +15,10 @@ const process_constants_1 = require("../../constant/process.constants");
 const generate_id_helper_1 = require("../../../../../shared/helper/generate-id.helper");
 const process_utils_1 = require("../../utils/process.utils");
 const process_repository_1 = require("../../process.repository");
+const controller_and_monitoring_constant_1 = require("../controller-and-monitoring/constant/controller-and-monitoring.constant");
 let QueriesResponsesService = class QueriesResponsesService {
     constructor(processRepository) {
         this.processRepository = processRepository;
-    }
-    async create(processId, queriesResponseDto) {
-        try {
-            queriesResponseDto._id = (0, generate_id_helper_1.generateId)(process_constants_1.queries_and_responses_id);
-            const auditData = {
-                last_modified_by: queriesResponseDto.last_modified_by,
-                last_modified_on: new Date(),
-            };
-            delete queriesResponseDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.queries_and_responses), queriesResponseDto);
-            if (data._id === queriesResponseDto._id) {
-                const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
-                console.log('updateMetaData:', updateResponseDto);
-            }
-            return data;
-        }
-        catch (error) {
-            console.error('Error in addWorkflows:', error);
-            throw new Error(`Failed to add workflows: ${error.message}`);
-        }
-    }
-    findAll() {
-        return `This action returns all queriesResponses`;
-    }
-    findOne(id) {
-        return `This action returns a #${id} queriesResponse`;
     }
     async update(processId, qrId, updateQueriesResponseDto) {
         const auditData = {
@@ -68,6 +43,46 @@ let QueriesResponsesService = class QueriesResponsesService {
     }
     remove(id) {
         return `This action removes a #${id} queriesResponse`;
+    }
+    async Upsert(createQueriesResponseDto) {
+        const processId = createQueriesResponseDto._id;
+        const QueriesResponseDto = createQueriesResponseDto.queries_response;
+        const auditData = {
+            last_modified_by: QueriesResponseDto[0].last_modified_by,
+            last_modified_on: new Date(),
+        };
+        const queriesResponseToCreate = QueriesResponseDto.filter((dataDto) => !dataDto._id);
+        const queriesResponseToUpdate = QueriesResponseDto.filter((dataDto) => dataDto._id);
+        queriesResponseToCreate.forEach((dataDto) => {
+            dataDto._id = (0, generate_id_helper_1.generateId)(process_constants_1.queries_and_responses_id);
+            delete dataDto.last_modified_by;
+        });
+        try {
+            const createPromises = queriesResponseToCreate.map((dataDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring[process_constants_1.queries_and_responses]), dataDto));
+            const updatePromises = queriesResponseToUpdate.map((dataDto) => this.update(processId, dataDto._id, dataDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === queriesResponseToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
+                const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
+                console.log('updateMetaData:', updateResponseDto);
+            }
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                console.error('Not Found Exception:', error.message);
+                throw error;
+            }
+            else {
+                console.error('Unexpected Error:', error.message);
+                throw error;
+            }
+        }
     }
 };
 exports.QueriesResponsesService = QueriesResponsesService;

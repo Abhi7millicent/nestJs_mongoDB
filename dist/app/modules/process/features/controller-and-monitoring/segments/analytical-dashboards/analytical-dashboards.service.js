@@ -35,7 +35,9 @@ let AnalyticalDashboardsService = class AnalyticalDashboardsService {
             return data;
         }
     }
-    async addAnalyticalDashboards(processId, analyticalDashboardsDto) {
+    async Upsert(createAnalyticalDashboardsDto) {
+        const processId = createAnalyticalDashboardsDto._id;
+        const analyticalDashboardsDto = createAnalyticalDashboardsDto.analytical_dashboards;
         const auditData = {
             last_modified_by: analyticalDashboardsDto[0].last_modified_by,
             last_modified_on: new Date(),

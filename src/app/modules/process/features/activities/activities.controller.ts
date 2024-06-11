@@ -10,20 +10,17 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { ActivitiesService } from './activities.service';
-import { ActivityDto } from './dto/activities.dto';
+import { ActivityDto, UpsertActivityDto } from './dto/activities.dto';
 
 @Controller('api/process')
 export class ActivitiesController {
   constructor(private readonly activitiesService: ActivitiesService) {}
 
-  @Post('activities/:id')
-  @HttpCode(HttpStatus.CREATED) // Setting default success status code to 201 Created
-  async addActivity(
-    @Param('id') id: string,
-    @Body() activityDto: ActivityDto[],
-  ) {
+  @Post('/activities')
+  @HttpCode(HttpStatus.CREATED)
+  async addActivity(@Body() createActivityDto: UpsertActivityDto) {
     try {
-      const data = await this.activitiesService.addActivities(id, activityDto);
+      const data = await this.activitiesService.Upsert(createActivityDto);
       return {
         statusCode: HttpStatus.CREATED,
         message: 'Activity created successfully',

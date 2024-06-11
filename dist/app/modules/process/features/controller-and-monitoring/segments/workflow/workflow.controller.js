@@ -15,12 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkflowsController = void 0;
 const common_1 = require("@nestjs/common");
 const workflow_service_1 = require("./workflow.service");
+const workflows_dto_1 = require("./dto/workflows.dto");
 let WorkflowsController = class WorkflowsController {
     constructor(workflowsService) {
         this.workflowsService = workflowsService;
     }
-    async addWorkflows(id, workflowsDto) {
-        return this.workflowsService.addWorkflows(id, workflowsDto);
+    async addWorkflows(createWorkflowsDto) {
+        return this.workflowsService.Upsert(createWorkflowsDto);
     }
     async updateWorkflow(processId, workflowId, workflowData) {
         return this.workflowsService.updateWorkflow(processId, workflowId, workflowData);
@@ -34,11 +35,10 @@ let WorkflowsController = class WorkflowsController {
 };
 exports.WorkflowsController = WorkflowsController;
 __decorate([
-    (0, common_1.Post)('work-flows/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('work-flows'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [workflows_dto_1.UpsertWorkflowsDto]),
     __metadata("design:returntype", Promise)
 ], WorkflowsController.prototype, "addWorkflows", null);
 __decorate([

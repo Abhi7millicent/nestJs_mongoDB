@@ -15,12 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnalyticalDashboardsController = void 0;
 const common_1 = require("@nestjs/common");
 const analytical_dashboards_service_1 = require("./analytical-dashboards.service");
+const analytical_dashboards_dto_1 = require("./dto/analytical-dashboards.dto");
 let AnalyticalDashboardsController = class AnalyticalDashboardsController {
     constructor(analyticalDashboardsService) {
         this.analyticalDashboardsService = analyticalDashboardsService;
     }
-    async addAnalyticalDashboards(id, analyticalDashboardsDto) {
-        return this.analyticalDashboardsService.addAnalyticalDashboards(id, analyticalDashboardsDto);
+    async upsertAnalyticalDashboards(createAnalyticalDashboardsDto) {
+        return this.analyticalDashboardsService.Upsert(createAnalyticalDashboardsDto);
     }
     async updateAnalyticalDashboards(processId, analyticalDashboardsId, analyticalDashboardsDto) {
         return this.analyticalDashboardsService.updateAnalyticalDashboards(processId, analyticalDashboardsId, analyticalDashboardsDto);
@@ -34,13 +35,12 @@ let AnalyticalDashboardsController = class AnalyticalDashboardsController {
 };
 exports.AnalyticalDashboardsController = AnalyticalDashboardsController;
 __decorate([
-    (0, common_1.Post)('analytical-dashboards/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('analytical-dashboards'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [analytical_dashboards_dto_1.UpsertAnalyticalDashboardsDto]),
     __metadata("design:returntype", Promise)
-], AnalyticalDashboardsController.prototype, "addAnalyticalDashboards", null);
+], AnalyticalDashboardsController.prototype, "upsertAnalyticalDashboards", null);
 __decorate([
     (0, common_1.Put)(':processId/analytical-dashboards/:analyticalDashboardsId'),
     __param(0, (0, common_1.Param)('processId')),

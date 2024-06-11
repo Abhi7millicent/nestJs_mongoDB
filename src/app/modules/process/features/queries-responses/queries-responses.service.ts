@@ -1,5 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { QueriesResponseDto } from './dto/queries-response.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  QueriesResponseDto,
+  UpsertQueriesResponseDto,
+} from './dto/queries-response.dto';
 import {
   PROCESS,
   queries_and_responses,
@@ -8,61 +11,49 @@ import {
 import { generateId } from 'src/shared/helper/generate-id.helper';
 import { findPath } from '../../utils/process.utils';
 import { ProcessRepository } from '../../process.repository';
+import { controlAndMonitoring } from '../controller-and-monitoring/constant/controller-and-monitoring.constant';
 
 @Injectable()
 export class QueriesResponsesService {
-  constructor(private readonly processRepository: ProcessRepository) { }
+  constructor(private readonly processRepository: ProcessRepository) {}
 
-  /**
-   * This TypeScript function creates a new entry in a database collection, updates audit data, and
-   * returns the created data.
-   * @param {string} processId - The `processId` parameter is a string that represents the unique
-   * identifier of a process. It is used to associate the data being created with a specific process in
-   * the system.
-   * @param {QueriesResponseDto} queriesResponseDto - The `queriesResponseDto` parameter is an object
-   * that contains data related to queries and responses. It seems to have properties such as `_id`,
-   * `last_modified_by`, and possibly other data specific to queries and responses. In the `create`
-   * method, this object is being modified by generating an `_
-   * @returns The `create` method is returning the `data` object after creating and updating the
-   * queriesResponseDto in the database.
-   */
-  async create(processId: string, queriesResponseDto: QueriesResponseDto) {
-    try {
-      queriesResponseDto._id = generateId(queries_and_responses_id);
+  // async create(processId: string, queriesResponseDto: QueriesResponseDto) {
+  //   try {
+  //     queriesResponseDto._id = generateId(queries_and_responses_id);
 
-      const auditData = {
-        last_modified_by: queriesResponseDto.last_modified_by,
-        last_modified_on: new Date(),
-      };
+  //     const auditData = {
+  //       last_modified_by: queriesResponseDto.last_modified_by,
+  //       last_modified_on: new Date(),
+  //     };
 
-      delete queriesResponseDto.last_modified_by;
-      const data = await this.processRepository.createByKey(
-        processId,
-        findPath(PROCESS, queries_and_responses),
-        queriesResponseDto,
-      );
-      if (data._id === queriesResponseDto._id) {
-        const updateResponseDto = await this.processRepository.update(
-          { _id: processId },
-          auditData,
-        );
-        console.log('updateMetaData:', updateResponseDto);
-      }
+  //     delete queriesResponseDto.last_modified_by;
+  //     const data = await this.processRepository.createByKey(
+  //       processId,
+  //       findPath(PROCESS, queries_and_responses),
+  //       queriesResponseDto,
+  //     );
+  //     if (data._id === queriesResponseDto._id) {
+  //       const updateResponseDto = await this.processRepository.update(
+  //         { _id: processId },
+  //         auditData,
+  //       );
+  //       console.log('updateMetaData:', updateResponseDto);
+  //     }
 
-      return data;
-    } catch (error) {
-      console.error('Error in addWorkflows:', error);
-      throw new Error(`Failed to add workflows: ${error.message}`);
-    }
-  }
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Error in addWorkflows:', error);
+  //     throw new Error(`Failed to add workflows: ${error.message}`);
+  //   }
+  // }
 
-  findAll() {
-    return `This action returns all queriesResponses`;
-  }
+  // findAll() {
+  //   return `This action returns all queriesResponses`;
+  // }
 
-  findOne(id: number) {
-    return `This action returns a #${id} queriesResponse`;
-  }
+  // findOne(id: number) {
+  //   return `This action returns a #${id} queriesResponse`;
+  // }
 
   /**
    * The update function in TypeScript updates a process's queries and responses data and audit
@@ -152,5 +143,73 @@ export class QueriesResponsesService {
   }
   remove(id: number) {
     return `This action removes a #${id} queriesResponse`;
+  }
+
+  async Upsert(
+    createQueriesResponseDto: UpsertQueriesResponseDto,
+  ): Promise<any> {
+    const processId = createQueriesResponseDto._id;
+    const QueriesResponseDto = createQueriesResponseDto.queries_response;
+    const auditData = {
+      last_modified_by: QueriesResponseDto[0].last_modified_by,
+      last_modified_on: new Date(),
+    };
+
+    const queriesResponseToCreate = QueriesResponseDto.filter(
+      (dataDto) => !dataDto._id,
+    );
+    const queriesResponseToUpdate = QueriesResponseDto.filter(
+      (dataDto) => dataDto._id,
+    );
+
+    queriesResponseToCreate.forEach((dataDto) => {
+      dataDto._id = generateId(queries_and_responses_id);
+      delete dataDto.last_modified_by;
+    });
+
+    try {
+      const createPromises = queriesResponseToCreate.map((dataDto) =>
+        this.processRepository.createByKey(
+          processId,
+          findPath(PROCESS, controlAndMonitoring[queries_and_responses]),
+          dataDto,
+        ),
+      );
+
+      const updatePromises = queriesResponseToUpdate.map((dataDto) =>
+        this.update(processId, dataDto._id, dataDto),
+      );
+
+      const createResults = await Promise.all(createPromises);
+      const updateResults = await Promise.all(updatePromises);
+
+      const allInsertionsSuccessful = createResults.every(
+        (data, index) => data._id === queriesResponseToCreate[index]._id,
+      );
+
+      if (
+        allInsertionsSuccessful ||
+        updateResults.every((result) => result.acknowledged)
+      ) {
+        const updateResponseDto = await this.processRepository.update(
+          { _id: processId },
+          auditData,
+        );
+        console.log('updateMetaData:', updateResponseDto);
+      }
+
+      return {
+        created: createResults,
+        updated: updateResults,
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        console.error('Not Found Exception:', error.message);
+        throw error;
+      } else {
+        console.error('Unexpected Error:', error.message);
+        throw error;
+      }
+    }
   }
 }

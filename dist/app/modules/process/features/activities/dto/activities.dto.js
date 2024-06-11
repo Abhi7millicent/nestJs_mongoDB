@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateActivityDto = exports.ActivityDto = void 0;
+exports.UpsertActivityDto = exports.ActivityDto = void 0;
 class ActivityDto {
 }
 exports.ActivityDto = ActivityDto;
-class CreateActivityDto {
+class UpsertActivityDto {
     constructor() {
-        this.ActivityDto = [];
+        this.activity = [];
     }
 }
-exports.CreateActivityDto = CreateActivityDto;
+exports.UpsertActivityDto = UpsertActivityDto;
 //# sourceMappingURL=activities.dto.js.map

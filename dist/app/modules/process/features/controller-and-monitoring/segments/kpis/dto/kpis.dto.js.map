@@ -1,1 +1,1 @@
-{"version":3,"file":"kpis.dto.js","sourceRoot":"","sources":["../../../../../../../../../src/app/modules/process/features/controller-and-monitoring/segments/kpis/dto/kpis.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,OAAO;CAanB;AAbD,0BAaC"}
+{"version":3,"file":"kpis.dto.js","sourceRoot":"","sources":["../../../../../../../../../src/app/modules/process/features/controller-and-monitoring/segments/kpis/dto/kpis.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,OAAO;CAanB;AAbD,0BAaC;AAED,MAAa,aAAa;IAA1B;QAES,SAAI,GAAc,EAAE,CAAC;IAC9B,CAAC;CAAA;AAHD,sCAGC"}

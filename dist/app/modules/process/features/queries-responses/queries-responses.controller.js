@@ -20,14 +20,8 @@ let QueriesResponsesController = class QueriesResponsesController {
     constructor(queriesResponsesService) {
         this.queriesResponsesService = queriesResponsesService;
     }
-    create(id, queriesResponseDto) {
-        return this.queriesResponsesService.create(id, queriesResponseDto);
-    }
-    findAll() {
-        return this.queriesResponsesService.findAll();
-    }
-    findOne(id) {
-        return this.queriesResponsesService.findOne(+id);
+    create(createQueriesResponseDto) {
+        return this.queriesResponsesService.Upsert(createQueriesResponseDto);
     }
     async updateQueriesResponse(processId, qrId, workflowData) {
         return this.queriesResponsesService.update(processId, qrId, workflowData);
@@ -38,32 +32,15 @@ let QueriesResponsesController = class QueriesResponsesController {
     async updateQueriesResponsesIsSoftDeleted(processId, qrId) {
         return this.queriesResponsesService.updateQueriesResponsesIsSoftDeleted(processId, qrId);
     }
-    remove(id) {
-        return this.queriesResponsesService.remove(+id);
-    }
 };
 exports.QueriesResponsesController = QueriesResponsesController;
 __decorate([
-    (0, common_1.Post)('queries-responses/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('queries-responses'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, queries_response_dto_1.QueriesResponseDto]),
+    __metadata("design:paramtypes", [queries_response_dto_1.UpsertQueriesResponseDto]),
     __metadata("design:returntype", void 0)
 ], QueriesResponsesController.prototype, "create", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], QueriesResponsesController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], QueriesResponsesController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Put)(':processId/queriesresponse/:qrId'),
     __param(0, (0, common_1.Param)('processId')),
@@ -89,13 +66,6 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], QueriesResponsesController.prototype, "updateQueriesResponsesIsSoftDeleted", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], QueriesResponsesController.prototype, "remove", null);
 exports.QueriesResponsesController = QueriesResponsesController = __decorate([
     (0, common_1.Controller)('api/process'),
     __metadata("design:paramtypes", [queries_responses_service_1.QueriesResponsesService])

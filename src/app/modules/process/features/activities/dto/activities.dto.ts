@@ -11,7 +11,7 @@ export class ActivityDto {
   is_deleted: boolean;
 }
 
-export class CreateActivityDto {
+export class UpsertActivityDto {
   public _id: string;
-  public ActivityDto: ActivityDto[] = [];
+  public activity: ActivityDto[] = [];
 }

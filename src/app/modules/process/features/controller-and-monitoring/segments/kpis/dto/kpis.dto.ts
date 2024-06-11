@@ -12,3 +12,8 @@ export class KPIsDto {
   last_modified_by: string;
   is_deleted: boolean;
 }
+
+export class UpsertKPIsDto {
+  public _id: string;
+  public kpis: KPIsDto[] = [];
+}

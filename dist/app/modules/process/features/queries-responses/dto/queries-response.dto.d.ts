@@ -4,3 +4,7 @@ export declare class QueriesResponseDto {
     response: string;
     last_modified_by: string;
 }
+export declare class UpsertQueriesResponseDto {
+    _id: string;
+    queries_response: QueriesResponseDto[];
+}

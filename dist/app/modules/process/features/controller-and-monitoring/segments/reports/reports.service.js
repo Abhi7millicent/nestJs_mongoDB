@@ -35,7 +35,9 @@ let ReportsService = class ReportsService {
             return data;
         }
     }
-    async addReports(processId, reportsDto) {
+    async Upsert(createReportsDto) {
+        const processId = createReportsDto._id;
+        const reportsDto = createReportsDto.reports;
         const auditData = {
             last_modified_by: reportsDto[0].last_modified_by,
             last_modified_on: new Date(),

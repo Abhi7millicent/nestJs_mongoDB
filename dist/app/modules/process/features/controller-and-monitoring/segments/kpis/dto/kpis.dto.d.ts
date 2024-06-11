@@ -12,3 +12,7 @@ export declare class KPIsDto {
     last_modified_by: string;
     is_deleted: boolean;
 }
+export declare class UpsertKPIsDto {
+    _id: string;
+    kpis: KPIsDto[];
+}

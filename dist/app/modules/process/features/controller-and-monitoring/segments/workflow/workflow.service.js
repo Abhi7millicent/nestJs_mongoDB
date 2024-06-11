@@ -35,7 +35,9 @@ let WorkflowsService = class WorkflowsService {
             return data;
         }
     }
-    async addWorkflows(processId, workflowsDto) {
+    async Upsert(createWorkflowsDto) {
+        const processId = createWorkflowsDto._id;
+        const workflowsDto = createWorkflowsDto.workflows;
         const auditData = {
             last_modified_by: workflowsDto[0].last_modified_by,
             last_modified_on: new Date(),

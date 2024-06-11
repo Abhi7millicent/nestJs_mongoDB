@@ -1,10 +1,10 @@
 import { HttpStatus } from '@nestjs/common';
 import { ActivitiesService } from './activities.service';
-import { ActivityDto } from './dto/activities.dto';
+import { UpsertActivityDto } from './dto/activities.dto';
 export declare class ActivitiesController {
     private readonly activitiesService;
     constructor(activitiesService: ActivitiesService);
-    addActivity(id: string, activityDto: ActivityDto[]): Promise<{
+    addActivity(createActivityDto: UpsertActivityDto): Promise<{
         statusCode: HttpStatus;
         message: string;
         data: any;

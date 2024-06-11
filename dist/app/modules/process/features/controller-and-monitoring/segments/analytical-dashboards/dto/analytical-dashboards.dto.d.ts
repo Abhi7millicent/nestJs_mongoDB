@@ -14,3 +14,7 @@ export declare class AnalyticalDashboardsDto {
     last_modified_by: string;
     is_deleted: boolean;
 }
+export declare class UpsertAnalyticalDashboardsDto {
+    _id: string;
+    analytical_dashboards: AnalyticalDashboardsDto[];
+}

@@ -9,7 +9,10 @@ import {
   Put,
 } from '@nestjs/common';
 import { QueriesResponsesService } from './queries-responses.service';
-import { QueriesResponseDto } from './dto/queries-response.dto';
+import {
+  QueriesResponseDto,
+  UpsertQueriesResponseDto,
+} from './dto/queries-response.dto';
 
 @Controller('api/process')
 export class QueriesResponsesController {
@@ -17,22 +20,9 @@ export class QueriesResponsesController {
     private readonly queriesResponsesService: QueriesResponsesService,
   ) {}
 
-  @Post('queries-responses/:id')
-  create(
-    @Param('id') id: string,
-    @Body() queriesResponseDto: QueriesResponseDto,
-  ) {
-    return this.queriesResponsesService.create(id, queriesResponseDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.queriesResponsesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.queriesResponsesService.findOne(+id);
+  @Post('queries-responses')
+  create(@Body() createQueriesResponseDto: UpsertQueriesResponseDto) {
+    return this.queriesResponsesService.Upsert(createQueriesResponseDto);
   }
 
   @Put(':processId/queriesresponse/:qrId')
@@ -72,9 +62,4 @@ export class QueriesResponsesController {
   // ) {
   //   return this.queriesResponsesService.update(+id, updateQueriesResponseDto);
   // }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.queriesResponsesService.remove(+id);
-  }
 }

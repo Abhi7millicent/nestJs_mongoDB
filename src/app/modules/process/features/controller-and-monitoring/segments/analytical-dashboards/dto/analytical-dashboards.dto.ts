@@ -14,3 +14,8 @@ export class AnalyticalDashboardsDto {
   last_modified_by: string;
   is_deleted: boolean;
 }
+
+export class UpsertAnalyticalDashboardsDto {
+  public _id: string;
+  public analytical_dashboards: AnalyticalDashboardsDto[] = [];
+}

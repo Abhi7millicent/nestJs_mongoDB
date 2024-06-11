@@ -14,3 +14,8 @@ export class ReportsDto {
   last_modified_by: string;
   is_deleted: boolean;
 }
+
+export class UpsertReportsDto {
+  public _id: string;
+  public reports: ReportsDto[] = [];
+}

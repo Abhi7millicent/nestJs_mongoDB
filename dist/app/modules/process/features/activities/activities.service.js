@@ -39,7 +39,9 @@ let ActivitiesService = class ActivitiesService {
     async updateActivityIsSoftDeleted(processId, activityId) {
         return this.processRepository.softDeleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'activities'), activityId);
     }
-    async addActivities(processId, activitiesDto) {
+    async Upsert(createActivityDto) {
+        const processId = createActivityDto._id;
+        const activitiesDto = createActivityDto.activity;
         const auditData = {
             last_modified_by: activitiesDto[0].last_modified_by,
             last_modified_on: new Date(),

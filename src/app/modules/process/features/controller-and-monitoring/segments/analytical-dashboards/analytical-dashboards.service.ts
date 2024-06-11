@@ -7,7 +7,10 @@ import {
   analytical_dashboards,
   controlAndMonitoring,
 } from '../../constant/controller-and-monitoring.constant';
-import { AnalyticalDashboardsDto } from './dto/analytical-dashboards.dto';
+import {
+  AnalyticalDashboardsDto,
+  UpsertAnalyticalDashboardsDto,
+} from './dto/analytical-dashboards.dto';
 
 @Injectable()
 export class AnalyticalDashboardsService {
@@ -74,10 +77,12 @@ export class AnalyticalDashboardsService {
   //   }
   // }
 
-  async addAnalyticalDashboards(
-    processId: string,
-    analyticalDashboardsDto: AnalyticalDashboardsDto[],
+  async Upsert(
+    createAnalyticalDashboardsDto: UpsertAnalyticalDashboardsDto,
   ): Promise<any> {
+    const processId = createAnalyticalDashboardsDto._id;
+    const analyticalDashboardsDto =
+      createAnalyticalDashboardsDto.analytical_dashboards;
     const auditData = {
       last_modified_by: analyticalDashboardsDto[0].last_modified_by,
       last_modified_on: new Date(),

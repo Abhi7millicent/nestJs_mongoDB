@@ -11,3 +11,7 @@ export declare class WorkflowsDto {
     last_modified_by: string;
     is_deleted: boolean;
 }
+export declare class UpsertWorkflowsDto {
+    _id: string;
+    workflows: WorkflowsDto[];
+}

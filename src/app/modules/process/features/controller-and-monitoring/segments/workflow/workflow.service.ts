@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { findPath } from 'src/app/modules/process/utils/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
 import { generateId } from 'src/shared/helper/generate-id.helper';
-import { WorkflowsDto } from './dto/workflows.dto';
+import { UpsertWorkflowsDto, WorkflowsDto } from './dto/workflows.dto';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
 import {
   controlAndMonitoring,
@@ -74,10 +74,9 @@ export class WorkflowsService {
   //   }
   // }
 
-  async addWorkflows(
-    processId: string,
-    workflowsDto: WorkflowsDto[],
-  ): Promise<any> {
+  async Upsert(createWorkflowsDto: UpsertWorkflowsDto): Promise<any> {
+    const processId = createWorkflowsDto._id;
+    const workflowsDto = createWorkflowsDto.workflows;
     const auditData = {
       last_modified_by: workflowsDto[0].last_modified_by,
       last_modified_on: new Date(),

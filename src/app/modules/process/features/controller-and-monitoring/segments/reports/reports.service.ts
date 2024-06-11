@@ -7,7 +7,7 @@ import {
   controlAndMonitoring,
   reports,
 } from '../../constant/controller-and-monitoring.constant';
-import { ReportsDto } from './dto/reports.dto';
+import { ReportsDto, UpsertReportsDto } from './dto/reports.dto';
 
 @Injectable()
 export class ReportsService {
@@ -71,7 +71,9 @@ export class ReportsService {
   //   }
   // }
 
-  async addReports(processId: string, reportsDto: ReportsDto[]): Promise<any> {
+  async Upsert(createReportsDto: UpsertReportsDto): Promise<any> {
+    const processId = createReportsDto._id;
+    const reportsDto = createReportsDto.reports;
     const auditData = {
       last_modified_by: reportsDto[0].last_modified_by,
       last_modified_on: new Date(),

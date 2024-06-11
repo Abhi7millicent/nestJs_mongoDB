@@ -16,43 +16,43 @@ import { ActivityDto } from './dto/activities.dto';
 export class ActivitiesController {
   constructor(private readonly activitiesService: ActivitiesService) {}
 
-  // @Post('activities/:id')
-  // @HttpCode(HttpStatus.CREATED) // Setting default success status code to 201 Created
-  // async addActivity(
-  //   @Param('id') id: string,
-  //   @Body() activityDto: ActivityDto[],
-  // ) {
-  //   try {
-  //     const data = await this.activitiesService.addActivities(id, activityDto);
-  //     return {
-  //       statusCode: HttpStatus.CREATED,
-  //       message: 'Activity created successfully',
-  //       data: data,
-  //     };
-  //   } catch (error) {
-  //     console.error('Error in addActivity controller method:', error.message);
+  @Post('activities/:id')
+  @HttpCode(HttpStatus.CREATED) // Setting default success status code to 201 Created
+  async addActivity(
+    @Param('id') id: string,
+    @Body() activityDto: ActivityDto[],
+  ) {
+    try {
+      const data = await this.activitiesService.addActivities(id, activityDto);
+      return {
+        statusCode: HttpStatus.CREATED,
+        message: 'Activity created successfully',
+        data: data,
+      };
+    } catch (error) {
+      console.error('Error in addActivity controller method:', error.message);
 
-  //     // Handle specific known errors
-  //     if (error instanceof NotFoundException) {
-  //       throw new HttpException(
-  //         {
-  //           statusCode: HttpStatus.NOT_FOUND,
-  //           message: error.message,
-  //         },
-  //         HttpStatus.NOT_FOUND,
-  //       );
-  //     } else {
-  //       // Handle unexpected errors
-  //       throw new HttpException(
-  //         {
-  //           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-  //           message: 'Internal server error',
-  //         },
-  //         HttpStatus.INTERNAL_SERVER_ERROR,
-  //       );
-  //     }
-  //   }
-  // }
+      // Handle specific known errors
+      if (error instanceof NotFoundException) {
+        throw new HttpException(
+          {
+            statusCode: HttpStatus.NOT_FOUND,
+            message: error.message,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      } else {
+        // Handle unexpected errors
+        throw new HttpException(
+          {
+            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: 'Internal server error',
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    }
+  }
 
   @Put(':processId/activities/:activityId')
   async updateActivity(

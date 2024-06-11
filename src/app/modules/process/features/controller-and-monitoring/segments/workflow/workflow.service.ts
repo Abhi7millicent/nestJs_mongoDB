@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { findPath } from 'src/app/modules/process/utils/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
 import { generateId } from 'src/shared/helper/generate-id.helper';
@@ -11,7 +11,7 @@ import {
 
 @Injectable()
 export class WorkflowsService {
-  constructor(private readonly processRepository: ProcessRepository) { }
+  constructor(private readonly processRepository: ProcessRepository) {}
 
   async updateWorkflow(
     processId: string,
@@ -40,26 +40,81 @@ export class WorkflowsService {
     }
   }
 
+  // async addWorkflows(
+  //   processId: string,
+  //   workflowsDto: WorkflowsDto,
+  // ): Promise<any> {
+  //   try {
+  //     workflowsDto._id = generateId(workflow);
+
+  //     const auditData = {
+  //       last_modified_by: workflowsDto.last_modified_by,
+  //       last_modified_on: new Date(),
+  //     };
+
+  //     delete workflowsDto.last_modified_by;
+  //     const data = await this.processRepository.createByKey(
+  //       processId,
+  //       findPath(PROCESS, controlAndMonitoring['workflows']),
+  //       workflowsDto,
+  //     );
+  //     console.log('data:', data);
+  //     if (data._id === workflowsDto._id) {
+  //       const updateResponseDto = await this.processRepository.update(
+  //         { _id: processId },
+  //         auditData,
+  //       );
+  //       console.log('updateMetaData:', updateResponseDto);
+  //     }
+
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Error in addWorkflows:', error);
+  //     throw new Error(`Failed to add workflows: ${error.message}`);
+  //   }
+  // }
+
   async addWorkflows(
     processId: string,
-    workflowsDto: WorkflowsDto,
+    workflowsDto: WorkflowsDto[],
   ): Promise<any> {
+    const auditData = {
+      last_modified_by: workflowsDto[0].last_modified_by,
+      last_modified_on: new Date(),
+    };
+
+    const workflowToCreate = workflowsDto.filter((dataDto) => !dataDto._id);
+    const workflowToUpdate = workflowsDto.filter((dataDto) => dataDto._id);
+
+    workflowToCreate.forEach((dataDto) => {
+      dataDto._id = generateId(workflow);
+      delete dataDto.last_modified_by;
+    });
+
     try {
-      workflowsDto._id = generateId(workflow);
-
-      const auditData = {
-        last_modified_by: workflowsDto.last_modified_by,
-        last_modified_on: new Date(),
-      };
-
-      delete workflowsDto.last_modified_by;
-      const data = await this.processRepository.createByKey(
-        processId,
-        findPath(PROCESS, controlAndMonitoring['workflows']),
-        workflowsDto,
+      const createPromises = workflowToCreate.map((dataDto) =>
+        this.processRepository.createByKey(
+          processId,
+          findPath(PROCESS, controlAndMonitoring['workflows']),
+          dataDto,
+        ),
       );
-      console.log('data:', data);
-      if (data._id === workflowsDto._id) {
+
+      const updatePromises = workflowToUpdate.map((dataDto) =>
+        this.updateWorkflow(processId, dataDto._id, dataDto),
+      );
+
+      const createResults = await Promise.all(createPromises);
+      const updateResults = await Promise.all(updatePromises);
+
+      const allInsertionsSuccessful = createResults.every(
+        (data, index) => data._id === workflowToCreate[index]._id,
+      );
+
+      if (
+        allInsertionsSuccessful ||
+        updateResults.every((result) => result.acknowledged)
+      ) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -67,10 +122,18 @@ export class WorkflowsService {
         console.log('updateMetaData:', updateResponseDto);
       }
 
-      return data;
+      return {
+        created: createResults,
+        updated: updateResults,
+      };
     } catch (error) {
-      console.error('Error in addWorkflows:', error);
-      throw new Error(`Failed to add workflows: ${error.message}`);
+      if (error instanceof NotFoundException) {
+        console.error('Not Found Exception:', error.message);
+        throw error;
+      } else {
+        console.error('Unexpected Error:', error.message);
+        throw error;
+      }
     }
   }
 

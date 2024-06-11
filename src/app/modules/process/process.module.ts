@@ -12,6 +12,8 @@ import { ProcessController } from './process.controller';
 import { ProcessService } from './process.service';
 import { ProcessRepository } from './process.repository';
 import { IntegrationScenarioModule } from './features/integration-scenarios/integration-scenarios.module';
+import { DataManagementModule } from './features/data-management/data-management.module';
+import { AutomationScenarioModule } from './features/automation-scenarios/automation-scenarios.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { IntegrationScenarioModule } from './features/integration-scenarios/inte
     ComplianceScenariosModule,
     ProcessControlsModule,
     IntegrationScenarioModule,
+    DataManagementModule,
+    AutomationScenarioModule,
   ],
   controllers: [ProcessController],
   providers: [ProcessService, ProcessRepository],

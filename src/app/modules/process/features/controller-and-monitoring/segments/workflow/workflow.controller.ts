@@ -17,7 +17,7 @@ export class WorkflowsController {
   @Post('work-flows/:id')
   async addWorkflows(
     @Param('id') id: string,
-    @Body() workflowsDto: WorkflowsDto,
+    @Body() workflowsDto: WorkflowsDto[],
   ) {
     return this.workflowsService.addWorkflows(id, workflowsDto);
   }

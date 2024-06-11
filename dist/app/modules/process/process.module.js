@@ -21,6 +21,8 @@ const process_controller_1 = require("./process.controller");
 const process_service_1 = require("./process.service");
 const process_repository_1 = require("./process.repository");
 const integration_scenarios_module_1 = require("./features/integration-scenarios/integration-scenarios.module");
+const data_management_module_1 = require("./features/data-management/data-management.module");
+const automation_scenarios_module_1 = require("./features/automation-scenarios/automation-scenarios.module");
 let ProcessModule = class ProcessModule {
 };
 exports.ProcessModule = ProcessModule;
@@ -36,6 +38,8 @@ exports.ProcessModule = ProcessModule = __decorate([
             compliance_scenarios_module_1.ComplianceScenariosModule,
             process_controls_module_1.ProcessControlsModule,
             integration_scenarios_module_1.IntegrationScenarioModule,
+            data_management_module_1.DataManagementModule,
+            automation_scenarios_module_1.AutomationScenarioModule,
         ],
         controllers: [process_controller_1.ProcessController],
         providers: [process_service_1.ProcessService, process_repository_1.ProcessRepository],

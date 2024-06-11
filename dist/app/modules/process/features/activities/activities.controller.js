@@ -19,6 +19,31 @@ let ActivitiesController = class ActivitiesController {
     constructor(activitiesService) {
         this.activitiesService = activitiesService;
     }
+    async addActivity(id, activityDto) {
+        try {
+            const data = await this.activitiesService.addActivities(id, activityDto);
+            return {
+                statusCode: common_1.HttpStatus.CREATED,
+                message: 'Activity created successfully',
+                data: data,
+            };
+        }
+        catch (error) {
+            console.error('Error in addActivity controller method:', error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.HttpException({
+                    statusCode: common_1.HttpStatus.NOT_FOUND,
+                    message: error.message,
+                }, common_1.HttpStatus.NOT_FOUND);
+            }
+            else {
+                throw new common_1.HttpException({
+                    statusCode: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
+                    message: 'Internal server error',
+                }, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+    }
     async updateActivity(processId, activityId, activityData) {
         return this.activitiesService.updateActivity(processId, activityId, activityData);
     }
@@ -30,6 +55,15 @@ let ActivitiesController = class ActivitiesController {
     }
 };
 exports.ActivitiesController = ActivitiesController;
+__decorate([
+    (0, common_1.Post)('activities/:id'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:returntype", Promise)
+], ActivitiesController.prototype, "addActivity", null);
 __decorate([
     (0, common_1.Put)(':processId/activities/:activityId'),
     __param(0, (0, common_1.Param)('processId')),

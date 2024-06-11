@@ -12,19 +12,19 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.IntegrationScenarioController = void 0;
+exports.DataManagementInfoController = void 0;
 const common_1 = require("@nestjs/common");
-const data_management_info_service_1 = require("./data_management_info.service");
 const data_management_info_dto_1 = require("./dto/data_management_info.dto");
-let IntegrationScenarioController = class IntegrationScenarioController {
-    constructor(dataManagementService) {
-        this.dataManagementService = dataManagementService;
+const data_management_info_service_1 = require("./data_management_info.service");
+let DataManagementInfoController = class DataManagementInfoController {
+    constructor(dataManagementInfoService) {
+        this.dataManagementInfoService = dataManagementInfoService;
     }
     async updateIntegrationScenario(processId, dataManagementId, dataManagementDto) {
-        return this.dataManagementService.update(processId, dataManagementId, dataManagementDto);
+        return this.dataManagementInfoService.update(processId, dataManagementId, dataManagementDto);
     }
 };
-exports.IntegrationScenarioController = IntegrationScenarioController;
+exports.DataManagementInfoController = DataManagementInfoController;
 __decorate([
     (0, common_1.Put)(':processId/integration-scenario/:dataManagementId'),
     __param(0, (0, common_1.Param)('processId')),
@@ -33,9 +33,9 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, data_management_info_dto_1.DataManagementDto]),
     __metadata("design:returntype", Promise)
-], IntegrationScenarioController.prototype, "updateIntegrationScenario", null);
-exports.IntegrationScenarioController = IntegrationScenarioController = __decorate([
+], DataManagementInfoController.prototype, "updateIntegrationScenario", null);
+exports.DataManagementInfoController = DataManagementInfoController = __decorate([
     (0, common_1.Controller)('api/process'),
-    __metadata("design:paramtypes", [data_management_info_service_1.DataManagementService])
-], IntegrationScenarioController);
+    __metadata("design:paramtypes", [data_management_info_service_1.DataManagementInfoService])
+], DataManagementInfoController);
 //# sourceMappingURL=data_management_info.controller.js.map

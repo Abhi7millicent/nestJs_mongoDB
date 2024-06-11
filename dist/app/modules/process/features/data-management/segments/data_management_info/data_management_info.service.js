@@ -9,12 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DataManagementService = void 0;
+exports.DataManagementInfoService = void 0;
 const common_1 = require("@nestjs/common");
 const process_repository_1 = require("../../../../process.repository");
 const process_utils_1 = require("../../../../utils/process.utils");
 const process_constants_1 = require("../../../../constant/process.constants");
-let DataManagementService = class DataManagementService {
+let DataManagementInfoService = class DataManagementInfoService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
@@ -34,9 +34,9 @@ let DataManagementService = class DataManagementService {
         }
     }
 };
-exports.DataManagementService = DataManagementService;
-exports.DataManagementService = DataManagementService = __decorate([
+exports.DataManagementInfoService = DataManagementInfoService;
+exports.DataManagementInfoService = DataManagementInfoService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [process_repository_1.ProcessRepository])
-], DataManagementService);
+], DataManagementInfoService);
 //# sourceMappingURL=data_management_info.service.js.map

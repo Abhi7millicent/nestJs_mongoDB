@@ -8,12 +8,14 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { DataManagementService } from './data_management_info.service';
 import { DataManagementDto } from './dto/data_management_info.dto';
+import { DataManagementInfoService } from './data_management_info.service';
 
 @Controller('api/process')
-export class IntegrationScenarioController {
-  constructor(private readonly dataManagementService: DataManagementService) {}
+export class DataManagementInfoController {
+  constructor(
+    private readonly dataManagementInfoService: DataManagementInfoService,
+  ) {}
 
   @Put(':processId/integration-scenario/:dataManagementId')
   async updateIntegrationScenario(
@@ -21,7 +23,7 @@ export class IntegrationScenarioController {
     @Param('dataManagementId') dataManagementId: string,
     @Body() dataManagementDto: DataManagementDto,
   ): Promise<any> {
-    return this.dataManagementService.update(
+    return this.dataManagementInfoService.update(
       processId,
       dataManagementId,
       dataManagementDto,

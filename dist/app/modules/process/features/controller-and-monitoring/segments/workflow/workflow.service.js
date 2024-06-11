@@ -36,24 +36,41 @@ let WorkflowsService = class WorkflowsService {
         }
     }
     async addWorkflows(processId, workflowsDto) {
+        const auditData = {
+            last_modified_by: workflowsDto[0].last_modified_by,
+            last_modified_on: new Date(),
+        };
+        const workflowToCreate = workflowsDto.filter((dataDto) => !dataDto._id);
+        const workflowToUpdate = workflowsDto.filter((dataDto) => dataDto._id);
+        workflowToCreate.forEach((dataDto) => {
+            dataDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.workflow);
+            delete dataDto.last_modified_by;
+        });
         try {
-            workflowsDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.workflow);
-            const auditData = {
-                last_modified_by: workflowsDto.last_modified_by,
-                last_modified_on: new Date(),
-            };
-            delete workflowsDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['workflows']), workflowsDto);
-            console.log('data:', data);
-            if (data._id === workflowsDto._id) {
+            const createPromises = workflowToCreate.map((dataDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['workflows']), dataDto));
+            const updatePromises = workflowToUpdate.map((dataDto) => this.updateWorkflow(processId, dataDto._id, dataDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === workflowToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
-            return data;
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
         }
         catch (error) {
-            console.error('Error in addWorkflows:', error);
-            throw new Error(`Failed to add workflows: ${error.message}`);
+            if (error instanceof common_1.NotFoundException) {
+                console.error('Not Found Exception:', error.message);
+                throw error;
+            }
+            else {
+                console.error('Unexpected Error:', error.message);
+                throw error;
+            }
         }
     }
     async updateWorkflowsIsDeleted(processId, workflowId) {

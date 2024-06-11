@@ -5,7 +5,7 @@ import { findPath } from 'src/app/modules/process/utils/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
 
 @Injectable()
-export class DataManagementService {
+export class DataManagementInfoService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
   async update(

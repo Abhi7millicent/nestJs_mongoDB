@@ -508,7 +508,7 @@ class ProcessControl {
   is_deleted!: boolean;
 }
 
-@Schema({ collection: 'process_basic_data2' })
+@Schema({ collection: 'process_basic_data3' })
 export class Process extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   _id: MongooseSchema.Types.ObjectId;

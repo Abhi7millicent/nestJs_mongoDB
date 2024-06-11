@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnalyticalDashboardsController = void 0;
 const common_1 = require("@nestjs/common");
 const analytical_dashboards_service_1 = require("./analytical-dashboards.service");
-const analytical_dashboards_dto_1 = require("./dto/analytical-dashboards.dto");
 let AnalyticalDashboardsController = class AnalyticalDashboardsController {
     constructor(analyticalDashboardsService) {
         this.analyticalDashboardsService = analyticalDashboardsService;
@@ -39,7 +38,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, analytical_dashboards_dto_1.AnalyticalDashboardsDto]),
+    __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], AnalyticalDashboardsController.prototype, "addAnalyticalDashboards", null);
 __decorate([

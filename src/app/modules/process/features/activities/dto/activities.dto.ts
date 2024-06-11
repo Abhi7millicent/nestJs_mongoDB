@@ -10,3 +10,8 @@ export class ActivityDto {
   last_modified_by: string;
   is_deleted: boolean;
 }
+
+export class CreateActivityDto {
+  public _id: string;
+  public ActivityDto: ActivityDto[] = [];
+}

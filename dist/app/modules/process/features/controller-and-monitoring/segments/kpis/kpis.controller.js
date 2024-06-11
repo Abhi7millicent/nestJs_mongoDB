@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.KPIsController = void 0;
 const common_1 = require("@nestjs/common");
 const kpis_service_1 = require("./kpis.service");
-const kpis_dto_1 = require("./dto/kpis.dto");
 let KPIsController = class KPIsController {
     constructor(kpisService) {
         this.kpisService = kpisService;
@@ -39,7 +38,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, kpis_dto_1.KPIsDto]),
+    __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], KPIsController.prototype, "addKPIs", null);
 __decorate([

@@ -11,7 +11,7 @@ export class AnalyticalDashboardsController {
   @Post('analytical-dashboards/:id')
   async addAnalyticalDashboards(
     @Param('id') id: string,
-    @Body() analyticalDashboardsDto: AnalyticalDashboardsDto,
+    @Body() analyticalDashboardsDto: AnalyticalDashboardsDto[],
   ) {
     return this.analyticalDashboardsService.addAnalyticalDashboards(
       id,

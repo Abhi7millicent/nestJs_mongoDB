@@ -36,24 +36,41 @@ let ReportsService = class ReportsService {
         }
     }
     async addReports(processId, reportsDto) {
+        const auditData = {
+            last_modified_by: reportsDto[0].last_modified_by,
+            last_modified_on: new Date(),
+        };
+        const reportsToCreate = reportsDto.filter((dataDto) => !dataDto._id);
+        const reportsToUpdate = reportsDto.filter((dataDto) => dataDto._id);
+        reportsToCreate.forEach((dataDto) => {
+            dataDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.reports);
+            delete dataDto.last_modified_by;
+        });
         try {
-            reportsDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.reports);
-            const auditData = {
-                last_modified_by: reportsDto.last_modified_by,
-                last_modified_on: new Date(),
-            };
-            delete reportsDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['reports']), reportsDto);
-            console.log('data:', data);
-            if (data._id === reportsDto._id) {
+            const createPromises = reportsToCreate.map((dataDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['reports']), dataDto));
+            const updatePromises = reportsToUpdate.map((dataDto) => this.updateReports(processId, dataDto._id, dataDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === reportsToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
-            return data;
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
         }
         catch (error) {
-            console.error('Error in addReport:', error);
-            throw new Error(`Failed to add Report: ${error.message}`);
+            if (error instanceof common_1.NotFoundException) {
+                console.error('Not Found Exception:', error.message);
+                throw error;
+            }
+            else {
+                console.error('Unexpected Error:', error.message);
+                throw error;
+            }
         }
     }
     async updateReportsIsDeleted(processId, reportId) {

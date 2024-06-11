@@ -10,3 +10,7 @@ export declare class ActivityDto {
     last_modified_by: string;
     is_deleted: boolean;
 }
+export declare class CreateActivityDto {
+    _id: string;
+    ActivityDto: ActivityDto[];
+}

@@ -17,10 +17,11 @@ export class IntegrationScenarioController {
     private readonly integrationScenarioService: IntegrationScenarioService,
   ) {}
 
-  @Put(':processId/integration-scenario/:integrationScenarioId')
+  @Put(':processId/integration-scenario')
   async updateIntegrationScenario(
     @Param('processId') processId: string,
-    @Param('integrationScenarioId') integrationScenarioId: string,
+    // @Param('integrationScenarioId') integrationScenarioId: string,
+    integrationScenarioId: string,
     @Body() updateIntegrationScenarioDto: UpdateIntegrationScenarioDto,
   ): Promise<any> {
     return this.integrationScenarioService.update(

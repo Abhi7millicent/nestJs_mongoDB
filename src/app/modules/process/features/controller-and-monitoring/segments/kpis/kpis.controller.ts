@@ -15,7 +15,7 @@ export class KPIsController {
   constructor(private readonly kpisService: KPIsService) {}
 
   @Post('kpis/:id')
-  async addKPIs(@Param('id') id: string, @Body() kpisDto: KPIsDto) {
+  async addKPIs(@Param('id') id: string, @Body() kpisDto: KPIsDto[]) {
     return this.kpisService.addKPIs(id, kpisDto);
   }
 

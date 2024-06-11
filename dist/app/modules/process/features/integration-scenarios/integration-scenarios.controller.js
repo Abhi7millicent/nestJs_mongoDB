@@ -26,9 +26,8 @@ let IntegrationScenarioController = class IntegrationScenarioController {
 };
 exports.IntegrationScenarioController = IntegrationScenarioController;
 __decorate([
-    (0, common_1.Put)(':processId/integration-scenario/:integrationScenarioId'),
+    (0, common_1.Put)(':processId/integration-scenario'),
     __param(0, (0, common_1.Param)('processId')),
-    __param(1, (0, common_1.Param)('integrationScenarioId')),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, integration_scenarios_dto_1.UpdateIntegrationScenarioDto]),

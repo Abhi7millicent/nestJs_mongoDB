@@ -36,24 +36,41 @@ let AnalyticalDashboardsService = class AnalyticalDashboardsService {
         }
     }
     async addAnalyticalDashboards(processId, analyticalDashboardsDto) {
+        const auditData = {
+            last_modified_by: analyticalDashboardsDto[0].last_modified_by,
+            last_modified_on: new Date(),
+        };
+        const analyticalDashboardsToCreate = analyticalDashboardsDto.filter((dataDto) => !dataDto._id);
+        const analyticalDashboardsToUpdate = analyticalDashboardsDto.filter((dataDto) => dataDto._id);
+        analyticalDashboardsToCreate.forEach((dataDto) => {
+            dataDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.analytical_dashboards);
+            delete dataDto.last_modified_by;
+        });
         try {
-            analyticalDashboardsDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.analytical_dashboards);
-            const auditData = {
-                last_modified_by: analyticalDashboardsDto.last_modified_by,
-                last_modified_on: new Date(),
-            };
-            delete analyticalDashboardsDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['analytical_dashboards']), analyticalDashboardsDto);
-            console.log('data:', data);
-            if (data._id === analyticalDashboardsDto._id) {
+            const createPromises = analyticalDashboardsToCreate.map((dataDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['analytical_dashboards']), dataDto));
+            const updatePromises = analyticalDashboardsToUpdate.map((dataDto) => this.updateAnalyticalDashboards(processId, dataDto._id, dataDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === analyticalDashboardsToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
-            return data;
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
         }
         catch (error) {
-            console.error('Error in addAnalyticalDashboards:', error);
-            throw new Error(`Failed to add AnalyticalDashboards: ${error.message}`);
+            if (error instanceof common_1.NotFoundException) {
+                console.error('Not Found Exception:', error.message);
+                throw error;
+            }
+            else {
+                console.error('Unexpected Error:', error.message);
+                throw error;
+            }
         }
     }
     async updateAnalyticalDashboardsIsDeleted(processId, AnalyticalDashboardsId) {

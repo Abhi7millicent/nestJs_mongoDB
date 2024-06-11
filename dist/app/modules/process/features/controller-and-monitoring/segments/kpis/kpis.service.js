@@ -36,24 +36,41 @@ let KPIsService = class KPIsService {
         }
     }
     async addKPIs(processId, kpisDto) {
+        const auditData = {
+            last_modified_by: kpisDto[0].last_modified_by,
+            last_modified_on: new Date(),
+        };
+        const kpisToCreate = kpisDto.filter((dataDto) => !dataDto._id);
+        const kpisToUpdate = kpisDto.filter((dataDto) => dataDto._id);
+        kpisToCreate.forEach((dataDto) => {
+            dataDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.kpis);
+            delete dataDto.last_modified_by;
+        });
         try {
-            kpisDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.kpis);
-            const auditData = {
-                last_modified_by: kpisDto.last_modified_by,
-                last_modified_on: new Date(),
-            };
-            delete kpisDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['kpis']), kpisDto);
-            console.log('data:', data);
-            if (data._id === kpisDto._id) {
+            const createPromises = kpisToCreate.map((dataDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['kpis']), dataDto));
+            const updatePromises = kpisToUpdate.map((dataDto) => this.updateKPIs(processId, dataDto._id, dataDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === kpisToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
-            return data;
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
         }
         catch (error) {
-            console.error('Error in addkpis:', error);
-            throw new Error(`Failed to add kpis: ${error.message}`);
+            if (error instanceof common_1.NotFoundException) {
+                console.error('Not Found Exception:', error.message);
+                throw error;
+            }
+            else {
+                console.error('Unexpected Error:', error.message);
+                throw error;
+            }
         }
     }
     async updateKPIsIsDeleted(processId, kpisId) {

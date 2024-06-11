@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { findPath } from 'src/app/modules/process/utils/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
 import { generateId } from 'src/shared/helper/generate-id.helper';
@@ -40,26 +40,85 @@ export class AnalyticalDashboardsService {
     }
   }
 
+  // async addAnalyticalDashboards(
+  //   processId: string,
+  //   analyticalDashboardsDto: AnalyticalDashboardsDto,
+  // ): Promise<any> {
+  //   try {
+  //     analyticalDashboardsDto._id = generateId(analytical_dashboards);
+
+  //     const auditData = {
+  //       last_modified_by: analyticalDashboardsDto.last_modified_by,
+  //       last_modified_on: new Date(),
+  //     };
+
+  //     delete analyticalDashboardsDto.last_modified_by;
+  //     const data = await this.processRepository.createByKey(
+  //       processId,
+  //       findPath(PROCESS, controlAndMonitoring['analytical_dashboards']),
+  //       analyticalDashboardsDto,
+  //     );
+  //     console.log('data:', data);
+  //     if (data._id === analyticalDashboardsDto._id) {
+  //       const updateResponseDto = await this.processRepository.update(
+  //         { _id: processId },
+  //         auditData,
+  //       );
+  //       console.log('updateMetaData:', updateResponseDto);
+  //     }
+
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Error in addAnalyticalDashboards:', error);
+  //     throw new Error(`Failed to add AnalyticalDashboards: ${error.message}`);
+  //   }
+  // }
+
   async addAnalyticalDashboards(
     processId: string,
-    analyticalDashboardsDto: AnalyticalDashboardsDto,
+    analyticalDashboardsDto: AnalyticalDashboardsDto[],
   ): Promise<any> {
+    const auditData = {
+      last_modified_by: analyticalDashboardsDto[0].last_modified_by,
+      last_modified_on: new Date(),
+    };
+
+    const analyticalDashboardsToCreate = analyticalDashboardsDto.filter(
+      (dataDto) => !dataDto._id,
+    );
+    const analyticalDashboardsToUpdate = analyticalDashboardsDto.filter(
+      (dataDto) => dataDto._id,
+    );
+
+    analyticalDashboardsToCreate.forEach((dataDto) => {
+      dataDto._id = generateId(analytical_dashboards);
+      delete dataDto.last_modified_by;
+    });
+
     try {
-      analyticalDashboardsDto._id = generateId(analytical_dashboards);
-
-      const auditData = {
-        last_modified_by: analyticalDashboardsDto.last_modified_by,
-        last_modified_on: new Date(),
-      };
-
-      delete analyticalDashboardsDto.last_modified_by;
-      const data = await this.processRepository.createByKey(
-        processId,
-        findPath(PROCESS, controlAndMonitoring['analytical_dashboards']),
-        analyticalDashboardsDto,
+      const createPromises = analyticalDashboardsToCreate.map((dataDto) =>
+        this.processRepository.createByKey(
+          processId,
+          findPath(PROCESS, controlAndMonitoring['analytical_dashboards']),
+          dataDto,
+        ),
       );
-      console.log('data:', data);
-      if (data._id === analyticalDashboardsDto._id) {
+
+      const updatePromises = analyticalDashboardsToUpdate.map((dataDto) =>
+        this.updateAnalyticalDashboards(processId, dataDto._id, dataDto),
+      );
+
+      const createResults = await Promise.all(createPromises);
+      const updateResults = await Promise.all(updatePromises);
+
+      const allInsertionsSuccessful = createResults.every(
+        (data, index) => data._id === analyticalDashboardsToCreate[index]._id,
+      );
+
+      if (
+        allInsertionsSuccessful ||
+        updateResults.every((result) => result.acknowledged)
+      ) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -67,10 +126,18 @@ export class AnalyticalDashboardsService {
         console.log('updateMetaData:', updateResponseDto);
       }
 
-      return data;
+      return {
+        created: createResults,
+        updated: updateResults,
+      };
     } catch (error) {
-      console.error('Error in addAnalyticalDashboards:', error);
-      throw new Error(`Failed to add AnalyticalDashboards: ${error.message}`);
+      if (error instanceof NotFoundException) {
+        console.error('Not Found Exception:', error.message);
+        throw error;
+      } else {
+        console.error('Unexpected Error:', error.message);
+        throw error;
+      }
     }
   }
 

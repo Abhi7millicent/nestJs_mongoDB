@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkflowsController = void 0;
 const common_1 = require("@nestjs/common");
 const reports_service_1 = require("./reports.service");
-const reports_dto_1 = require("./dto/reports.dto");
 let WorkflowsController = class WorkflowsController {
     constructor(reportsService) {
         this.reportsService = reportsService;
@@ -39,7 +38,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, reports_dto_1.ReportsDto]),
+    __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], WorkflowsController.prototype, "addReports", null);
 __decorate([

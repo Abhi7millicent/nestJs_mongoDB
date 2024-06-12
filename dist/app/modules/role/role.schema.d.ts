@@ -29,6 +29,7 @@ export declare class Role extends Document {
     name: string;
     createdAt: Date;
     createdBy: string;
+    is_deleted: boolean;
 }
 export declare const RoleSchema: MongooseSchema<Role, import("mongoose").Model<Role, any, any, any, Document<unknown, any, Role> & Role & Required<{
     _id: MongooseSchema.Types.ObjectId;

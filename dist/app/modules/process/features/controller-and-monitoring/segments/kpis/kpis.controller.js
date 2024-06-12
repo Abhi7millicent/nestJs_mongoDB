@@ -15,12 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.KPIsController = void 0;
 const common_1 = require("@nestjs/common");
 const kpis_service_1 = require("./kpis.service");
+const kpis_dto_1 = require("./dto/kpis.dto");
 let KPIsController = class KPIsController {
     constructor(kpisService) {
         this.kpisService = kpisService;
     }
-    async addKPIs(id, kpisDto) {
-        return this.kpisService.addKPIs(id, kpisDto);
+    async addKPIs(createkpisDto) {
+        return this.kpisService.Upsert(createkpisDto);
     }
     async updateKPIs(processId, kpisId, kpisDto) {
         return this.kpisService.updateKPIs(processId, kpisId, kpisDto);
@@ -34,11 +35,10 @@ let KPIsController = class KPIsController {
 };
 exports.KPIsController = KPIsController;
 __decorate([
-    (0, common_1.Post)('kpis/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('kpis'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [kpis_dto_1.UpsertKPIsDto]),
     __metadata("design:returntype", Promise)
 ], KPIsController.prototype, "addKPIs", null);
 __decorate([

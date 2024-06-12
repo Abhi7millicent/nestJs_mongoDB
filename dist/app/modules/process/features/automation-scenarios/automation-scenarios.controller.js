@@ -15,13 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AutomationScenarioController = void 0;
 const common_1 = require("@nestjs/common");
 const automation_scenarios_service_1 = require("./automation-scenarios.service");
+const automation_scenarios_dto_1 = require("./dto/automation-scenarios.dto");
 let AutomationScenarioController = class AutomationScenarioController {
     constructor(automationScenarioService) {
         this.automationScenarioService = automationScenarioService;
     }
-    async addAutomationScenario(id, automationScenarioDto) {
+    async addAutomationScenario(createAutomationScenarioDto) {
         try {
-            const data = await this.automationScenarioService.addAutomationScenario(id, automationScenarioDto);
+            const data = await this.automationScenarioService.upsertAutomationScenario(createAutomationScenarioDto);
             return {
                 statusCode: common_1.HttpStatus.CREATED,
                 message: 'AutomationScenario created successfully',
@@ -54,10 +55,9 @@ exports.AutomationScenarioController = AutomationScenarioController;
 __decorate([
     (0, common_1.Post)('automation-scenario/:id'),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [automation_scenarios_dto_1.UpsertAutomationScenarioDto]),
     __metadata("design:returntype", Promise)
 ], AutomationScenarioController.prototype, "addAutomationScenario", null);
 __decorate([
@@ -77,7 +77,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AutomationScenarioController.prototype, "updateAutomationScenarioIsSoftDeleted", null);
 exports.AutomationScenarioController = AutomationScenarioController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [automation_scenarios_service_1.AutomationScenarioService])
 ], AutomationScenarioController);
 //# sourceMappingURL=automation-scenarios.controller.js.map

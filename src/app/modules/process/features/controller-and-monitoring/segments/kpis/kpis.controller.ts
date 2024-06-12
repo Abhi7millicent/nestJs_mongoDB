@@ -8,15 +8,15 @@ import {
   Body,
 } from '@nestjs/common';
 import { KPIsService } from './kpis.service';
-import { KPIsDto } from './dto/kpis.dto';
+import { KPIsDto, UpsertKPIsDto } from './dto/kpis.dto';
 
 @Controller('api/process')
 export class KPIsController {
   constructor(private readonly kpisService: KPIsService) {}
 
-  @Post('kpis/:id')
-  async addKPIs(@Param('id') id: string, @Body() kpisDto: KPIsDto[]) {
-    return this.kpisService.addKPIs(id, kpisDto);
+  @Post('kpis')
+  async addKPIs(@Body() createkpisDto: UpsertKPIsDto) {
+    return this.kpisService.Upsert(createkpisDto);
   }
 
   @Put(':processId/kpis/:kpisId')

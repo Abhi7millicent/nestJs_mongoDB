@@ -31,8 +31,12 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Role.prototype, "createdBy", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: false }),
+    __metadata("design:type", Boolean)
+], Role.prototype, "is_deleted", void 0);
 exports.Role = Role = __decorate([
-    (0, mongoose_1.Schema)()
+    (0, mongoose_1.Schema)({ collection: 'role_master' })
 ], Role);
 exports.RoleSchema = mongoose_1.SchemaFactory.createForClass(Role);
 //# sourceMappingURL=role.schema.js.map

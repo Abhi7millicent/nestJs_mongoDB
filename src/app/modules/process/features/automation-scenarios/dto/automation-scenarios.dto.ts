@@ -39,3 +39,8 @@ export class AutomationScenarioDto {
   @IsBoolean()
   is_deleted: boolean = false;
 }
+
+export class UpsertAutomationScenarioDto {
+  public _id: string;
+  public automation_scenario: AutomationScenarioDto[] = [];
+}

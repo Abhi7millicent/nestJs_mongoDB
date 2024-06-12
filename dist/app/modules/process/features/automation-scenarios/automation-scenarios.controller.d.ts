@@ -1,10 +1,10 @@
 import { HttpStatus } from '@nestjs/common';
 import { AutomationScenarioService } from './automation-scenarios.service';
-import { AutomationScenarioDto } from './dto/automation-scenarios.dto';
+import { UpsertAutomationScenarioDto } from './dto/automation-scenarios.dto';
 export declare class AutomationScenarioController {
     private readonly automationScenarioService;
     constructor(automationScenarioService: AutomationScenarioService);
-    addAutomationScenario(id: string, automationScenarioDto: AutomationScenarioDto[]): Promise<{
+    addAutomationScenario(createAutomationScenarioDto: UpsertAutomationScenarioDto): Promise<{
         statusCode: HttpStatus;
         message: string;
         data: any;

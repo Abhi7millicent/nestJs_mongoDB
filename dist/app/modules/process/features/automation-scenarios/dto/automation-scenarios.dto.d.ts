@@ -10,3 +10,7 @@ export declare class AutomationScenarioDto {
     integration_scenario_id: string[];
     is_deleted: boolean;
 }
+export declare class UpsertAutomationScenarioDto {
+    _id: string;
+    automation_scenario: AutomationScenarioDto[];
+}

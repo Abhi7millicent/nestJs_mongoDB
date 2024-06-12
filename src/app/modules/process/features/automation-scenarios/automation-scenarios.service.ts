@@ -2,7 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { findPath, generateId } from '../../utils/process.utils';
 import { PROCESS } from '../../constant/process.constants';
 import { ProcessRepository } from '../../process.repository';
-import { AutomationScenarioDto } from './dto/automation-scenarios.dto';
+import {
+  AutomationScenarioDto,
+  UpsertAutomationScenarioDto,
+} from './dto/automation-scenarios.dto';
 
 @Injectable()
 export class AutomationScenarioService {
@@ -57,10 +60,12 @@ export class AutomationScenarioService {
     );
   }
 
-  async addAutomationScenario(
-    processId: string,
-    automationScenarioDto: AutomationScenarioDto[],
+  async upsertAutomationScenario(
+    upsertAutomationScenarioDto: UpsertAutomationScenarioDto,
   ): Promise<any> {
+    const processId = upsertAutomationScenarioDto._id;
+    const automationScenarioDto =
+      upsertAutomationScenarioDto.automation_scenario;
     const auditData = {
       last_modified_by: automationScenarioDto[0].last_modified_by,
       last_modified_on: new Date(),

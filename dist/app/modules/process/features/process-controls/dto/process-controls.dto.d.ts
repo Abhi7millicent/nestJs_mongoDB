@@ -7,3 +7,7 @@ export declare class ProcessControlsDto {
     is_deleted: boolean;
     last_modified_by: string;
 }
+export declare class UpsertProcessControlsDto {
+    _id: string;
+    process_controls: ProcessControlsDto[];
+}

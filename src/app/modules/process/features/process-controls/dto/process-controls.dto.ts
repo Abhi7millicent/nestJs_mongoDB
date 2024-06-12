@@ -7,3 +7,8 @@ export class ProcessControlsDto {
   is_deleted: boolean;
   last_modified_by: string;
 }
+
+export class UpsertProcessControlsDto {
+  public _id: string;
+  public process_controls: ProcessControlsDto[] = [];
+}

@@ -35,7 +35,9 @@ let KPIsService = class KPIsService {
             return data;
         }
     }
-    async addKPIs(processId, kpisDto) {
+    async Upsert(createkpisDto) {
+        const processId = createkpisDto._id;
+        const kpisDto = createkpisDto.kpis;
         const auditData = {
             last_modified_by: kpisDto[0].last_modified_by,
             last_modified_on: new Date(),

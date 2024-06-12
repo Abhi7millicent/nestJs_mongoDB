@@ -10,9 +10,12 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { AutomationScenarioService } from './automation-scenarios.service';
-import { AutomationScenarioDto } from './dto/automation-scenarios.dto';
+import {
+  AutomationScenarioDto,
+  UpsertAutomationScenarioDto,
+} from './dto/automation-scenarios.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class AutomationScenarioController {
   constructor(
     private readonly automationScenarioService: AutomationScenarioService,
@@ -21,14 +24,13 @@ export class AutomationScenarioController {
   @Post('automation-scenario/:id')
   @HttpCode(HttpStatus.CREATED) // Setting default success status code to 201 Created
   async addAutomationScenario(
-    @Param('id') id: string,
-    @Body() automationScenarioDto: AutomationScenarioDto[],
+    @Body() createAutomationScenarioDto: UpsertAutomationScenarioDto,
   ) {
     try {
-      const data = await this.automationScenarioService.addAutomationScenario(
-        id,
-        automationScenarioDto,
-      );
+      const data =
+        await this.automationScenarioService.upsertAutomationScenario(
+          createAutomationScenarioDto,
+        );
       return {
         statusCode: HttpStatus.CREATED,
         message: 'AutomationScenario created successfully',

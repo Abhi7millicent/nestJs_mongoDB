@@ -18,6 +18,7 @@ class GenericRepository {
     }
     async createByKey(id, keyPath, data) {
         try {
+            console.log('Id:', id);
             const value = await this.model.findById(id).exec();
             if (!value) {
                 throw new common_1.NotFoundException(error_message_1.ErrorMessage.ID_NOT_FOUND(id));

@@ -1,9 +1,9 @@
 import { ProcessControlsService } from './process-controls.service';
-import { ProcessControlsDto } from './dto/process-controls.dto';
+import { UpsertProcessControlsDto } from './dto/process-controls.dto';
 export declare class ProcessControlsController {
     private readonly processControlsService;
     constructor(processControlsService: ProcessControlsService);
-    create(id: string, processControlsDto: ProcessControlsDto): Promise<any>;
+    create(upsertProcessControlsDto: UpsertProcessControlsDto): Promise<any>;
     findAll(): string;
     findOne(id: string): string;
     updateQueriesResponse(processId: string, qrId: string, workflowData: any): Promise<any>;

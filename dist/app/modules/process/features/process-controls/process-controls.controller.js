@@ -20,8 +20,8 @@ let ProcessControlsController = class ProcessControlsController {
     constructor(processControlsService) {
         this.processControlsService = processControlsService;
     }
-    create(id, processControlsDto) {
-        return this.processControlsService.create(id, processControlsDto);
+    create(upsertProcessControlsDto) {
+        return this.processControlsService.Upsert(upsertProcessControlsDto);
     }
     findAll() {
         return this.processControlsService.findAll();
@@ -44,11 +44,10 @@ let ProcessControlsController = class ProcessControlsController {
 };
 exports.ProcessControlsController = ProcessControlsController;
 __decorate([
-    (0, common_1.Post)('process-controls/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('process-controls'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, process_controls_dto_1.ProcessControlsDto]),
+    __metadata("design:paramtypes", [process_controls_dto_1.UpsertProcessControlsDto]),
     __metadata("design:returntype", void 0)
 ], ProcessControlsController.prototype, "create", null);
 __decorate([

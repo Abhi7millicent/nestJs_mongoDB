@@ -39,7 +39,9 @@ let AutomationScenarioService = class AutomationScenarioService {
     async updateAutomationScenarioIsSoftDeleted(processId, automationScenarioId) {
         return this.processRepository.softDeleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'automation_scenarios'), automationScenarioId);
     }
-    async addAutomationScenario(processId, automationScenarioDto) {
+    async upsertAutomationScenario(upsertAutomationScenarioDto) {
+        const processId = upsertAutomationScenarioDto._id;
+        const automationScenarioDto = upsertAutomationScenarioDto.automation_scenario;
         const auditData = {
             last_modified_by: automationScenarioDto[0].last_modified_by,
             last_modified_on: new Date(),

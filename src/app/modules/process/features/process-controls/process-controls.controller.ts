@@ -9,20 +9,20 @@ import {
   Put,
 } from '@nestjs/common';
 import { ProcessControlsService } from './process-controls.service';
-import { ProcessControlsDto } from './dto/process-controls.dto';
+import {
+  ProcessControlsDto,
+  UpsertProcessControlsDto,
+} from './dto/process-controls.dto';
 
 @Controller('api/process/')
 export class ProcessControlsController {
   constructor(
     private readonly processControlsService: ProcessControlsService,
-  ) { }
+  ) {}
 
-  @Post('process-controls/:id')
-  create(
-    @Param('id') id: string,
-    @Body() processControlsDto: ProcessControlsDto,
-  ) {
-    return this.processControlsService.create(id, processControlsDto);
+  @Post('process-controls')
+  create(@Body() upsertProcessControlsDto: UpsertProcessControlsDto) {
+    return this.processControlsService.Upsert(upsertProcessControlsDto);
   }
 
   @Get()

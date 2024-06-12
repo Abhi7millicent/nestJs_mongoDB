@@ -19,6 +19,46 @@ let ProcessControlsService = class ProcessControlsService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async Upsert(createProcessControlsDto) {
+        const processId = createProcessControlsDto._id;
+        const processControlsDto = createProcessControlsDto.process_controls;
+        const auditData = {
+            last_modified_by: processControlsDto[0].last_modified_by,
+            last_modified_on: new Date(),
+        };
+        const processToCreate = processControlsDto.filter((activityDto) => !activityDto._id);
+        const processToUpdate = processControlsDto.filter((activityDto) => activityDto._id);
+        processToCreate.forEach((activityDto) => {
+            activityDto._id = (0, generate_id_helper_1.generateId)('activity_');
+            delete activityDto.last_modified_by;
+        });
+        try {
+            const createPromises = processToCreate.map((activityDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'activities'), activityDto));
+            const updatePromises = processToUpdate.map((activityDto) => this.update(processId, activityDto._id, activityDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === processToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
+                const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
+                console.log('updateMetaData:', updateResponseDto);
+            }
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                console.error('Not Found Exception:', error.message);
+                throw error;
+            }
+            else {
+                console.error('Unexpected Error:', error.message);
+                throw error;
+            }
+        }
+    }
     async create(processId, processControlsDto) {
         try {
             processControlsDto._id = (0, generate_id_helper_1.generateId)(process_constants_1.process_controls_id);

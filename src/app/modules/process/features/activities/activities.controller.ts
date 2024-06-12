@@ -12,7 +12,7 @@ import {
 import { ActivitiesService } from './activities.service';
 import { ActivityDto, UpsertActivityDto } from './dto/activities.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class ActivitiesController {
   constructor(private readonly activitiesService: ActivitiesService) {}
 

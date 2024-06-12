@@ -7,7 +7,7 @@ import {
   controlAndMonitoring,
   kpis,
 } from '../../constant/controller-and-monitoring.constant';
-import { KPIsDto } from './dto/kpis.dto';
+import { KPIsDto, UpsertKPIsDto } from './dto/kpis.dto';
 
 @Injectable()
 export class KPIsService {
@@ -71,7 +71,9 @@ export class KPIsService {
   //   }
   // }
 
-  async addKPIs(processId: string, kpisDto: KPIsDto[]): Promise<any> {
+  async Upsert(createkpisDto: UpsertKPIsDto): Promise<any> {
+    const processId = createkpisDto._id;
+    const kpisDto = createkpisDto.kpis;
     const auditData = {
       last_modified_by: kpisDto[0].last_modified_by,
       last_modified_on: new Date(),

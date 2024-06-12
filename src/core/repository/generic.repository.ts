@@ -44,6 +44,7 @@ export abstract class GenericRepository<T> {
    */
   async createByKey(id: string, keyPath: string[], data: any): Promise<any> {
     try {
+      console.log('Id:', id);
       const value = await this.model.findById(id).exec();
       if (!value) {
         throw new NotFoundException(ErrorMessage.ID_NOT_FOUND(id));

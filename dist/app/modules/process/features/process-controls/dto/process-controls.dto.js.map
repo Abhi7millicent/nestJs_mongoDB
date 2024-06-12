@@ -1,1 +1,1 @@
-{"version":3,"file":"process-controls.dto.js","sourceRoot":"","sources":["../../../../../../../src/app/modules/process/features/process-controls/dto/process-controls.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,kBAAkB;CAQ9B;AARD,gDAQC"}
+{"version":3,"file":"process-controls.dto.js","sourceRoot":"","sources":["../../../../../../../src/app/modules/process/features/process-controls/dto/process-controls.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,kBAAkB;CAQ9B;AARD,gDAQC;AAED,MAAa,wBAAwB;IAArC;QAES,qBAAgB,GAAyB,EAAE,CAAC;IACrD,CAAC;CAAA;AAHD,4DAGC"}

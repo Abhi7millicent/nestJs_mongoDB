@@ -1,5 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { ProcessControlsDto } from './dto/process-controls.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ProcessControlsDto,
+  UpsertProcessControlsDto,
+} from './dto/process-controls.dto';
 import {
   PROCESS,
   process_controls,
@@ -11,8 +14,75 @@ import { ProcessRepository } from '../../process.repository';
 
 @Injectable()
 export class ProcessControlsService {
-  constructor(private readonly processRepository: ProcessRepository) { }
+  constructor(private readonly processRepository: ProcessRepository) {}
 
+  async Upsert(
+    createProcessControlsDto: UpsertProcessControlsDto,
+  ): Promise<any> {
+    const processId = createProcessControlsDto._id;
+    const processControlsDto = createProcessControlsDto.process_controls;
+    const auditData = {
+      last_modified_by: processControlsDto[0].last_modified_by,
+      last_modified_on: new Date(),
+    };
+
+    const processToCreate = processControlsDto.filter(
+      (activityDto) => !activityDto._id,
+    );
+    const processToUpdate = processControlsDto.filter(
+      (activityDto) => activityDto._id,
+    );
+
+    processToCreate.forEach((activityDto) => {
+      activityDto._id = generateId('activity_');
+      delete activityDto.last_modified_by;
+    });
+
+    try {
+      const createPromises = processToCreate.map((activityDto) =>
+        this.processRepository.createByKey(
+          processId,
+          findPath(PROCESS, 'activities'),
+          activityDto,
+        ),
+      );
+
+      const updatePromises = processToUpdate.map((activityDto) =>
+        this.update(processId, activityDto._id, activityDto),
+      );
+
+      const createResults = await Promise.all(createPromises);
+      const updateResults = await Promise.all(updatePromises);
+
+      const allInsertionsSuccessful = createResults.every(
+        (data, index) => data._id === processToCreate[index]._id,
+      );
+
+      if (
+        allInsertionsSuccessful ||
+        updateResults.every((result) => result.acknowledged)
+      ) {
+        const updateResponseDto = await this.processRepository.update(
+          { _id: processId },
+          auditData,
+        );
+        console.log('updateMetaData:', updateResponseDto);
+      }
+
+      return {
+        created: createResults,
+        updated: updateResults,
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        console.error('Not Found Exception:', error.message);
+        throw error;
+      } else {
+        console.error('Unexpected Error:', error.message);
+        throw error;
+      }
+    }
+  }
 
   async create(processId: string, processControlsDto: ProcessControlsDto) {
     try {
@@ -52,7 +122,6 @@ export class ProcessControlsService {
     return `This action returns a #${id} queriesResponse`;
   }
 
-
   async update(
     processId: string,
     qrId: string,
@@ -80,7 +149,6 @@ export class ProcessControlsService {
     }
   }
 
-
   async updatequeriesresponseIsDeleted(
     processId: string,
     qrId: string,
@@ -91,7 +159,6 @@ export class ProcessControlsService {
       qrId,
     );
   }
-
 
   async updateQueriesResponsesIsSoftDeleted(
     processId: string,

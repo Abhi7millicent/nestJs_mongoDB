@@ -90,7 +90,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ActivitiesController.prototype, "updateActivityIsSoftDeleted", null);
 exports.ActivitiesController = ActivitiesController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [activities_service_1.ActivitiesService])
 ], ActivitiesController);
 //# sourceMappingURL=activities.controller.js.map

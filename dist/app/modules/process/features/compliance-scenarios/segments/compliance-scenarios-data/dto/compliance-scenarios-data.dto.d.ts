@@ -9,3 +9,7 @@ export declare class ComplianceScenarioDataDto {
     last_modified_by: string;
     is_deleted: boolean;
 }
+export declare class UpsertComplianceScenarioDataDto {
+    _id: string;
+    compliance_scenario: ComplianceScenarioDataDto[];
+}

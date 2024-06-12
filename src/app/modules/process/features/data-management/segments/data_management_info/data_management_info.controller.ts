@@ -11,7 +11,7 @@ import {
 import { DataManagementDto } from './dto/data_management_info.dto';
 import { DataManagementInfoService } from './data_management_info.service';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class DataManagementInfoController {
   constructor(
     private readonly dataManagementInfoService: DataManagementInfoService,

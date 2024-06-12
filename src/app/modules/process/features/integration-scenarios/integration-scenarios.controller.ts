@@ -11,7 +11,7 @@ import {
 import { IntegrationScenarioService } from './integration-scenarios.service';
 import { UpdateIntegrationScenarioDto } from './dto/integration-scenarios.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class IntegrationScenarioController {
   constructor(
     private readonly integrationScenarioService: IntegrationScenarioService,

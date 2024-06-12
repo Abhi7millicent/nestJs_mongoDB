@@ -20,8 +20,8 @@ let AuditTrailScenariosController = class AuditTrailScenariosController {
     constructor(auditTrailScenariosService) {
         this.auditTrailScenariosService = auditTrailScenariosService;
     }
-    async addWorkflows(id, auditTrailScenariosDto) {
-        return this.auditTrailScenariosService.addAuditTrailScenarios(id, auditTrailScenariosDto);
+    async upsertAuditTrailScenarios(createAuditTrailScenariosDto) {
+        return this.auditTrailScenariosService.upsertAuditTrailScenarios(createAuditTrailScenariosDto);
     }
     async updateWorkflow(processId, auditTrailScenariosId, auditTrailScenariosDto) {
         return this.auditTrailScenariosService.updateAuditTrailScenarios(processId, auditTrailScenariosId, auditTrailScenariosDto);
@@ -35,13 +35,12 @@ let AuditTrailScenariosController = class AuditTrailScenariosController {
 };
 exports.AuditTrailScenariosController = AuditTrailScenariosController;
 __decorate([
-    (0, common_1.Post)('audit-trail-scenarios/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('audit-trail-scenarios'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, audit_trail_dto_1.AuditTrailScenariosDto]),
+    __metadata("design:paramtypes", [audit_trail_dto_1.UpsertAuditTrailScenariosDto]),
     __metadata("design:returntype", Promise)
-], AuditTrailScenariosController.prototype, "addWorkflows", null);
+], AuditTrailScenariosController.prototype, "upsertAuditTrailScenarios", null);
 __decorate([
     (0, common_1.Put)(':processId/audit-trail-scenarios/:auditTrailScenariosId'),
     __param(0, (0, common_1.Param)('processId')),
@@ -68,7 +67,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuditTrailScenariosController.prototype, "updateWorkflowsIsSoftDeleted", null);
 exports.AuditTrailScenariosController = AuditTrailScenariosController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [audit_trail_service_1.AuditTrailScenariosService])
 ], AuditTrailScenariosController);
 //# sourceMappingURL=audit-trail.controller.js.map

@@ -1,5 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { ProcessDocumentDto } from './dto/process-document.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ProcessDocumentDto,
+  UpsertProcessDocumentDto,
+} from './dto/process-document.dto';
 import {
   PROCESS,
   process_document,
@@ -11,24 +14,84 @@ import { findPath } from '../../utils/process.utils';
 
 @Injectable()
 export class ProcessDocumentService {
-  constructor(private readonly processRepository: ProcessRepository) { }
+  constructor(private readonly processRepository: ProcessRepository) {}
 
-  async create(processId: string, processDocumentDto: ProcessDocumentDto) {
+  // async create(processId: string, processDocumentDto: ProcessDocumentDto) {
+  //   try {
+  //     processDocumentDto._id = generateId(process_document_id);
+
+  //     const auditData = {
+  //       last_modified_by: processDocumentDto.last_modified_by,
+  //       last_modified_on: new Date(),
+  //     };
+
+  //     delete processDocumentDto.last_modified_by;
+  //     const data = await this.processRepository.createByKey(
+  //       processId,
+  //       findPath(PROCESS, process_document),
+  //       processDocumentDto,
+  //     );
+  //     if (data._id === processDocumentDto._id) {
+  //       const updateResponseDto = await this.processRepository.update(
+  //         { _id: processId },
+  //         auditData,
+  //       );
+  //       console.log('updateMetaData:', updateResponseDto);
+  //     }
+
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Error in addWorkflows:', error);
+  //     throw new Error(`Failed to add workflows: ${error.message}`);
+  //   }
+  // }
+
+  async upsert(
+    createProcessDocumentDto: UpsertProcessDocumentDto,
+  ): Promise<any> {
+    const processId = createProcessDocumentDto._id;
+    const processDocumentDto = createProcessDocumentDto.process_document;
+    const auditData = {
+      last_modified_by: processDocumentDto[0].last_modified_by,
+      last_modified_on: new Date(),
+    };
+
+    const processToCreate = processDocumentDto.filter(
+      (activityDto) => !activityDto._id,
+    );
+    const processToUpdate = processDocumentDto.filter(
+      (activityDto) => activityDto._id,
+    );
+
+    processToCreate.forEach((activityDto) => {
+      activityDto._id = generateId(process_document_id);
+      delete activityDto.last_modified_by;
+    });
+
     try {
-      processDocumentDto._id = generateId(process_document_id);
-
-      const auditData = {
-        last_modified_by: processDocumentDto.last_modified_by,
-        last_modified_on: new Date(),
-      };
-
-      delete processDocumentDto.last_modified_by;
-      const data = await this.processRepository.createByKey(
-        processId,
-        findPath(PROCESS, process_document),
-        processDocumentDto,
+      const createPromises = processToCreate.map((activityDto) =>
+        this.processRepository.createByKey(
+          processId,
+          findPath(PROCESS, process_document),
+          activityDto,
+        ),
       );
-      if (data._id === processDocumentDto._id) {
+
+      const updatePromises = processToUpdate.map((activityDto) =>
+        this.updateProcessDocument(processId, activityDto._id, activityDto),
+      );
+
+      const createResults = await Promise.all(createPromises);
+      const updateResults = await Promise.all(updatePromises);
+
+      const allInsertionsSuccessful = createResults.every(
+        (data, index) => data._id === processToCreate[index]._id,
+      );
+
+      if (
+        allInsertionsSuccessful ||
+        updateResults.every((result) => result.acknowledged)
+      ) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -36,10 +99,18 @@ export class ProcessDocumentService {
         console.log('updateMetaData:', updateResponseDto);
       }
 
-      return data;
+      return {
+        created: createResults,
+        updated: updateResults,
+      };
     } catch (error) {
-      console.error('Error in addWorkflows:', error);
-      throw new Error(`Failed to add workflows: ${error.message}`);
+      if (error instanceof NotFoundException) {
+        console.error('Not Found Exception:', error.message);
+        throw error;
+      } else {
+        console.error('Unexpected Error:', error.message);
+        throw error;
+      }
     }
   }
 

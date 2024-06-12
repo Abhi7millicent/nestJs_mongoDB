@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], DataManagementInfoController.prototype, "updateIntegrationScenario", null);
 exports.DataManagementInfoController = DataManagementInfoController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [data_management_info_service_1.DataManagementInfoService])
 ], DataManagementInfoController);
 //# sourceMappingURL=data_management_info.controller.js.map

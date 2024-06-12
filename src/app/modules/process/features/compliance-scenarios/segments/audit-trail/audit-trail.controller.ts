@@ -8,22 +8,20 @@ import {
   Body,
 } from '@nestjs/common';
 import { AuditTrailScenariosService } from './audit-trail.service';
-import { AuditTrailScenariosDto } from './dto/audit-trail.dto';
+import { UpsertAuditTrailScenariosDto } from './dto/audit-trail.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class AuditTrailScenariosController {
   constructor(
     private readonly auditTrailScenariosService: AuditTrailScenariosService,
   ) {}
 
-  @Post('audit-trail-scenarios/:id')
-  async addWorkflows(
-    @Param('id') id: string,
-    @Body() auditTrailScenariosDto: AuditTrailScenariosDto,
+  @Post('audit-trail-scenarios')
+  async upsertAuditTrailScenarios(
+    @Body() createAuditTrailScenariosDto: UpsertAuditTrailScenariosDto,
   ) {
-    return this.auditTrailScenariosService.addAuditTrailScenarios(
-      id,
-      auditTrailScenariosDto,
+    return this.auditTrailScenariosService.upsertAuditTrailScenarios(
+      createAuditTrailScenariosDto,
     );
   }
 

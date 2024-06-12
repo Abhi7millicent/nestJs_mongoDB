@@ -10,7 +10,7 @@ import {
 import { BasicDataService } from './basic-data.service';
 import { Process } from '../../process.schema';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class BasicDataController {
   constructor(private readonly basicDataService: BasicDataService) {}
   @Post()

@@ -35,25 +35,44 @@ let ComplianceScenariosDataService = class ComplianceScenariosDataService {
             return data;
         }
     }
-    async addComplianceScenariosData(processId, complianceScenarioDataDto) {
+    async upsertComplianceScenariosData(createComplianceScenarioDataDto) {
+        const processId = createComplianceScenarioDataDto._id;
+        const complianceScenarioDataDto = createComplianceScenarioDataDto.compliance_scenario;
+        const auditData = {
+            last_modified_by: complianceScenarioDataDto[0].last_modified_by,
+            last_modified_on: new Date(),
+        };
+        const complianceScenariosToCreate = complianceScenarioDataDto.filter((dataDto) => !dataDto._id);
+        const complianceScenariosToUpdate = complianceScenarioDataDto.filter((dataDto) => dataDto._id);
+        complianceScenariosToCreate.forEach((automationDto) => {
+            automationDto._id = (0, generate_id_helper_1.generateId)(compliance_scenarios_constant_1.Compliance_Scenarios_id);
+            delete automationDto.last_modified_by;
+        });
         try {
-            complianceScenarioDataDto._id = (0, generate_id_helper_1.generateId)(compliance_scenarios_constant_1.Compliance_Scenarios_id);
-            const auditData = {
-                last_modified_by: complianceScenarioDataDto.last_modified_by,
-                last_modified_on: new Date(),
-            };
-            delete complianceScenarioDataDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['compliance_scenarios_data']), complianceScenarioDataDto);
-            console.log('data:', data);
-            if (data._id === complianceScenarioDataDto._id) {
+            const createPromises = complianceScenariosToCreate.map((automationDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['compliance_scenarios_data']), automationDto));
+            const updatePromises = complianceScenariosToUpdate.map((automationDto) => this.updateComplianceScenariosData(processId, automationDto._id, automationDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === complianceScenariosToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
-            return data;
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
         }
         catch (error) {
-            console.error('Error in add complianceScenarioData:', error);
-            throw new Error(`Failed to add complianceScenarioData: ${error.message}`);
+            if (error instanceof common_1.NotFoundException) {
+                console.error('Not Found Exception:', error.message);
+                throw error;
+            }
+            else {
+                console.error('Unexpected Error:', error.message);
+                throw error;
+            }
         }
     }
     async updateComplianceScenariosDataIsDeleted(processId, complianceScenarioDataId) {

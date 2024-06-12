@@ -102,19 +102,16 @@ class Kpi {
   complexity_level!: string[];
 
   @Prop({ type: [String], required: true })
-  type!: string[];
-
-  @Prop({ type: [String], required: true })
   role!: string[];
 
   @Prop({ type: [String], required: true })
   activity_id!: string[];
 
   @Prop({ type: [String], required: true })
-  automation_id!: string[];
+  value!: string[];
 
-  @Prop({ type: [String], required: true })
-  integration_scenario_id!: string[];
+  @Prop({ required: true })
+  bench_mark!: string;
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuditTrailScenariosDto = void 0;
+exports.UpsertAuditTrailScenariosDto = exports.AuditTrailScenariosDto = void 0;
 const class_validator_1 = require("class-validator");
 class AuditTrailScenariosDto {
 }
@@ -59,4 +59,10 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], AuditTrailScenariosDto.prototype, "last_modified_by", void 0);
+class UpsertAuditTrailScenariosDto {
+    constructor() {
+        this.audit_trail_scenarios = [];
+    }
+}
+exports.UpsertAuditTrailScenariosDto = UpsertAuditTrailScenariosDto;
 //# sourceMappingURL=audit-trail.dto.js.map

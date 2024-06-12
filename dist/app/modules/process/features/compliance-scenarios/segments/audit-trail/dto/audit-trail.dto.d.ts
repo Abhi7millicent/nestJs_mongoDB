@@ -10,3 +10,7 @@ export declare class AuditTrailScenariosDto {
     is_deleted: boolean;
     last_modified_by: string;
 }
+export declare class UpsertAuditTrailScenariosDto {
+    _id: string;
+    audit_trail_scenarios: AuditTrailScenariosDto[];
+}

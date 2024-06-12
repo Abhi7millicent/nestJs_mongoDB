@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], IntegrationScenarioController.prototype, "updateIntegrationScenario", null);
 exports.IntegrationScenarioController = IntegrationScenarioController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [integration_scenarios_service_1.IntegrationScenarioService])
 ], IntegrationScenarioController);
 //# sourceMappingURL=integration-scenarios.controller.js.map

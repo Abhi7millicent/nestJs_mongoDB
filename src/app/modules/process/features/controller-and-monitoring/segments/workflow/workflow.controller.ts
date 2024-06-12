@@ -10,7 +10,7 @@ import {
 import { WorkflowsService } from './workflow.service';
 import { UpsertWorkflowsDto } from './dto/workflows.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class WorkflowsController {
   constructor(private readonly workflowsService: WorkflowsService) {}
 

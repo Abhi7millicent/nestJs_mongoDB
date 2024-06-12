@@ -20,8 +20,8 @@ let ComplianceScenariosDataController = class ComplianceScenariosDataController 
     constructor(complianceScenariosDataService) {
         this.complianceScenariosDataService = complianceScenariosDataService;
     }
-    async addComplianceScenariosData(id, complianceScenarioDataDto) {
-        return this.complianceScenariosDataService.addComplianceScenariosData(id, complianceScenarioDataDto);
+    async addComplianceScenariosData(createComplianceScenarioDataDto) {
+        return this.complianceScenariosDataService.upsertComplianceScenariosData(createComplianceScenarioDataDto);
     }
     async updateComplianceScenariosData(processId, complianceScenarioDataId, complianceScenarioDataDto) {
         return this.complianceScenariosDataService.updateComplianceScenariosData(processId, complianceScenarioDataId, complianceScenarioDataDto);
@@ -35,11 +35,10 @@ let ComplianceScenariosDataController = class ComplianceScenariosDataController 
 };
 exports.ComplianceScenariosDataController = ComplianceScenariosDataController;
 __decorate([
-    (0, common_1.Post)('compliance-scenario-data/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('compliance-scenario-data'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, compliance_scenarios_data_dto_1.ComplianceScenarioDataDto]),
+    __metadata("design:paramtypes", [compliance_scenarios_data_dto_1.UpsertComplianceScenarioDataDto]),
     __metadata("design:returntype", Promise)
 ], ComplianceScenariosDataController.prototype, "addComplianceScenariosData", null);
 __decorate([
@@ -68,7 +67,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ComplianceScenariosDataController.prototype, "updateComplianceScenariosDataIsSoftDeleted", null);
 exports.ComplianceScenariosDataController = ComplianceScenariosDataController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [compliance_scenarios_data_service_1.ComplianceScenariosDataService])
 ], ComplianceScenariosDataController);
 //# sourceMappingURL=compliance-scenarios-data.controller.js.map

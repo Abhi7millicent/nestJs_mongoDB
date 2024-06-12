@@ -73,7 +73,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BasicDataController.prototype, "delete", null);
 exports.BasicDataController = BasicDataController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [basic_data_service_1.BasicDataService])
 ], BasicDataController);
 //# sourceMappingURL=basic-data.controller.js.map

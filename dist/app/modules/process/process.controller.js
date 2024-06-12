@@ -72,7 +72,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProcessController.prototype, "softDelete", null);
 exports.ProcessController = ProcessController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [process_service_1.ProcessService])
 ], ProcessController);
 //# sourceMappingURL=process.controller.js.map

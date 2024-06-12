@@ -11,3 +11,7 @@ export declare class ProcessDocumentDto {
     is_deleted: boolean;
     last_modified_by: string;
 }
+export declare class UpsertProcessDocumentDto {
+    _id: string;
+    process_document: ProcessDocumentDto[];
+}

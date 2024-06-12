@@ -46,11 +46,10 @@ class Kpi {
         this.description = '';
         this.calculation_logic = '';
         this.complexity_level = [];
-        this.type = [];
         this.role = [];
         this.activity_id = [];
-        this.automation_id = [];
-        this.integration_scenario_id = [];
+        this.value = [];
+        this.bench_mark = '';
         this.is_deleted = false;
     }
 }

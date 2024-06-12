@@ -10,7 +10,7 @@ import {
 import { ReportsService } from './reports.service';
 import { ReportsDto, UpsertReportsDto } from './dto/reports.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class WorkflowsController {
   constructor(private readonly reportsService: ReportsService) {}
 

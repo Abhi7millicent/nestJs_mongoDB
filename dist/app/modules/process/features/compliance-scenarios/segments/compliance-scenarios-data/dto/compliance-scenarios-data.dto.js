@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ComplianceScenarioDataDto = void 0;
+exports.UpsertComplianceScenarioDataDto = exports.ComplianceScenarioDataDto = void 0;
 const class_validator_1 = require("class-validator");
 class ComplianceScenarioDataDto {
 }
@@ -54,4 +54,10 @@ __decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], ComplianceScenarioDataDto.prototype, "is_deleted", void 0);
+class UpsertComplianceScenarioDataDto {
+    constructor() {
+        this.compliance_scenario = [];
+    }
+}
+exports.UpsertComplianceScenarioDataDto = UpsertComplianceScenarioDataDto;
 //# sourceMappingURL=compliance-scenarios-data.dto.js.map

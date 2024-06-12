@@ -9,20 +9,20 @@ import {
   Put,
 } from '@nestjs/common';
 import { ProcessDocumentService } from './process-document.service';
-import { ProcessDocumentDto } from './dto/process-document.dto';
+import {
+  ProcessDocumentDto,
+  UpsertProcessDocumentDto,
+} from './dto/process-document.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class ProcessDocumentController {
   constructor(
     private readonly processDocumentService: ProcessDocumentService,
-  ) { }
+  ) {}
 
-  @Post('process-document/:id')
-  create(
-    @Param('id') id: string,
-    @Body() createProcessDocumentDto: ProcessDocumentDto,
-  ) {
-    return this.processDocumentService.create(id, createProcessDocumentDto);
+  @Post('process-document')
+  create(@Body() createProcessDocumentDto: UpsertProcessDocumentDto) {
+    return this.processDocumentService.upsert(createProcessDocumentDto);
   }
 
   @Get()

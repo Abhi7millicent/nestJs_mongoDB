@@ -20,8 +20,8 @@ let ProcessDocumentController = class ProcessDocumentController {
     constructor(processDocumentService) {
         this.processDocumentService = processDocumentService;
     }
-    create(id, createProcessDocumentDto) {
-        return this.processDocumentService.create(id, createProcessDocumentDto);
+    create(createProcessDocumentDto) {
+        return this.processDocumentService.upsert(createProcessDocumentDto);
     }
     findAll() {
         return this.processDocumentService.findAll();
@@ -44,11 +44,10 @@ let ProcessDocumentController = class ProcessDocumentController {
 };
 exports.ProcessDocumentController = ProcessDocumentController;
 __decorate([
-    (0, common_1.Post)('process-document/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('process-document'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, process_document_dto_1.ProcessDocumentDto]),
+    __metadata("design:paramtypes", [process_document_dto_1.UpsertProcessDocumentDto]),
     __metadata("design:returntype", void 0)
 ], ProcessDocumentController.prototype, "create", null);
 __decorate([
@@ -97,7 +96,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProcessDocumentController.prototype, "remove", null);
 exports.ProcessDocumentController = ProcessDocumentController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [process_document_service_1.ProcessDocumentService])
 ], ProcessDocumentController);
 //# sourceMappingURL=process-document.controller.js.map

@@ -96,7 +96,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProcessControlsController.prototype, "remove", null);
 exports.ProcessControlsController = ProcessControlsController = __decorate([
-    (0, common_1.Controller)('api/process/'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [process_controls_service_1.ProcessControlsService])
 ], ProcessControlsController);
 //# sourceMappingURL=process-controls.controller.js.map

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { findPath } from 'src/app/modules/process/utils/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
 import { generateId } from 'src/shared/helper/generate-id.helper';
@@ -7,7 +7,10 @@ import {
   ComplianceAndScenarios,
   Compliance_Scenarios_id,
 } from '../../constant/compliance-scenarios.constant';
-import { ComplianceScenarioDataDto } from './dto/compliance-scenarios-data.dto';
+import {
+  ComplianceScenarioDataDto,
+  UpsertComplianceScenarioDataDto,
+} from './dto/compliance-scenarios-data.dto';
 
 @Injectable()
 export class ComplianceScenariosDataService {
@@ -40,26 +43,60 @@ export class ComplianceScenariosDataService {
     }
   }
 
-  async addComplianceScenariosData(
-    processId: string,
-    complianceScenarioDataDto: ComplianceScenarioDataDto,
+  async upsertComplianceScenariosData(
+    createComplianceScenarioDataDto: UpsertComplianceScenarioDataDto,
   ): Promise<any> {
+    const processId = createComplianceScenarioDataDto._id;
+    const complianceScenarioDataDto =
+      createComplianceScenarioDataDto.compliance_scenario;
+    const auditData = {
+      last_modified_by: complianceScenarioDataDto[0].last_modified_by,
+      last_modified_on: new Date(),
+    };
+
+    const complianceScenariosToCreate = complianceScenarioDataDto.filter(
+      (dataDto) => !dataDto._id,
+    );
+    const complianceScenariosToUpdate = complianceScenarioDataDto.filter(
+      (dataDto) => dataDto._id,
+    );
+
+    complianceScenariosToCreate.forEach((automationDto) => {
+      automationDto._id = generateId(Compliance_Scenarios_id);
+      delete automationDto.last_modified_by;
+    });
+
     try {
-      complianceScenarioDataDto._id = generateId(Compliance_Scenarios_id);
-
-      const auditData = {
-        last_modified_by: complianceScenarioDataDto.last_modified_by,
-        last_modified_on: new Date(),
-      };
-
-      delete complianceScenarioDataDto.last_modified_by;
-      const data = await this.processRepository.createByKey(
-        processId,
-        findPath(PROCESS, ComplianceAndScenarios['compliance_scenarios_data']),
-        complianceScenarioDataDto,
+      const createPromises = complianceScenariosToCreate.map((automationDto) =>
+        this.processRepository.createByKey(
+          processId,
+          findPath(
+            PROCESS,
+            ComplianceAndScenarios['compliance_scenarios_data'],
+          ),
+          automationDto,
+        ),
       );
-      console.log('data:', data);
-      if (data._id === complianceScenarioDataDto._id) {
+
+      const updatePromises = complianceScenariosToUpdate.map((automationDto) =>
+        this.updateComplianceScenariosData(
+          processId,
+          automationDto._id,
+          automationDto,
+        ),
+      );
+
+      const createResults = await Promise.all(createPromises);
+      const updateResults = await Promise.all(updatePromises);
+
+      const allInsertionsSuccessful = createResults.every(
+        (data, index) => data._id === complianceScenariosToCreate[index]._id,
+      );
+
+      if (
+        allInsertionsSuccessful ||
+        updateResults.every((result) => result.acknowledged)
+      ) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -67,10 +104,18 @@ export class ComplianceScenariosDataService {
         console.log('updateMetaData:', updateResponseDto);
       }
 
-      return data;
+      return {
+        created: createResults,
+        updated: updateResults,
+      };
     } catch (error) {
-      console.error('Error in add complianceScenarioData:', error);
-      throw new Error(`Failed to add complianceScenarioData: ${error.message}`);
+      if (error instanceof NotFoundException) {
+        console.error('Not Found Exception:', error.message);
+        throw error;
+      } else {
+        console.error('Unexpected Error:', error.message);
+        throw error;
+      }
     }
   }
 

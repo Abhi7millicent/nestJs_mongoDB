@@ -14,7 +14,7 @@ import {
   UpsertQueriesResponseDto,
 } from './dto/queries-response.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class QueriesResponsesController {
   constructor(
     private readonly queriesResponsesService: QueriesResponsesService,

@@ -135,10 +135,6 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ type: [String], required: true }),
     __metadata("design:type", Array)
-], Kpi.prototype, "type", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ type: [String], required: true }),
-    __metadata("design:type", Array)
 ], Kpi.prototype, "role", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: [String], required: true }),
@@ -147,11 +143,11 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ type: [String], required: true }),
     __metadata("design:type", Array)
-], Kpi.prototype, "automation_id", void 0);
+], Kpi.prototype, "value", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: [String], required: true }),
-    __metadata("design:type", Array)
-], Kpi.prototype, "integration_scenario_id", void 0);
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Kpi.prototype, "bench_mark", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)

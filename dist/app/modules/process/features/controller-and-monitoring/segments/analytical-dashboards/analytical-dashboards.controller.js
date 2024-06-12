@@ -67,7 +67,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AnalyticalDashboardsController.prototype, "updateAnalyticalDashboardsIsSoftDeleted", null);
 exports.AnalyticalDashboardsController = AnalyticalDashboardsController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [analytical_dashboards_service_1.AnalyticalDashboardsService])
 ], AnalyticalDashboardsController);
 //# sourceMappingURL=analytical-dashboards.controller.js.map

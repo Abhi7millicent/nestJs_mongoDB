@@ -42,3 +42,8 @@ export class AuditTrailScenariosDto {
   @IsString()
   last_modified_by: string;
 }
+
+export class UpsertAuditTrailScenariosDto {
+  public _id: string;
+  public audit_trail_scenarios: AuditTrailScenariosDto[] = [];
+}

@@ -33,11 +33,10 @@ export declare class Kpi {
     description: string;
     calculation_logic: string;
     complexity_level: string[];
-    type: string[];
     role: string[];
     activity_id: string[];
-    automation_id: string[];
-    integration_scenario_id: string[];
+    value: string[];
+    bench_mark: string;
     is_deleted: boolean;
 }
 export declare class Report {

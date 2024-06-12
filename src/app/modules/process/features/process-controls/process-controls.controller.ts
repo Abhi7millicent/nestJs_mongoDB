@@ -14,7 +14,7 @@ import {
   UpsertProcessControlsDto,
 } from './dto/process-controls.dto';
 
-@Controller('api/process/')
+@Controller('v1/process')
 export class ProcessControlsController {
   constructor(
     private readonly processControlsService: ProcessControlsService,

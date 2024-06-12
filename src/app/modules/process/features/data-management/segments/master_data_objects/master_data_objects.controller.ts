@@ -12,7 +12,7 @@ import {
 import { MDOService } from './master_data_objects.service';
 import { MDODto } from './dto/master_data_objects';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class MDOController {
   constructor(private readonly mdoService: MDOService) {}
 

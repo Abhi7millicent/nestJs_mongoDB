@@ -1,6 +1,6 @@
 export enum ComplianceAndScenariosData {
   I = 'compliance_scenarios_data',
-  II = 'audit_trail',
+  II = 'audit_trail_scenarios',
 }
 
 export const ComplianceAndScenarios: {

@@ -36,11 +36,10 @@ export class Kpi {
   public description: string = '';
   public calculation_logic: string = '';
   public complexity_level: string[] = [];
-  public type: string[] = [];
   public role: string[] = [];
   public activity_id: string[] = [];
-  public automation_id: string[] = [];
-  public integration_scenario_id: string[] = [];
+  public value: string[] = [];
+  public bench_mark: string = '';
   public is_deleted: boolean = false;
 }
 

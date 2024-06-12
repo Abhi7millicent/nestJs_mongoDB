@@ -8,22 +8,23 @@ import {
   Body,
 } from '@nestjs/common';
 import { ComplianceScenariosDataService } from './compliance-scenarios-data.service';
-import { ComplianceScenarioDataDto } from './dto/compliance-scenarios-data.dto';
+import {
+  ComplianceScenarioDataDto,
+  UpsertComplianceScenarioDataDto,
+} from './dto/compliance-scenarios-data.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class ComplianceScenariosDataController {
   constructor(
     private readonly complianceScenariosDataService: ComplianceScenariosDataService,
   ) {}
 
-  @Post('compliance-scenario-data/:id')
+  @Post('compliance-scenario-data')
   async addComplianceScenariosData(
-    @Param('id') id: string,
-    @Body() complianceScenarioDataDto: ComplianceScenarioDataDto,
+    @Body() createComplianceScenarioDataDto: UpsertComplianceScenarioDataDto,
   ) {
-    return this.complianceScenariosDataService.addComplianceScenariosData(
-      id,
-      complianceScenarioDataDto,
+    return this.complianceScenariosDataService.upsertComplianceScenariosData(
+      createComplianceScenarioDataDto,
     );
   }
 

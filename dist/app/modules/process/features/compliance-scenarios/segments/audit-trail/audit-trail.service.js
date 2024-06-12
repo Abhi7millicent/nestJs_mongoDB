@@ -26,7 +26,7 @@ let AuditTrailScenariosService = class AuditTrailScenariosService {
             last_modified_on: new Date(),
         };
         delete auditTrailScenariosDto.last_modified_by;
-        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['audit_trail']), AuditTrailScenariosId, auditTrailScenariosDto);
+        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['audit_trail_scenarios']), AuditTrailScenariosId, auditTrailScenariosDto);
         if (data.acknowledged) {
             const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
             return updateResponseDto;
@@ -35,32 +35,51 @@ let AuditTrailScenariosService = class AuditTrailScenariosService {
             return data;
         }
     }
-    async addAuditTrailScenarios(processId, auditTrailScenariosDto) {
+    async upsertAuditTrailScenarios(createAuditTrailScenariosDto) {
+        const processId = createAuditTrailScenariosDto._id;
+        const auditTrailScenariosDto = createAuditTrailScenariosDto.audit_trail_scenarios;
+        const auditData = {
+            last_modified_by: auditTrailScenariosDto[0].last_modified_by,
+            last_modified_on: new Date(),
+        };
+        const auditTrailScenariosToCreate = auditTrailScenariosDto.filter((dataDto) => !dataDto._id);
+        const auditTrailScenariosToUpdate = auditTrailScenariosDto.filter((dataDto) => dataDto._id);
+        auditTrailScenariosToCreate.forEach((automationDto) => {
+            automationDto._id = (0, generate_id_helper_1.generateId)(compliance_scenarios_constant_1.audit_trail_id);
+            delete automationDto.last_modified_by;
+        });
         try {
-            auditTrailScenariosDto._id = (0, generate_id_helper_1.generateId)(compliance_scenarios_constant_1.audit_trail_id);
-            const auditData = {
-                last_modified_by: auditTrailScenariosDto.last_modified_by,
-                last_modified_on: new Date(),
-            };
-            delete auditTrailScenariosDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['audit_trail']), auditTrailScenariosDto);
-            console.log('data:', data);
-            if (data._id === auditTrailScenariosDto._id) {
+            const createPromises = auditTrailScenariosToCreate.map((automationDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['audit_trail_scenarios']), automationDto));
+            const updatePromises = auditTrailScenariosToUpdate.map((automationDto) => this.updateAuditTrailScenarios(processId, automationDto._id, automationDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === auditTrailScenariosToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
-            return data;
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
         }
         catch (error) {
-            console.error('Error in addAuditTrailScenarios:', error);
-            throw new Error(`Failed to add AuditTrailScenarios: ${error.message}`);
+            if (error instanceof common_1.NotFoundException) {
+                console.error('Not Found Exception:', error.message);
+                throw error;
+            }
+            else {
+                console.error('Unexpected Error:', error.message);
+                throw error;
+            }
         }
     }
     async updateAuditTrailScenariosIsDeleted(processId, AuditTrailScenariosId) {
-        return this.processRepository.deleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['audit_trail']), AuditTrailScenariosId);
+        return this.processRepository.deleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['audit_trail_scenarios']), AuditTrailScenariosId);
     }
     async updateAuditTrailScenariosIsSoftDeleted(processId, AuditTrailScenariosId) {
-        return this.processRepository.softDeleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['audit_trail']), AuditTrailScenariosId);
+        return this.processRepository.softDeleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['audit_trail_scenarios']), AuditTrailScenariosId);
     }
 };
 exports.AuditTrailScenariosService = AuditTrailScenariosService;

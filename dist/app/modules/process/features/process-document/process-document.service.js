@@ -19,24 +19,44 @@ let ProcessDocumentService = class ProcessDocumentService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
-    async create(processId, processDocumentDto) {
+    async upsert(createProcessDocumentDto) {
+        const processId = createProcessDocumentDto._id;
+        const processDocumentDto = createProcessDocumentDto.process_document;
+        const auditData = {
+            last_modified_by: processDocumentDto[0].last_modified_by,
+            last_modified_on: new Date(),
+        };
+        const processToCreate = processDocumentDto.filter((activityDto) => !activityDto._id);
+        const processToUpdate = processDocumentDto.filter((activityDto) => activityDto._id);
+        processToCreate.forEach((activityDto) => {
+            activityDto._id = (0, generate_id_helper_1.generateId)(process_constants_1.process_document_id);
+            delete activityDto.last_modified_by;
+        });
         try {
-            processDocumentDto._id = (0, generate_id_helper_1.generateId)(process_constants_1.process_document_id);
-            const auditData = {
-                last_modified_by: processDocumentDto.last_modified_by,
-                last_modified_on: new Date(),
-            };
-            delete processDocumentDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_document), processDocumentDto);
-            if (data._id === processDocumentDto._id) {
+            const createPromises = processToCreate.map((activityDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_document), activityDto));
+            const updatePromises = processToUpdate.map((activityDto) => this.updateProcessDocument(processId, activityDto._id, activityDto));
+            const createResults = await Promise.all(createPromises);
+            const updateResults = await Promise.all(updatePromises);
+            const allInsertionsSuccessful = createResults.every((data, index) => data._id === processToCreate[index]._id);
+            if (allInsertionsSuccessful ||
+                updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
-            return data;
+            return {
+                created: createResults,
+                updated: updateResults,
+            };
         }
         catch (error) {
-            console.error('Error in addWorkflows:', error);
-            throw new Error(`Failed to add workflows: ${error.message}`);
+            if (error instanceof common_1.NotFoundException) {
+                console.error('Not Found Exception:', error.message);
+                throw error;
+            }
+            else {
+                console.error('Unexpected Error:', error.message);
+                throw error;
+            }
         }
     }
     findAll() {

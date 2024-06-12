@@ -11,7 +11,7 @@ import { ProcessService } from './process.service';
 import { CreateProcessDto } from './dto/process.dto';
 import { Process } from './process.schema';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class ProcessController {
   constructor(private readonly processService: ProcessService) {}
 

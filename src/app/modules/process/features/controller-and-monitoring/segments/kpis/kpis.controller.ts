@@ -10,7 +10,7 @@ import {
 import { KPIsService } from './kpis.service';
 import { KPIsDto, UpsertKPIsDto } from './dto/kpis.dto';
 
-@Controller('api/process')
+@Controller('v1/process')
 export class KPIsController {
   constructor(private readonly kpisService: KPIsService) {}
 

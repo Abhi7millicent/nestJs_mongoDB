@@ -77,7 +77,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], MDOController.prototype, "updateMDOIsSoftDeleted", null);
 exports.MDOController = MDOController = __decorate([
-    (0, common_1.Controller)('api/process'),
+    (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [master_data_objects_service_1.MDOService])
 ], MDOController);
 //# sourceMappingURL=master_data_objects.controller.js.map

@@ -39,3 +39,8 @@ export class ComplianceScenarioDataDto {
   @IsBoolean()
   is_deleted: boolean;
 }
+
+export class UpsertComplianceScenarioDataDto {
+  public _id: string;
+  public compliance_scenario: ComplianceScenarioDataDto[] = [];
+}

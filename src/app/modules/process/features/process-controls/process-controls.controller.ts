@@ -35,7 +35,7 @@ export class ProcessControlsController {
     return this.processControlsService.findOne(+id);
   }
 
-  @Put(':processId/queriesresponse/:qrId')
+  @Put(':processId/process-controls/:qrId')
   async updateQueriesResponse(
     @Param('processId') processId: string,
     @Param('qrId') qrId: string,
@@ -44,7 +44,7 @@ export class ProcessControlsController {
     return this.processControlsService.update(processId, qrId, workflowData);
   }
 
-  @Put(':processId/qr-delete/:qrId')
+  @Put(':processId/process-controls/:qrId')
   async updatequeriesresponseIsDeleted(
     @Param('processId') processId: string,
     @Param('qrId') qrId: string,
@@ -55,7 +55,7 @@ export class ProcessControlsController {
     );
   }
 
-  @Put(':processId/qr-soft-delete/:qrId')
+  @Put(':processId/process-controls/:qrId')
   async updateQueriesResponsesIsSoftDeleted(
     @Param('processId') processId: string,
     @Param('qrId') qrId: string,

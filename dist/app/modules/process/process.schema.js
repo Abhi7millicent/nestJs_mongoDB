@@ -30,6 +30,24 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], IoInfo.prototype, "major_requirements", void 0);
+class Transaction_volumes_data {
+}
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Transaction_volumes_data.prototype, "average_transactions_year", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Transaction_volumes_data.prototype, "maximum_transactions_month", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Transaction_volumes_data.prototype, "maximum_transactions_day", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Transaction_volumes_data.prototype, "average_line_items", void 0);
 class Activity {
 }
 __decorate([
@@ -363,13 +381,29 @@ __decorate([
 class DataManagementData {
 }
 __decorate([
-    (0, mongoose_1.Prop)({ type: [MDO], default: [] }),
-    __metadata("design:type", Array)
-], DataManagementData.prototype, "master_data_objects", void 0);
+    (0, mongoose_1.Prop)({ required: true, type: String }),
+    __metadata("design:type", String)
+], DataManagementData.prototype, "_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: DataManagement, required: true }),
-    __metadata("design:type", DataManagement)
-], DataManagementData.prototype, "data_management_info", void 0);
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], DataManagementData.prototype, "title", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: Transaction_volumes_data, required: false }),
+    __metadata("design:type", Transaction_volumes_data)
+], DataManagementData.prototype, "transaction_volumes", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], DataManagementData.prototype, "data_security", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], DataManagementData.prototype, "data_retention", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], DataManagementData.prototype, "data_residency", void 0);
 class IntegrationScenario {
 }
 __decorate([

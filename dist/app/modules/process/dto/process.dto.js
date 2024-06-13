@@ -10,6 +10,14 @@ class IoInfo {
     }
 }
 exports.IoInfo = IoInfo;
+class Transaction_volumes_data {
+    constructor() {
+        this.average_transactions_year = '';
+        this.maximum_transactions_month = '';
+        this.maximum_transactions_day = '';
+        this.average_line_items = '';
+    }
+}
 class Activity {
     constructor() {
         this._id = '';
@@ -135,8 +143,7 @@ class DataManagement {
 exports.DataManagement = DataManagement;
 class DataManagementData {
     constructor() {
-        this.master_data_objects = [];
-        this.data_management_info = new DataManagement();
+        this.transaction_volumes = new Transaction_volumes_data();
     }
 }
 exports.DataManagementData = DataManagementData;

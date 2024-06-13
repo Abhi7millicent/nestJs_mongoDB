@@ -134,7 +134,7 @@ export class ProcessControlsService {
     delete updateprocessControlsDto.last_modified_by;
     const data = await this.processRepository.updateByKey(
       processId,
-      findPath(PROCESS, process_controls),
+      findPath(PROCESS, 'controls'),
       qrId,
       updateprocessControlsDto,
     );

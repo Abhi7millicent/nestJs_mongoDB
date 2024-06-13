@@ -6,16 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DataManagementModule = void 0;
+exports.DataManagement1Module = void 0;
 const common_1 = require("@nestjs/common");
 const master_data_objects_module_1 = require("./segments/master_data_objects/master_data_objects.module");
 const data_management_info_module_1 = require("./segments/data_management_info/data_management_info.module");
-let DataManagementModule = class DataManagementModule {
+let DataManagement1Module = class DataManagement1Module {
 };
-exports.DataManagementModule = DataManagementModule;
-exports.DataManagementModule = DataManagementModule = __decorate([
+exports.DataManagement1Module = DataManagement1Module;
+exports.DataManagement1Module = DataManagement1Module = __decorate([
     (0, common_1.Module)({
         imports: [data_management_info_module_1.DataManagementInfoModule, master_data_objects_module_1.MDOModule],
     })
-], DataManagementModule);
+], DataManagement1Module);
 //# sourceMappingURL=data-management.module.js.map

@@ -71,7 +71,7 @@ let ProcessControlsService = class ProcessControlsService {
             last_modified_on: new Date(),
         };
         delete updateprocessControlsDto.last_modified_by;
-        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_controls), qrId, updateprocessControlsDto);
+        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'controls'), qrId, updateprocessControlsDto);
         if (data.acknowledged) {
             const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
             return updateResponseDto;

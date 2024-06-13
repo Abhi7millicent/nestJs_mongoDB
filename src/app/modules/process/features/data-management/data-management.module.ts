@@ -5,4 +5,4 @@ import { DataManagementInfoModule } from './segments/data_management_info/data_m
 @Module({
   imports: [DataManagementInfoModule, MDOModule],
 })
-export class DataManagementModule {}
+export class DataManagement1Module {}

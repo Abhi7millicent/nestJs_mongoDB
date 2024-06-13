@@ -12,8 +12,8 @@ import { ProcessController } from './process.controller';
 import { ProcessService } from './process.service';
 import { ProcessRepository } from './process.repository';
 import { IntegrationScenarioModule } from './features/integration-scenarios/integration-scenarios.module';
-import { DataManagementModule } from './features/data-management/data-management.module';
 import { AutomationScenarioModule } from './features/automation-scenarios/automation-scenarios.module';
+import { DataManagementModule } from './features/data-management1/data-management.module';
 
 @Module({
   imports: [

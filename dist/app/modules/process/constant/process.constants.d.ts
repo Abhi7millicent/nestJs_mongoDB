@@ -7,10 +7,7 @@ export declare const PROCESS: {
         analytical_dashboards: string;
     };
     queries_and_responses: string;
-    data_management: {
-        master_data_objects: string;
-        data_management_info: string;
-    };
+    data_management: string;
     integration_scenario: string;
     documents: string;
     automation_scenarios: string;
@@ -27,3 +24,4 @@ export declare const process_document = "documents";
 export declare const process_controls_id = "pc_";
 export declare const process_controls = "documents";
 export declare const integration_scenario = "integration_scenario";
+export declare const data_management = "data_management";

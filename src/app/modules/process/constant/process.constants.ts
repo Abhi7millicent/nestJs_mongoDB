@@ -7,10 +7,7 @@ export const PROCESS = {
     analytical_dashboards: 'analytical_dashboards',
   },
   queries_and_responses: 'queries_and_responses',
-  data_management: {
-    master_data_objects: 'master_data_objects',
-    data_management_info: 'data_management_info',
-  },
+  data_management: 'data_management',
   integration_scenario: 'integration_scenario',
   documents: 'documents',
   automation_scenarios: 'automation_scenarios',
@@ -43,6 +40,7 @@ export const process_document = 'documents';
 export const process_controls_id = 'pc_';
 export const process_controls = 'documents';
 export const integration_scenario = 'integration_scenario';
+export const data_management = 'data_management';
 
 //   export enum process { [key in controlAndMonitoringData]: string } = {
 //     [controlAndMonitoringData.I]: "workflows",

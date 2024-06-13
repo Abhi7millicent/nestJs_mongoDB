@@ -1,2 +1,2 @@
-export declare class DataManagementModule {
+export declare class DataManagement1Module {
 }

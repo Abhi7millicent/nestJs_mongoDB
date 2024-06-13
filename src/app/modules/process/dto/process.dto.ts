@@ -5,6 +5,13 @@ export class IoInfo {
   public major_requirements: string = '';
 }
 
+class Transaction_volumes_data {
+  public average_transactions_year: string = '';
+  public maximum_transactions_month: string = '';
+  public maximum_transactions_day: string = '';
+  public average_line_items: string = '';
+}
+
 export class Activity {
   public _id: string = '';
   public sr_no: string = '';
@@ -112,9 +119,19 @@ export class DataManagement {
   public activity_id: string[] = [];
 }
 
+// export class DataManagementData {
+//   public master_data_objects: MDO[] = [];
+//   public data_management_info: DataManagement = new DataManagement();
+// }
+
 export class DataManagementData {
-  public master_data_objects: MDO[] = [];
-  public data_management_info: DataManagement = new DataManagement();
+  public _id: string;
+  public title!: string;
+  public transaction_volumes: Transaction_volumes_data =
+    new Transaction_volumes_data();
+  public data_security!: string;
+  public data_retention!: string;
+  public data_residency!: string;
 }
 
 export class IntegrationScenario {

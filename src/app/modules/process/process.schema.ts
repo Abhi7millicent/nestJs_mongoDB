@@ -15,6 +15,20 @@ class IoInfo {
   public major_requirements!: string;
 }
 
+class Transaction_volumes_data {
+  @Prop({ required: true })
+  public average_transactions_year!: string;
+
+  @Prop({ required: true })
+  public maximum_transactions_month!: string;
+
+  @Prop({ required: true })
+  public maximum_transactions_day!: string;
+
+  @Prop({ required: true })
+  public average_line_items!: string;
+}
+
 class Activity {
   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
   // activity_id: MongooseSchema.Types.ObjectId;
@@ -291,12 +305,32 @@ class DataManagement {
   public activity_id!: string[];
 }
 
-class DataManagementData {
-  @Prop({ type: [MDO], default: [] })
-  master_data_objects!: MDO[];
+// class DataManagementData {
+//   @Prop({ type: [MDO], default: [] })
+//   master_data_objects!: MDO[];
 
-  @Prop({ type: DataManagement, required: true })
-  public data_management_info!: DataManagement;
+//   @Prop({ type: DataManagement, required: true })
+//   public data_management_info!: DataManagement;
+// }
+
+class DataManagementData {
+  @Prop({ required: true, type: String })
+  _id: string;
+
+  @Prop({ required: true })
+  title!: string;
+
+  @Prop({ type: Transaction_volumes_data, required: false })
+  transaction_volumes!: Transaction_volumes_data;
+
+  @Prop({ required: true })
+  public data_security!: string;
+
+  @Prop({ required: true })
+  public data_retention!: string;
+
+  @Prop({ required: true })
+  public data_residency!: string;
 }
 
 class IntegrationScenario {

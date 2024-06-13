@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpsertProcessControlsDto = exports.ProcessControlsDto = void 0;
 class ProcessControlsDto {
+    constructor() {
+        this.is_deleted = false;
+    }
 }
 exports.ProcessControlsDto = ProcessControlsDto;
 class UpsertProcessControlsDto {

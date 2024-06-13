@@ -4,7 +4,7 @@ export class ProcessControlsDto {
   description: string;
   activity_id: string[];
   mdo_id: string[];
-  is_deleted: boolean;
+  is_deleted: boolean = false;
   last_modified_by: string;
 }
 

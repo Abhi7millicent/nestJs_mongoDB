@@ -19,7 +19,7 @@ let ProcessControlsService = class ProcessControlsService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
-    async Upsert(createProcessControlsDto) {
+    async upsert(createProcessControlsDto) {
         const processId = createProcessControlsDto._id;
         const processControlsDto = createProcessControlsDto.process_controls;
         const auditData = {
@@ -57,26 +57,6 @@ let ProcessControlsService = class ProcessControlsService {
                 console.error('Unexpected Error:', error.message);
                 throw error;
             }
-        }
-    }
-    async create(processId, processControlsDto) {
-        try {
-            processControlsDto._id = (0, generate_id_helper_1.generateId)(process_constants_1.process_controls_id);
-            const auditData = {
-                last_modified_by: processControlsDto.last_modified_by,
-                last_modified_on: new Date(),
-            };
-            delete processControlsDto.last_modified_by;
-            const data = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_controls), processControlsDto);
-            if (data._id === processControlsDto._id) {
-                const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
-                console.log('updateMetaData:', updateResponseDto);
-            }
-            return data;
-        }
-        catch (error) {
-            console.error('Error in addWorkflows:', error);
-            throw new Error(`Failed to add workflows: ${error.message}`);
         }
     }
     findAll() {

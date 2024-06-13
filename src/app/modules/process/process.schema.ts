@@ -148,6 +148,9 @@ class Report {
   @Prop({ type: [String], required: true })
   role!: string[];
 
+  @Prop({ required: true })
+  calculation_logic!: string;
+
   @Prop({ type: [String], required: true })
   activity_id!: string[];
 
@@ -174,8 +177,14 @@ class AnalyticalDashboard {
   @Prop({ required: true })
   description!: string;
 
+  @Prop({ required: true })
+  calculation_logic!: string;
+
   @Prop({ type: [String], required: true })
   attachments!: string[];
+
+  @Prop({ type: [String], required: true })
+  application!: string[];
 
   @Prop({ type: [String], required: true })
   complexity_level!: string[];

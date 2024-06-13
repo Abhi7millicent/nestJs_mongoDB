@@ -21,7 +21,7 @@ let ProcessControlsController = class ProcessControlsController {
         this.processControlsService = processControlsService;
     }
     create(upsertProcessControlsDto) {
-        return this.processControlsService.Upsert(upsertProcessControlsDto);
+        return this.processControlsService.upsert(upsertProcessControlsDto);
     }
     findAll() {
         return this.processControlsService.findAll();

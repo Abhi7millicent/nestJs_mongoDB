@@ -2,6 +2,7 @@ export class ReportsDto {
   _id: string;
   title: string;
   description: string;
+  calculation_logic: string;
   attachments: string[];
   complexity_level: string[];
   type: string[];

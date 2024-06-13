@@ -22,7 +22,7 @@ export class ProcessControlsController {
 
   @Post('process-controls')
   create(@Body() upsertProcessControlsDto: UpsertProcessControlsDto) {
-    return this.processControlsService.Upsert(upsertProcessControlsDto);
+    return this.processControlsService.upsert(upsertProcessControlsDto);
   }
 
   @Get()

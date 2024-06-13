@@ -21,7 +21,7 @@ export class AutomationScenarioController {
     private readonly automationScenarioService: AutomationScenarioService,
   ) {}
 
-  @Post('automation-scenario/:id')
+  @Post('automation-scenario')
   @HttpCode(HttpStatus.CREATED) // Setting default success status code to 201 Created
   async addAutomationScenario(
     @Body() createAutomationScenarioDto: UpsertAutomationScenarioDto,

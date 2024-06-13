@@ -15,7 +15,6 @@ const process_constants_1 = require("../../constant/process.constants");
 const generate_id_helper_1 = require("../../../../../shared/helper/generate-id.helper");
 const process_utils_1 = require("../../utils/process.utils");
 const process_repository_1 = require("../../process.repository");
-const controller_and_monitoring_constant_1 = require("../controller-and-monitoring/constant/controller-and-monitoring.constant");
 let QueriesResponsesService = class QueriesResponsesService {
     constructor(processRepository) {
         this.processRepository = processRepository;
@@ -58,7 +57,7 @@ let QueriesResponsesService = class QueriesResponsesService {
             delete dataDto.last_modified_by;
         });
         try {
-            const createPromises = queriesResponseToCreate.map((dataDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring[process_constants_1.queries_and_responses]), dataDto));
+            const createPromises = queriesResponseToCreate.map((dataDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.queries_and_responses), dataDto));
             const updatePromises = queriesResponseToUpdate.map((dataDto) => this.update(processId, dataDto._id, dataDto));
             const createResults = await Promise.all(createPromises);
             const updateResults = await Promise.all(updatePromises);

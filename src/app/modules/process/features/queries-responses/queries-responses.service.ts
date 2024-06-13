@@ -171,7 +171,7 @@ export class QueriesResponsesService {
       const createPromises = queriesResponseToCreate.map((dataDto) =>
         this.processRepository.createByKey(
           processId,
-          findPath(PROCESS, controlAndMonitoring[queries_and_responses]),
+          findPath(PROCESS, queries_and_responses),
           dataDto,
         ),
       );

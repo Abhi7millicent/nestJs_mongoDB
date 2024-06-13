@@ -75,6 +75,7 @@ declare class Report {
     application: string[];
     source_data: string[];
     role: string[];
+    calculation_logic: string;
     activity_id: string[];
     automation_id: string[];
     integration_scenario_id: string[];
@@ -84,7 +85,9 @@ declare class AnalyticalDashboard {
     _id: string;
     title: string;
     description: string;
+    calculation_logic: string;
     attachments: string[];
+    application: string[];
     complexity_level: string[];
     type: string[];
     dashboard_application: string[];

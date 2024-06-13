@@ -43,6 +43,7 @@ export declare class Report {
     _id: string;
     title: string;
     description: string;
+    calculation_logic: string;
     attachments: string[];
     complexity_level: string[];
     type: string[];
@@ -58,7 +59,9 @@ export declare class AnalyticalDashboard {
     _id: string;
     title: string;
     description: string;
+    calculation_logic: string;
     attachments: string[];
+    application: string[];
     complexity_level: string[];
     type: string[];
     dashboard_application: string[];

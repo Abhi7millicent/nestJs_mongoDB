@@ -16,7 +16,7 @@ import { ProcessRepository } from '../../process.repository';
 export class ProcessControlsService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
-  async Upsert(
+  async upsert(
     createProcessControlsDto: UpsertProcessControlsDto,
   ): Promise<any> {
     const processId = createProcessControlsDto._id;
@@ -84,35 +84,35 @@ export class ProcessControlsService {
     }
   }
 
-  async create(processId: string, processControlsDto: ProcessControlsDto) {
-    try {
-      processControlsDto._id = generateId(process_controls_id);
+  // async create(processId: string, processControlsDto: ProcessControlsDto) {
+  //   try {
+  //     processControlsDto._id = generateId(process_controls_id);
 
-      const auditData = {
-        last_modified_by: processControlsDto.last_modified_by,
-        last_modified_on: new Date(),
-      };
+  //     const auditData = {
+  //       last_modified_by: processControlsDto.last_modified_by,
+  //       last_modified_on: new Date(),
+  //     };
 
-      delete processControlsDto.last_modified_by;
-      const data = await this.processRepository.createByKey(
-        processId,
-        findPath(PROCESS, process_controls),
-        processControlsDto,
-      );
-      if (data._id === processControlsDto._id) {
-        const updateResponseDto = await this.processRepository.update(
-          { _id: processId },
-          auditData,
-        );
-        console.log('updateMetaData:', updateResponseDto);
-      }
+  //     delete processControlsDto.last_modified_by;
+  //     const data = await this.processRepository.createByKey(
+  //       processId,
+  //       findPath(PROCESS, process_controls),
+  //       processControlsDto,
+  //     );
+  //     if (data._id === processControlsDto._id) {
+  //       const updateResponseDto = await this.processRepository.update(
+  //         { _id: processId },
+  //         auditData,
+  //       );
+  //       console.log('updateMetaData:', updateResponseDto);
+  //     }
 
-      return data;
-    } catch (error) {
-      console.error('Error in addWorkflows:', error);
-      throw new Error(`Failed to add workflows: ${error.message}`);
-    }
-  }
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Error in addWorkflows:', error);
+  //     throw new Error(`Failed to add workflows: ${error.message}`);
+  //   }
+  // }
 
   findAll() {
     return `This action returns all queriesResponses`;

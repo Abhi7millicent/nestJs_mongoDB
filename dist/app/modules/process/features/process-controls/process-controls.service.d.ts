@@ -3,8 +3,7 @@ import { ProcessRepository } from '../../process.repository';
 export declare class ProcessControlsService {
     private readonly processRepository;
     constructor(processRepository: ProcessRepository);
-    Upsert(createProcessControlsDto: UpsertProcessControlsDto): Promise<any>;
-    create(processId: string, processControlsDto: ProcessControlsDto): Promise<any>;
+    upsert(createProcessControlsDto: UpsertProcessControlsDto): Promise<any>;
     findAll(): string;
     findOne(id: number): string;
     update(processId: string, qrId: string, updateprocessControlsDto: ProcessControlsDto): Promise<any>;

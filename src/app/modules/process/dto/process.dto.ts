@@ -47,6 +47,7 @@ export class Report {
   public _id: string = '';
   public title: string = '';
   public description: string = '';
+  public calculation_logic: string = '';
   public attachments: string[] = [];
   public complexity_level: string[] = [];
   public type: string[] = [];
@@ -63,7 +64,9 @@ export class AnalyticalDashboard {
   public _id: string = '';
   public title: string = '';
   public description: string = '';
+  public calculation_logic: string = '';
   public attachments: string[] = [];
+  public application: string[] = [];
   public complexity_level: string[] = [];
   public type: string[] = [];
   public dashboard_application: string[] = [];

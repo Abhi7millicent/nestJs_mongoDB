@@ -59,6 +59,7 @@ class Report {
         this._id = '';
         this.title = '';
         this.description = '';
+        this.calculation_logic = '';
         this.attachments = [];
         this.complexity_level = [];
         this.type = [];
@@ -77,7 +78,9 @@ class AnalyticalDashboard {
         this._id = '';
         this.title = '';
         this.description = '';
+        this.calculation_logic = '';
         this.attachments = [];
+        this.application = [];
         this.complexity_level = [];
         this.type = [];
         this.dashboard_application = [];

@@ -191,6 +191,10 @@ __decorate([
     __metadata("design:type", Array)
 ], Report.prototype, "role", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Report.prototype, "calculation_logic", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ type: [String], required: true }),
     __metadata("design:type", Array)
 ], Report.prototype, "activity_id", void 0);
@@ -221,9 +225,17 @@ __decorate([
     __metadata("design:type", String)
 ], AnalyticalDashboard.prototype, "description", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], AnalyticalDashboard.prototype, "calculation_logic", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ type: [String], required: true }),
     __metadata("design:type", Array)
 ], AnalyticalDashboard.prototype, "attachments", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    __metadata("design:type", Array)
+], AnalyticalDashboard.prototype, "application", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: [String], required: true }),
     __metadata("design:type", Array)

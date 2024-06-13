@@ -61,20 +61,21 @@ export class AuditTrailScenariosService {
       (dataDto) => dataDto._id,
     );
 
-    auditTrailScenariosToCreate.forEach((automationDto) => {
-      automationDto._id = generateId(audit_trail_id);
-      delete automationDto.last_modified_by;
-    });
+    let createdData = [];
+
+    for (const dataDto of auditTrailScenariosToCreate) {
+      dataDto._id = generateId(audit_trail_id);
+      delete dataDto.last_modified_by;
+
+      const value = await this.processRepository.createByKey(
+        processId,
+        findPath(PROCESS, ComplianceAndScenarios['audit_trail_scenarios']),
+        dataDto,
+      );
+      createdData.push(value);
+    }
 
     try {
-      const createPromises = auditTrailScenariosToCreate.map((automationDto) =>
-        this.processRepository.createByKey(
-          processId,
-          findPath(PROCESS, ComplianceAndScenarios['audit_trail_scenarios']),
-          automationDto,
-        ),
-      );
-
       const updatePromises = auditTrailScenariosToUpdate.map((automationDto) =>
         this.updateAuditTrailScenarios(
           processId,
@@ -83,17 +84,9 @@ export class AuditTrailScenariosService {
         ),
       );
 
-      const createResults = await Promise.all(createPromises);
       const updateResults = await Promise.all(updatePromises);
 
-      const allInsertionsSuccessful = createResults.every(
-        (data, index) => data._id === auditTrailScenariosToCreate[index]._id,
-      );
-
-      if (
-        allInsertionsSuccessful ||
-        updateResults.every((result) => result.acknowledged)
-      ) {
+      if (updateResults.every((result) => result.acknowledged)) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -102,7 +95,7 @@ export class AuditTrailScenariosService {
       }
 
       return {
-        created: createResults,
+        created: createdData,
         updated: updateResults,
       };
     } catch (error) {

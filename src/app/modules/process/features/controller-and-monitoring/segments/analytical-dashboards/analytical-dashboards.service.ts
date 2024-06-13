@@ -95,35 +95,28 @@ export class AnalyticalDashboardsService {
       (dataDto) => dataDto._id,
     );
 
-    analyticalDashboardsToCreate.forEach((dataDto) => {
+    let createdData = [];
+
+    for (const dataDto of analyticalDashboardsToCreate) {
       dataDto._id = generateId(analytical_dashboards);
       delete dataDto.last_modified_by;
-    });
+
+      const value = await this.processRepository.createByKey(
+        processId,
+        findPath(PROCESS, controlAndMonitoring['analytical_dashboards']),
+        dataDto,
+      );
+      createdData.push(value);
+    }
 
     try {
-      const createPromises = analyticalDashboardsToCreate.map((dataDto) =>
-        this.processRepository.createByKey(
-          processId,
-          findPath(PROCESS, controlAndMonitoring['analytical_dashboards']),
-          dataDto,
-        ),
-      );
-
       const updatePromises = analyticalDashboardsToUpdate.map((dataDto) =>
         this.updateAnalyticalDashboards(processId, dataDto._id, dataDto),
       );
 
-      const createResults = await Promise.all(createPromises);
       const updateResults = await Promise.all(updatePromises);
 
-      const allInsertionsSuccessful = createResults.every(
-        (data, index) => data._id === analyticalDashboardsToCreate[index]._id,
-      );
-
-      if (
-        allInsertionsSuccessful ||
-        updateResults.every((result) => result.acknowledged)
-      ) {
+      if (updateResults.every((result) => result.acknowledged)) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -132,7 +125,7 @@ export class AnalyticalDashboardsService {
       }
 
       return {
-        created: createResults,
+        created: createdData,
         updated: updateResults,
       };
     } catch (error) {

@@ -44,23 +44,22 @@ let ComplianceScenariosDataService = class ComplianceScenariosDataService {
         };
         const complianceScenariosToCreate = complianceScenarioDataDto.filter((dataDto) => !dataDto._id);
         const complianceScenariosToUpdate = complianceScenarioDataDto.filter((dataDto) => dataDto._id);
-        complianceScenariosToCreate.forEach((automationDto) => {
-            automationDto._id = (0, generate_id_helper_1.generateId)(compliance_scenarios_constant_1.Compliance_Scenarios_id);
-            delete automationDto.last_modified_by;
-        });
+        let createdData = [];
+        for (const dataDto of complianceScenariosToCreate) {
+            dataDto._id = (0, generate_id_helper_1.generateId)(compliance_scenarios_constant_1.Compliance_Scenarios_id);
+            delete dataDto.last_modified_by;
+            const value = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['compliance_scenarios_data']), dataDto);
+            createdData.push(value);
+        }
         try {
-            const createPromises = complianceScenariosToCreate.map((automationDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, compliance_scenarios_constant_1.ComplianceAndScenarios['compliance_scenarios_data']), automationDto));
             const updatePromises = complianceScenariosToUpdate.map((automationDto) => this.updateComplianceScenariosData(processId, automationDto._id, automationDto));
-            const createResults = await Promise.all(createPromises);
             const updateResults = await Promise.all(updatePromises);
-            const allInsertionsSuccessful = createResults.every((data, index) => data._id === complianceScenariosToCreate[index]._id);
-            if (allInsertionsSuccessful ||
-                updateResults.every((result) => result.acknowledged)) {
+            if (updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
             return {
-                created: createResults,
+                created: createdData,
                 updated: updateResults,
             };
         }

@@ -50,7 +50,6 @@ let WorkflowsService = class WorkflowsService {
             delete dataDto.last_modified_by;
             const value = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['workflows']), dataDto);
             createdData.push(value);
-            console.log('createdData:', createdData);
         }
         try {
             const updatePromises = workflowToUpdate.map((dataDto) => this.updateWorkflow(processId, dataDto._id, dataDto));

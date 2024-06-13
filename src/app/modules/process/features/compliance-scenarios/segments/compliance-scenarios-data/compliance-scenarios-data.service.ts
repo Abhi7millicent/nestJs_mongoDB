@@ -61,23 +61,21 @@ export class ComplianceScenariosDataService {
       (dataDto) => dataDto._id,
     );
 
-    complianceScenariosToCreate.forEach((automationDto) => {
-      automationDto._id = generateId(Compliance_Scenarios_id);
-      delete automationDto.last_modified_by;
-    });
+    let createdData = [];
+
+    for (const dataDto of complianceScenariosToCreate) {
+      dataDto._id = generateId(Compliance_Scenarios_id);
+      delete dataDto.last_modified_by;
+
+      const value = await this.processRepository.createByKey(
+        processId,
+        findPath(PROCESS, ComplianceAndScenarios['compliance_scenarios_data']),
+        dataDto,
+      );
+      createdData.push(value);
+    }
 
     try {
-      const createPromises = complianceScenariosToCreate.map((automationDto) =>
-        this.processRepository.createByKey(
-          processId,
-          findPath(
-            PROCESS,
-            ComplianceAndScenarios['compliance_scenarios_data'],
-          ),
-          automationDto,
-        ),
-      );
-
       const updatePromises = complianceScenariosToUpdate.map((automationDto) =>
         this.updateComplianceScenariosData(
           processId,
@@ -86,17 +84,9 @@ export class ComplianceScenariosDataService {
         ),
       );
 
-      const createResults = await Promise.all(createPromises);
       const updateResults = await Promise.all(updatePromises);
 
-      const allInsertionsSuccessful = createResults.every(
-        (data, index) => data._id === complianceScenariosToCreate[index]._id,
-      );
-
-      if (
-        allInsertionsSuccessful ||
-        updateResults.every((result) => result.acknowledged)
-      ) {
+      if (updateResults.every((result) => result.acknowledged)) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -105,7 +95,7 @@ export class ComplianceScenariosDataService {
       }
 
       return {
-        created: createResults,
+        created: createdData,
         updated: updateResults,
       };
     } catch (error) {

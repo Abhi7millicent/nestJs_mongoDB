@@ -159,28 +159,14 @@ export class WorkflowsService {
         dataDto,
       );
       createdData.push(value);
-      console.log('createdData:', createdData);
     }
 
     try {
-      // const createPromises = workflowToCreate.map((dataDto) =>
-      //   this.processRepository.createByKey(
-      //     processId,
-      //     findPath(PROCESS, controlAndMonitoring['workflows']),
-      //     dataDto,
-      //   ),
-      // );
-      // console.log('createPromises:', createPromises);
       const updatePromises = workflowToUpdate.map((dataDto) =>
         this.updateWorkflow(processId, dataDto._id, dataDto),
       );
       console.log('updatePromises:', updatePromises);
-      // const createResults = await Promise.all(createPromises);
       const updateResults = await Promise.all(updatePromises);
-
-      // const allInsertionsSuccessful = createResults.every(
-      //   (data, index) => data._id === workflowToCreate[index]._id,
-      // );
 
       if (
         // allInsertionsSuccessful ||

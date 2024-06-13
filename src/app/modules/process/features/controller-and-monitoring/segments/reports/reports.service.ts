@@ -82,35 +82,28 @@ export class ReportsService {
     const reportsToCreate = reportsDto.filter((dataDto) => !dataDto._id);
     const reportsToUpdate = reportsDto.filter((dataDto) => dataDto._id);
 
-    reportsToCreate.forEach((dataDto) => {
+    let createdData = [];
+
+    for (const dataDto of reportsToCreate) {
       dataDto._id = generateId(reports);
       delete dataDto.last_modified_by;
-    });
+
+      const value = await this.processRepository.createByKey(
+        processId,
+        findPath(PROCESS, controlAndMonitoring['reports']),
+        dataDto,
+      );
+      createdData.push(value);
+    }
 
     try {
-      const createPromises = reportsToCreate.map((dataDto) =>
-        this.processRepository.createByKey(
-          processId,
-          findPath(PROCESS, controlAndMonitoring['reports']),
-          dataDto,
-        ),
-      );
-
       const updatePromises = reportsToUpdate.map((dataDto) =>
         this.updateReports(processId, dataDto._id, dataDto),
       );
 
-      const createResults = await Promise.all(createPromises);
       const updateResults = await Promise.all(updatePromises);
 
-      const allInsertionsSuccessful = createResults.every(
-        (data, index) => data._id === reportsToCreate[index]._id,
-      );
-
-      if (
-        allInsertionsSuccessful ||
-        updateResults.every((result) => result.acknowledged)
-      ) {
+      if (updateResults.every((result) => result.acknowledged)) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -119,7 +112,7 @@ export class ReportsService {
       }
 
       return {
-        created: createResults,
+        created: createdData,
         updated: updateResults,
       };
     } catch (error) {

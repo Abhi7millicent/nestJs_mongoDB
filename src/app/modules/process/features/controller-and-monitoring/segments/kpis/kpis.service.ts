@@ -82,35 +82,28 @@ export class KPIsService {
     const kpisToCreate = kpisDto.filter((dataDto) => !dataDto._id);
     const kpisToUpdate = kpisDto.filter((dataDto) => dataDto._id);
 
-    kpisToCreate.forEach((dataDto) => {
+    let createdData = [];
+
+    for (const dataDto of kpisToCreate) {
       dataDto._id = generateId(kpis);
       delete dataDto.last_modified_by;
-    });
+
+      const value = await this.processRepository.createByKey(
+        processId,
+        findPath(PROCESS, controlAndMonitoring['kpis']),
+        dataDto,
+      );
+      createdData.push(value);
+    }
 
     try {
-      const createPromises = kpisToCreate.map((dataDto) =>
-        this.processRepository.createByKey(
-          processId,
-          findPath(PROCESS, controlAndMonitoring['kpis']),
-          dataDto,
-        ),
-      );
-
       const updatePromises = kpisToUpdate.map((dataDto) =>
         this.updateKPIs(processId, dataDto._id, dataDto),
       );
 
-      const createResults = await Promise.all(createPromises);
       const updateResults = await Promise.all(updatePromises);
 
-      const allInsertionsSuccessful = createResults.every(
-        (data, index) => data._id === kpisToCreate[index]._id,
-      );
-
-      if (
-        allInsertionsSuccessful ||
-        updateResults.every((result) => result.acknowledged)
-      ) {
+      if (updateResults.every((result) => result.acknowledged)) {
         const updateResponseDto = await this.processRepository.update(
           { _id: processId },
           auditData,
@@ -119,7 +112,7 @@ export class KPIsService {
       }
 
       return {
-        created: createResults,
+        created: createdData,
         updated: updateResults,
       };
     } catch (error) {

@@ -35,7 +35,7 @@ export class ProcessControlsController {
     return this.processControlsService.findOne(+id);
   }
 
-  @Put(':processId/process-controls-delete/:qrId')
+  @Put(':processId/process-controls-update/:qrId')
   async updateQueriesResponse(
     @Param('processId') processId: string,
     @Param('qrId') qrId: string,
@@ -44,7 +44,7 @@ export class ProcessControlsController {
     return this.processControlsService.update(processId, qrId, workflowData);
   }
 
-  @Put(':processId/process-controls/:qrId')
+  @Put(':processId/process-controls-delete/:qrId')
   async updatequeriesresponseIsDeleted(
     @Param('processId') processId: string,
     @Param('qrId') qrId: string,

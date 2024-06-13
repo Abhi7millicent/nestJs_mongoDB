@@ -64,7 +64,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProcessControlsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Put)(':processId/process-controls-delete/:qrId'),
+    (0, common_1.Put)(':processId/process-controls-update/:qrId'),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('qrId')),
     __param(2, (0, common_1.Body)()),
@@ -73,7 +73,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProcessControlsController.prototype, "updateQueriesResponse", null);
 __decorate([
-    (0, common_1.Put)(':processId/process-controls/:qrId'),
+    (0, common_1.Put)(':processId/process-controls-delete/:qrId'),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('qrId')),
     __metadata("design:type", Function),

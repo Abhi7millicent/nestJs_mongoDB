@@ -42,7 +42,7 @@ export class ProcessControlsService {
       const createPromises = processToCreate.map((activityDto) =>
         this.processRepository.createByKey(
           processId,
-          findPath(PROCESS, 'controls'),
+          findPath(PROCESS, process_controls),
           activityDto,
         ),
       );
@@ -134,7 +134,7 @@ export class ProcessControlsService {
     delete updateprocessControlsDto.last_modified_by;
     const data = await this.processRepository.updateByKey(
       processId,
-      findPath(PROCESS, 'controls'),
+      findPath(PROCESS, process_controls),
       qrId,
       updateprocessControlsDto,
     );

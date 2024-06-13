@@ -38,7 +38,7 @@ export const queries_and_responses = 'queries_and_responses';
 export const process_document_id = 'pd_';
 export const process_document = 'documents';
 export const process_controls_id = 'pc_';
-export const process_controls = 'documents';
+export const process_controls = 'controls';
 export const integration_scenario = 'integration_scenario';
 export const data_management = 'data_management';
 

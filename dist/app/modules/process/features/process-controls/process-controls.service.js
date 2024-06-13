@@ -33,7 +33,7 @@ let ProcessControlsService = class ProcessControlsService {
             delete activityDto.last_modified_by;
         });
         try {
-            const createPromises = processToCreate.map((activityDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'controls'), activityDto));
+            const createPromises = processToCreate.map((activityDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_controls), activityDto));
             const updatePromises = processToUpdate.map((activityDto) => this.update(processId, activityDto._id, activityDto));
             const createResults = await Promise.all(createPromises);
             const updateResults = await Promise.all(updatePromises);
@@ -71,7 +71,7 @@ let ProcessControlsService = class ProcessControlsService {
             last_modified_on: new Date(),
         };
         delete updateprocessControlsDto.last_modified_by;
-        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'controls'), qrId, updateprocessControlsDto);
+        const data = await this.processRepository.updateByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.process_controls), qrId, updateprocessControlsDto);
         if (data.acknowledged) {
             const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
             return updateResponseDto;

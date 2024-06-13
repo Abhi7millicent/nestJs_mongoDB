@@ -22,7 +22,7 @@ export class AutomationScenarioController {
   ) {}
 
   @Post('automation-scenario')
-  @HttpCode(HttpStatus.CREATED) // Setting default success status code to 201 Created
+  @HttpCode(HttpStatus.CREATED)
   async addAutomationScenario(
     @Body() createAutomationScenarioDto: UpsertAutomationScenarioDto,
   ) {
@@ -37,7 +37,6 @@ export class AutomationScenarioController {
         data: data,
       };
     } catch (error) {
-      // Handle specific known errors
       if (error instanceof NotFoundException) {
         throw new HttpException(
           {
@@ -47,7 +46,6 @@ export class AutomationScenarioController {
           HttpStatus.NOT_FOUND,
         );
       } else {
-        // Handle unexpected errors
         throw new HttpException(
           {
             statusCode: HttpStatus.INTERNAL_SERVER_ERROR,

@@ -319,14 +319,6 @@ __decorate([
     __metadata("design:type", String)
 ], MDO.prototype, "title", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], MDO.prototype, "description", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ type: [String], required: true }),
-    __metadata("design:type", String)
-], MDO.prototype, "activity_id", void 0);
-__decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
 ], MDO.prototype, "is_deleted", void 0);
@@ -339,7 +331,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], DataManagement.prototype, "average_transactions", void 0);
+], DataManagement.prototype, "average_transactions_year", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)

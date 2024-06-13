@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MDODto = void 0;
+exports.UpsertMDODto = exports.MDODto = void 0;
 const class_validator_1 = require("class-validator");
 class MDODto {
 }
@@ -21,18 +21,15 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], MDODto.prototype, "description", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
 ], MDODto.prototype, "last_modified_by", void 0);
-__decorate([
-    (0, class_validator_1.IsArray)(),
-    (0, class_validator_1.IsString)({ each: true }),
-    __metadata("design:type", Array)
-], MDODto.prototype, "activity_id", void 0);
 __decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], MDODto.prototype, "is_deleted", void 0);
+class UpsertMDODto {
+    constructor() {
+        this.mdo = [];
+    }
+}
+exports.UpsertMDODto = UpsertMDODto;
 //# sourceMappingURL=master_data_objects.js.map

@@ -74,7 +74,69 @@ export class WorkflowsService {
   //   }
   // }
 
-  async Upsert(createWorkflowsDto: UpsertWorkflowsDto): Promise<any> {
+  // async Upsert(createWorkflowsDto: UpsertWorkflowsDto): Promise<any> {
+  //   const processId = createWorkflowsDto._id;
+  //   const workflowsDto = createWorkflowsDto.workflows;
+  //   const auditData = {
+  //     last_modified_by: workflowsDto[0].last_modified_by,
+  //     last_modified_on: new Date(),
+  //   };
+
+  //   const workflowToCreate = workflowsDto.filter((dataDto) => !dataDto._id);
+  //   const workflowToUpdate = workflowsDto.filter((dataDto) => dataDto._id);
+
+  //   workflowToCreate.forEach((dataDto) => {
+  //     dataDto._id = generateId(workflow);
+  //     delete dataDto.last_modified_by;
+  //   });
+
+  //   try {
+  //     const createPromises = workflowToCreate.map((dataDto) =>
+  //       this.processRepository.createByKey(
+  //         processId,
+  //         findPath(PROCESS, controlAndMonitoring['workflows']),
+  //         dataDto,
+  //       ),
+  //     );
+  //     console.log('createPromises:', createPromises);
+  //     const updatePromises = workflowToUpdate.map((dataDto) =>
+  //       this.updateWorkflow(processId, dataDto._id, dataDto),
+  //     );
+  //     console.log('updatePromises:', updatePromises);
+  //     const createResults = await Promise.all(createPromises);
+  //     const updateResults = await Promise.all(updatePromises);
+
+  //     const allInsertionsSuccessful = createResults.every(
+  //       (data, index) => data._id === workflowToCreate[index]._id,
+  //     );
+
+  //     if (
+  //       allInsertionsSuccessful ||
+  //       updateResults.every((result) => result.acknowledged)
+  //     ) {
+  //       const updateResponseDto = await this.processRepository.update(
+  //         { _id: processId },
+  //         auditData,
+  //       );
+  //       console.log('updateMetaData:', updateResponseDto);
+  //     }
+
+  //     return {
+  //       created: createResults,
+  //       updated: updateResults,
+  //     };
+  //   } catch (error) {
+  //     if (error instanceof NotFoundException) {
+  //       console.error('Not Found Exception:', error.message);
+  //       throw error;
+  //     } else {
+  //       console.error('Unexpected Error:', error.message);
+  //       throw error;
+  //     }
+  //   }
+  // }
+
+  async upsert(createWorkflowsDto: UpsertWorkflowsDto): Promise<any> {
     const processId = createWorkflowsDto._id;
     const workflowsDto = createWorkflowsDto.workflows;
     const auditData = {
@@ -85,33 +147,43 @@ export class WorkflowsService {
     const workflowToCreate = workflowsDto.filter((dataDto) => !dataDto._id);
     const workflowToUpdate = workflowsDto.filter((dataDto) => dataDto._id);
 
-    workflowToCreate.forEach((dataDto) => {
+    let createdData = [];
+
+    for (const dataDto of workflowToCreate) {
       dataDto._id = generateId(workflow);
       delete dataDto.last_modified_by;
-    });
+
+      const value = await this.processRepository.createByKey(
+        processId,
+        findPath(PROCESS, controlAndMonitoring['workflows']),
+        dataDto,
+      );
+      createdData.push(value);
+      console.log('createdData:', createdData);
+    }
 
     try {
-      const createPromises = workflowToCreate.map((dataDto) =>
-        this.processRepository.createByKey(
-          processId,
-          findPath(PROCESS, controlAndMonitoring['workflows']),
-          dataDto,
-        ),
-      );
-
+      // const createPromises = workflowToCreate.map((dataDto) =>
+      //   this.processRepository.createByKey(
+      //     processId,
+      //     findPath(PROCESS, controlAndMonitoring['workflows']),
+      //     dataDto,
+      //   ),
+      // );
+      // console.log('createPromises:', createPromises);
       const updatePromises = workflowToUpdate.map((dataDto) =>
         this.updateWorkflow(processId, dataDto._id, dataDto),
       );
-
-      const createResults = await Promise.all(createPromises);
+      console.log('updatePromises:', updatePromises);
+      // const createResults = await Promise.all(createPromises);
       const updateResults = await Promise.all(updatePromises);
 
-      const allInsertionsSuccessful = createResults.every(
-        (data, index) => data._id === workflowToCreate[index]._id,
-      );
+      // const allInsertionsSuccessful = createResults.every(
+      //   (data, index) => data._id === workflowToCreate[index]._id,
+      // );
 
       if (
-        allInsertionsSuccessful ||
+        // allInsertionsSuccessful ||
         updateResults.every((result) => result.acknowledged)
       ) {
         const updateResponseDto = await this.processRepository.update(
@@ -122,7 +194,7 @@ export class WorkflowsService {
       }
 
       return {
-        created: createResults,
+        created: createdData,
         updated: updateResults,
       };
     } catch (error) {
@@ -135,7 +207,6 @@ export class WorkflowsService {
       }
     }
   }
-
   async updateWorkflowsIsDeleted(
     processId: string,
     workflowId: string,

@@ -18,7 +18,6 @@ class GenericRepository {
     }
     async createByKey(id, keyPath, data) {
         try {
-            console.log('Id:', id);
             const value = await this.model.findById(id).exec();
             if (!value) {
                 throw new common_1.NotFoundException(error_message_1.ErrorMessage.ID_NOT_FOUND(id));
@@ -49,6 +48,7 @@ class GenericRepository {
             value.markModified(updatePath);
             await value.save();
             const pushedPart = keyPath.reduce((obj, key) => obj[key], value);
+            console.log('data:', pushedPart[pushedPart.length - 1]);
             return pushedPart[pushedPart.length - 1];
         }
         catch (error) {

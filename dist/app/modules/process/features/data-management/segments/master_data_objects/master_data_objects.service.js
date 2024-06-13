@@ -15,7 +15,6 @@ const process_repository_1 = require("../../../../process.repository");
 const process_utils_1 = require("../../../../utils/process.utils");
 const process_constants_1 = require("../../../../constant/process.constants");
 const generate_id_helper_1 = require("../../../../../../../shared/helper/generate-id.helper");
-const data_management_constant_1 = require("../../constant/data-management.constant");
 let MDOService = class MDOService {
     constructor(processRepository) {
         this.processRepository = processRepository;
@@ -41,30 +40,32 @@ let MDOService = class MDOService {
     async updateMDOIsSoftDeleted(processId, mdoId) {
         return this.processRepository.softDeleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'master_data_objects'), mdoId);
     }
-    async addMDO(processId, mdoDto) {
+    async upsertMDO(createMDODto) {
+        const processId = createMDODto._id;
+        const mdoDto = createMDODto.mdo;
         const auditData = {
             last_modified_by: mdoDto[0].last_modified_by,
             last_modified_on: new Date(),
         };
         const mdoToCreate = mdoDto.filter((dataDto) => !dataDto._id);
         const mdoToUpdate = mdoDto.filter((dataDto) => dataDto._id);
-        mdoToCreate.forEach((dataDto) => {
-            dataDto._id = (0, generate_id_helper_1.generateId)(data_management_constant_1.data_management_info);
+        let createdData = [];
+        for (const dataDto of mdoToCreate) {
+            dataDto._id = (0, generate_id_helper_1.generateId)('mdo_');
             delete dataDto.last_modified_by;
-        });
+            const value = this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'master_data_objects'), dataDto);
+            createdData.push(value);
+            console.log('createdData:', createdData);
+        }
         try {
-            const createPromises = mdoToCreate.map((dataDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'master_data_objects'), dataDto));
             const updatePromises = mdoToUpdate.map((dataDto) => this.updateMDO(processId, dataDto._id, dataDto));
-            const createResults = await Promise.all(createPromises);
             const updateResults = await Promise.all(updatePromises);
-            const allInsertionsSuccessful = createResults.every((data, index) => data._id === mdoToCreate[index]._id);
-            if (allInsertionsSuccessful ||
-                updateResults.every((result) => result.acknowledged)) {
+            if (updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
             return {
-                created: createResults,
+                created: createdData,
                 updated: updateResults,
             };
         }

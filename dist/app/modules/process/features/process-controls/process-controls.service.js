@@ -29,11 +29,11 @@ let ProcessControlsService = class ProcessControlsService {
         const processToCreate = processControlsDto.filter((activityDto) => !activityDto._id);
         const processToUpdate = processControlsDto.filter((activityDto) => activityDto._id);
         processToCreate.forEach((activityDto) => {
-            activityDto._id = (0, generate_id_helper_1.generateId)('activity_');
+            activityDto._id = (0, generate_id_helper_1.generateId)('pc_');
             delete activityDto.last_modified_by;
         });
         try {
-            const createPromises = processToCreate.map((activityDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'activities'), activityDto));
+            const createPromises = processToCreate.map((activityDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'controls'), activityDto));
             const updatePromises = processToUpdate.map((activityDto) => this.update(processId, activityDto._id, activityDto));
             const createResults = await Promise.all(createPromises);
             const updateResults = await Promise.all(updatePromises);

@@ -4,7 +4,7 @@ export class DataManagementDto {
   _id: string;
 
   @IsString()
-  average_transactions: string;
+  average_transactions_year: string;
 
   @IsString()
   maximum_transactions_month: string;

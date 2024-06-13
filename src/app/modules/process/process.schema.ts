@@ -249,11 +249,11 @@ class MDO {
   @Prop({ required: true })
   title!: string;
 
-  @Prop({ required: true })
-  description!: string;
+  // @Prop({ required: true })
+  // description!: string;
 
-  @Prop({ type: [String], required: true })
-  activity_id!: string;
+  // @Prop({ type: [String], required: true })
+  // activity_id!: string;
 
   @Prop({ required: true, default: false })
   is_deleted!: boolean;
@@ -267,7 +267,7 @@ class DataManagement {
   public _id: string;
 
   @Prop({ required: true })
-  public average_transactions!: string;
+  public average_transactions_year!: string;
 
   @Prop({ required: true })
   public maximum_transactions_month!: string;

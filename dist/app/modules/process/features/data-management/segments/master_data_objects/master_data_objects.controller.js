@@ -15,13 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MDOController = void 0;
 const common_1 = require("@nestjs/common");
 const master_data_objects_service_1 = require("./master_data_objects.service");
+const master_data_objects_1 = require("./dto/master_data_objects");
 let MDOController = class MDOController {
     constructor(mdoService) {
         this.mdoService = mdoService;
     }
-    async addMDO(id, mdoDto) {
+    async addMDO(createMDODto) {
         try {
-            const data = await this.mdoService.addMDO(id, mdoDto);
+            const data = await this.mdoService.upsertMDO(createMDODto);
             return {
                 statusCode: common_1.HttpStatus.CREATED,
                 message: 'MDO created successfully',
@@ -52,12 +53,11 @@ let MDOController = class MDOController {
 };
 exports.MDOController = MDOController;
 __decorate([
-    (0, common_1.Post)('mdo/:id'),
+    (0, common_1.Post)('mdo'),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [master_data_objects_1.UpsertMDODto]),
     __metadata("design:returntype", Promise)
 ], MDOController.prototype, "addMDO", null);
 __decorate([

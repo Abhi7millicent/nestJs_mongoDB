@@ -95,14 +95,14 @@ export class QueriesAndResponses {
 export class MDO {
   public _id: string = '';
   public title: string = '';
-  public description: string = '';
-  public activity_id: string = '';
+  // public description: string = '';
+  // public activity_id: string = '';
   public is_deleted: boolean = false;
 }
 
 export class DataManagement {
   public _id: string = '';
-  public average_transactions: string = '';
+  public average_transactions_year: string = '';
   public maximum_transactions_month: string = '';
   public maximum_transactions_day: string = '';
   public average_line_items: string = '';

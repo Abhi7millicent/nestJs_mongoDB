@@ -34,7 +34,7 @@ export class ProcessControlsService {
     );
 
     processToCreate.forEach((activityDto) => {
-      activityDto._id = generateId('activity_');
+      activityDto._id = generateId('pc_');
       delete activityDto.last_modified_by;
     });
 
@@ -42,7 +42,7 @@ export class ProcessControlsService {
       const createPromises = processToCreate.map((activityDto) =>
         this.processRepository.createByKey(
           processId,
-          findPath(PROCESS, 'activities'),
+          findPath(PROCESS, 'controls'),
           activityDto,
         ),
       );

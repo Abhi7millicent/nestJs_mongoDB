@@ -16,7 +16,7 @@ export class WorkflowsController {
 
   @Post('work-flows')
   async addWorkflows(@Body() createWorkflowsDto: UpsertWorkflowsDto) {
-    return this.workflowsService.Upsert(createWorkflowsDto);
+    return this.workflowsService.upsert(createWorkflowsDto);
   }
 
   @Put(':processId/workflows/:workflowId')

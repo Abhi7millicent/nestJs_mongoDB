@@ -35,7 +35,7 @@ let WorkflowsService = class WorkflowsService {
             return data;
         }
     }
-    async Upsert(createWorkflowsDto) {
+    async upsert(createWorkflowsDto) {
         const processId = createWorkflowsDto._id;
         const workflowsDto = createWorkflowsDto.workflows;
         const auditData = {
@@ -44,23 +44,24 @@ let WorkflowsService = class WorkflowsService {
         };
         const workflowToCreate = workflowsDto.filter((dataDto) => !dataDto._id);
         const workflowToUpdate = workflowsDto.filter((dataDto) => dataDto._id);
-        workflowToCreate.forEach((dataDto) => {
+        let createdData = [];
+        for (const dataDto of workflowToCreate) {
             dataDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.workflow);
             delete dataDto.last_modified_by;
-        });
+            const value = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['workflows']), dataDto);
+            createdData.push(value);
+            console.log('createdData:', createdData);
+        }
         try {
-            const createPromises = workflowToCreate.map((dataDto) => this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['workflows']), dataDto));
             const updatePromises = workflowToUpdate.map((dataDto) => this.updateWorkflow(processId, dataDto._id, dataDto));
-            const createResults = await Promise.all(createPromises);
+            console.log('updatePromises:', updatePromises);
             const updateResults = await Promise.all(updatePromises);
-            const allInsertionsSuccessful = createResults.every((data, index) => data._id === workflowToCreate[index]._id);
-            if (allInsertionsSuccessful ||
-                updateResults.every((result) => result.acknowledged)) {
+            if (updateResults.every((result) => result.acknowledged)) {
                 const updateResponseDto = await this.processRepository.update({ _id: processId }, auditData);
                 console.log('updateMetaData:', updateResponseDto);
             }
             return {
-                created: createResults,
+                created: createdData,
                 updated: updateResults,
             };
         }

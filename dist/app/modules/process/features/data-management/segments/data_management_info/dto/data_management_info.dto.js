@@ -17,7 +17,7 @@ exports.DataManagementDto = DataManagementDto;
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], DataManagementDto.prototype, "average_transactions", void 0);
+], DataManagementDto.prototype, "average_transactions_year", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

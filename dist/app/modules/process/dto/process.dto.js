@@ -115,8 +115,6 @@ class MDO {
     constructor() {
         this._id = '';
         this.title = '';
-        this.description = '';
-        this.activity_id = '';
         this.is_deleted = false;
     }
 }
@@ -124,7 +122,7 @@ exports.MDO = MDO;
 class DataManagement {
     constructor() {
         this._id = '';
-        this.average_transactions = '';
+        this.average_transactions_year = '';
         this.maximum_transactions_month = '';
         this.maximum_transactions_day = '';
         this.average_line_items = '';

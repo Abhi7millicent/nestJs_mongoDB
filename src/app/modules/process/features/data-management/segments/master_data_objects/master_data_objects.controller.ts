@@ -10,17 +10,17 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { MDOService } from './master_data_objects.service';
-import { MDODto } from './dto/master_data_objects';
+import { MDODto, UpsertMDODto } from './dto/master_data_objects';
 
 @Controller('v1/process')
 export class MDOController {
   constructor(private readonly mdoService: MDOService) {}
 
-  @Post('mdo/:id')
+  @Post('mdo')
   @HttpCode(HttpStatus.CREATED) // Setting default success status code to 201 Created
-  async addMDO(@Param('id') id: string, @Body() mdoDto: MDODto[]) {
+  async addMDO(@Body() createMDODto: UpsertMDODto) {
     try {
-      const data = await this.mdoService.addMDO(id, mdoDto);
+      const data = await this.mdoService.upsertMDO(createMDODto);
       return {
         statusCode: HttpStatus.CREATED,
         message: 'MDO created successfully',

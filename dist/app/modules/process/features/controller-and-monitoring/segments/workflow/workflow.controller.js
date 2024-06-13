@@ -21,7 +21,7 @@ let WorkflowsController = class WorkflowsController {
         this.workflowsService = workflowsService;
     }
     async addWorkflows(createWorkflowsDto) {
-        return this.workflowsService.Upsert(createWorkflowsDto);
+        return this.workflowsService.upsert(createWorkflowsDto);
     }
     async updateWorkflow(processId, workflowId, workflowData) {
         return this.workflowsService.updateWorkflow(processId, workflowId, workflowData);

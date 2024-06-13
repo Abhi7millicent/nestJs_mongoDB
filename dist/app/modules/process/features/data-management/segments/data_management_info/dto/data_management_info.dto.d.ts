@@ -1,6 +1,6 @@
 export declare class DataManagementDto {
     _id: string;
-    average_transactions: string;
+    average_transactions_year: string;
     maximum_transactions_month: string;
     maximum_transactions_day: string;
     average_line_items: string;

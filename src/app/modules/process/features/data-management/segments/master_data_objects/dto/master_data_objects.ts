@@ -12,16 +12,21 @@ export class MDODto {
   @IsString()
   title: string;
 
-  @IsString()
-  description: string;
+  // @IsString()
+  // description: string;
 
   @IsString()
   last_modified_by: string;
 
-  @IsArray()
-  @IsString({ each: true })
-  activity_id: string[];
+  // @IsArray()
+  // @IsString({ each: true })
+  // activity_id: string[];
 
   @IsBoolean()
   is_deleted: boolean;
+}
+
+export class UpsertMDODto {
+  public _id: string;
+  public mdo: MDODto[] = [];
 }

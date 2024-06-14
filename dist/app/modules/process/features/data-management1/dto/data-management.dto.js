@@ -40,7 +40,7 @@ __decorate([
 ], DataManagementDto.prototype, "_id", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], DataManagementDto.prototype, "title", void 0);
 __decorate([
     (0, class_validator_1.ValidateNested)(),

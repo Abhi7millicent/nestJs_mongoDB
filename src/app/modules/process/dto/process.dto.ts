@@ -126,12 +126,12 @@ export class DataManagement {
 
 export class DataManagementData {
   public _id: string;
-  public title!: string;
+  public title: string[] = [];
   public transaction_volumes: Transaction_volumes_data =
     new Transaction_volumes_data();
-  public data_security!: string;
-  public data_retention!: string;
-  public data_residency!: string;
+  public data_security: string;
+  public data_retention: string;
+  public data_residency: string;
 }
 
 export class IntegrationScenario {

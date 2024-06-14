@@ -6,10 +6,13 @@ export declare class ActivitiesController {
     constructor(activitiesService: ActivitiesService);
     addActivity(createActivityDto: UpsertActivityDto): Promise<{
         statusCode: HttpStatus;
+        success: boolean;
         message: string;
         data: any;
     }>;
-    updateActivity(processId: string, activityId: string, activityData: any): Promise<any>;
-    updateActivityIsDeleted(processId: string, activityId: string): Promise<any>;
-    updateActivityIsSoftDeleted(processId: string, activityId: string): Promise<any>;
+    updateActivityIsDeleted(processId: string, activityId: string): Promise<{
+        statusCode: HttpStatus;
+        message: string;
+        data: any;
+    }>;
 }

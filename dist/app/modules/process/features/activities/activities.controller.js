@@ -16,6 +16,7 @@ exports.ActivitiesController = void 0;
 const common_1 = require("@nestjs/common");
 const activities_service_1 = require("./activities.service");
 const activities_dto_1 = require("./dto/activities.dto");
+const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
 let ActivitiesController = class ActivitiesController {
     constructor(activitiesService) {
         this.activitiesService = activitiesService;
@@ -25,39 +26,46 @@ let ActivitiesController = class ActivitiesController {
             const data = await this.activitiesService.Upsert(createActivityDto);
             return {
                 statusCode: common_1.HttpStatus.CREATED,
+                success: true,
                 message: 'Activity created successfully',
                 data: data,
             };
         }
         catch (error) {
-            console.error('Error in addActivity controller method:', error.message);
             if (error instanceof common_1.NotFoundException) {
-                throw new common_1.HttpException({
-                    statusCode: common_1.HttpStatus.NOT_FOUND,
-                    message: error.message,
-                }, common_1.HttpStatus.NOT_FOUND);
+                throw new common_1.NotFoundException(error.message);
+            }
+            else if (error instanceof common_1.BadRequestException) {
+                throw new common_1.BadRequestException(error.message);
             }
             else {
-                throw new common_1.HttpException({
-                    statusCode: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
-                    message: 'Internal server error',
-                }, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+                throw new common_1.InternalServerErrorException('Failed to create the activity');
             }
         }
     }
-    async updateActivity(processId, activityId, activityData) {
-        return this.activitiesService.updateActivity(processId, activityId, activityData);
-    }
     async updateActivityIsDeleted(processId, activityId) {
-        return this.activitiesService.updateActivityIsDeleted(processId, activityId);
-    }
-    async updateActivityIsSoftDeleted(processId, activityId) {
-        return this.activitiesService.updateActivityIsSoftDeleted(processId, activityId);
+        try {
+            const result = await this.activitiesService.updateActivityIsDeleted(processId, activityId);
+            return {
+                statusCode: common_1.HttpStatus.OK,
+                message: 'Activity deleted successfully',
+                data: result,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to delete the activity');
+            }
+        }
     }
 };
 exports.ActivitiesController = ActivitiesController;
 __decorate([
     (0, common_1.Post)('/activities'),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -65,30 +73,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ActivitiesController.prototype, "addActivity", null);
 __decorate([
-    (0, common_1.Put)(':processId/activities/:activityId'),
-    __param(0, (0, common_1.Param)('processId')),
-    __param(1, (0, common_1.Param)('activityId')),
-    __param(2, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Object]),
-    __metadata("design:returntype", Promise)
-], ActivitiesController.prototype, "updateActivity", null);
-__decorate([
     (0, common_1.Put)(':processId/activities-delete/:activityId'),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('activityId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], ActivitiesController.prototype, "updateActivityIsDeleted", null);
-__decorate([
-    (0, common_1.Put)(':processId/activities-soft-delete/:activityId'),
-    __param(0, (0, common_1.Param)('processId')),
-    __param(1, (0, common_1.Param)('activityId')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", Promise)
-], ActivitiesController.prototype, "updateActivityIsSoftDeleted", null);
 exports.ActivitiesController = ActivitiesController = __decorate([
     (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [activities_service_1.ActivitiesService])

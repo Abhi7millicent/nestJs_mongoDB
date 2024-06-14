@@ -143,6 +143,7 @@ class DataManagement {
 exports.DataManagement = DataManagement;
 class DataManagementData {
     constructor() {
+        this.title = [];
         this.transaction_volumes = new Transaction_volumes_data();
     }
 }

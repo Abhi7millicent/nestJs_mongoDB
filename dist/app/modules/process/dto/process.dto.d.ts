@@ -108,7 +108,7 @@ export declare class DataManagement {
 }
 export declare class DataManagementData {
     _id: string;
-    title: string;
+    title: string[];
     transaction_volumes: Transaction_volumes_data;
     data_security: string;
     data_retention: string;

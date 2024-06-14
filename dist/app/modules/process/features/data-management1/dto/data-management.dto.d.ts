@@ -6,7 +6,7 @@ export declare class TransactionVolumesDataDto {
 }
 export declare class DataManagementDto {
     _id: string;
-    title: string;
+    title: string[];
     transaction_volumes?: TransactionVolumesDataDto;
     data_security: string;
     data_retention: string;

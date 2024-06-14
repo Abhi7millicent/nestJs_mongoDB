@@ -317,8 +317,8 @@ class DataManagementData {
   @Prop({ required: true, type: String })
   _id: string;
 
-  @Prop({ required: true })
-  title!: string;
+  @Prop({ type: [String], required: true })
+  title!: string[];
 
   @Prop({ type: Transaction_volumes_data, required: false })
   transaction_volumes!: Transaction_volumes_data;

@@ -16,87 +16,80 @@ exports.ProcessControlsController = void 0;
 const common_1 = require("@nestjs/common");
 const process_controls_service_1 = require("./process-controls.service");
 const process_controls_dto_1 = require("./dto/process-controls.dto");
+const process_archive_service_1 = require("../../../archive/process-archive/process-archive.service");
+const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
 let ProcessControlsController = class ProcessControlsController {
-    constructor(processControlsService) {
+    constructor(processControlsService, processArchiveService) {
         this.processControlsService = processControlsService;
+        this.processArchiveService = processArchiveService;
     }
-    create(upsertProcessControlsDto) {
-        return this.processControlsService.upsert(upsertProcessControlsDto);
-    }
-    findAll() {
-        return this.processControlsService.findAll();
-    }
-    findOne(id) {
-        return this.processControlsService.findOne(+id);
-    }
-    async updateQueriesResponse(processId, qrId, workflowData) {
-        return this.processControlsService.update(processId, qrId, workflowData);
+    async create(upsertProcessControlsDto) {
+        try {
+            const data = await this.processControlsService.upsert(upsertProcessControlsDto);
+            return {
+                statusCode: common_1.HttpStatus.CREATED,
+                success: true,
+                message: 'process-controls created successfully',
+                data: data,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else if (error instanceof common_1.BadRequestException) {
+                throw new common_1.BadRequestException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to create the process-controls');
+            }
+        }
     }
     async updatequeriesresponseIsDeleted(processId, qrId) {
-        return this.processControlsService.updatequeriesresponseIsDeleted(processId, qrId);
-    }
-    async updateQueriesResponsesIsSoftDeleted(processId, qrId) {
-        return this.processControlsService.updateQueriesResponsesIsSoftDeleted(processId, qrId);
-    }
-    remove(id) {
-        return this.processControlsService.remove(+id);
+        try {
+            const archiveData = await this.processControlsService.getByProcessById(processId);
+            const result = await this.processControlsService.updatequeriesresponseIsDeleted(processId, qrId);
+            if (result) {
+                const data = await this.processArchiveService.create(archiveData);
+                console.log('object:', data);
+            }
+            return {
+                statusCode: common_1.HttpStatus.OK,
+                message: 'processArchive deleted successfully',
+                data: result,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to delete the processArchive');
+            }
+        }
     }
 };
 exports.ProcessControlsController = ProcessControlsController;
 __decorate([
     (0, common_1.Post)('process-controls'),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [process_controls_dto_1.UpsertProcessControlsDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ProcessControlsController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], ProcessControlsController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], ProcessControlsController.prototype, "findOne", null);
-__decorate([
-    (0, common_1.Put)(':processId/process-controls-update/:qrId'),
-    __param(0, (0, common_1.Param)('processId')),
-    __param(1, (0, common_1.Param)('qrId')),
-    __param(2, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Object]),
-    __metadata("design:returntype", Promise)
-], ProcessControlsController.prototype, "updateQueriesResponse", null);
-__decorate([
     (0, common_1.Put)(':processId/process-controls-delete/:qrId'),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('qrId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], ProcessControlsController.prototype, "updatequeriesresponseIsDeleted", null);
-__decorate([
-    (0, common_1.Put)(':processId/process-controls/:qrId'),
-    __param(0, (0, common_1.Param)('processId')),
-    __param(1, (0, common_1.Param)('qrId')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", Promise)
-], ProcessControlsController.prototype, "updateQueriesResponsesIsSoftDeleted", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], ProcessControlsController.prototype, "remove", null);
 exports.ProcessControlsController = ProcessControlsController = __decorate([
     (0, common_1.Controller)('v1/process'),
-    __metadata("design:paramtypes", [process_controls_service_1.ProcessControlsService])
+    __metadata("design:paramtypes", [process_controls_service_1.ProcessControlsService,
+        process_archive_service_1.ProcessArchiveService])
 ], ProcessControlsController);
 //# sourceMappingURL=process-controls.controller.js.map

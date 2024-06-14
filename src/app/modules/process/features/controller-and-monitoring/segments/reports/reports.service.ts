@@ -13,6 +13,10 @@ import { ReportsDto, UpsertReportsDto } from './dto/reports.dto';
 export class ReportsService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   async updateReports(
     processId: string,
     reportId: string,

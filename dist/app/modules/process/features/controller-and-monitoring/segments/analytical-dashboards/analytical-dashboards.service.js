@@ -20,6 +20,9 @@ let AnalyticalDashboardsService = class AnalyticalDashboardsService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     async updateAnalyticalDashboards(processId, AnalyticalDashboardsId, analyticalDashboardsDto) {
         const auditData = {
             last_modified_by: analyticalDashboardsDto.last_modified_by,

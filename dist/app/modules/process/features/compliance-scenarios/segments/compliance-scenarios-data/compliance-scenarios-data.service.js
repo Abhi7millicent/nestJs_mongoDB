@@ -20,6 +20,9 @@ let ComplianceScenariosDataService = class ComplianceScenariosDataService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     async updateComplianceScenariosData(processId, complianceScenarioDataId, complianceScenarioDataDto) {
         const auditData = {
             last_modified_by: complianceScenarioDataDto.last_modified_by,

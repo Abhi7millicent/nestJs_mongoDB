@@ -16,87 +16,80 @@ exports.ProcessDocumentController = void 0;
 const common_1 = require("@nestjs/common");
 const process_document_service_1 = require("./process-document.service");
 const process_document_dto_1 = require("./dto/process-document.dto");
+const process_archive_service_1 = require("../../../archive/process-archive/process-archive.service");
+const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
 let ProcessDocumentController = class ProcessDocumentController {
-    constructor(processDocumentService) {
+    constructor(processDocumentService, processArchiveService) {
         this.processDocumentService = processDocumentService;
+        this.processArchiveService = processArchiveService;
     }
-    create(createProcessDocumentDto) {
-        return this.processDocumentService.upsert(createProcessDocumentDto);
-    }
-    findAll() {
-        return this.processDocumentService.findAll();
-    }
-    findOne(id) {
-        return this.processDocumentService.findOne(+id);
-    }
-    async updateProcessDocument(processId, pdId, processDocumentData) {
-        return this.processDocumentService.updateProcessDocument(processId, pdId, processDocumentData);
+    async create(createProcessDocumentDto) {
+        try {
+            const data = await this.processDocumentService.upsert(createProcessDocumentDto);
+            return {
+                statusCode: common_1.HttpStatus.CREATED,
+                success: true,
+                message: 'process-document created successfully',
+                data: data,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else if (error instanceof common_1.BadRequestException) {
+                throw new common_1.BadRequestException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to create the process-document');
+            }
+        }
     }
     async updateProcessDocumentIsDeleted(processId, pdId) {
-        return this.processDocumentService.updateProcessDocumentIsDeleted(processId, pdId);
-    }
-    async updateProcessDocumentsIsSoftDeleted(processId, pdId) {
-        return this.processDocumentService.updateProcessDocumentsIsSoftDeleted(processId, pdId);
-    }
-    remove(id) {
-        return this.processDocumentService.remove(+id);
+        try {
+            const archiveData = await this.processDocumentService.getByProcessById(processId);
+            const result = await this.processDocumentService.updateProcessDocumentIsDeleted(processId, pdId);
+            if (result) {
+                const data = await this.processArchiveService.create(archiveData);
+                console.log('object:', data);
+            }
+            return {
+                statusCode: common_1.HttpStatus.OK,
+                message: 'processDocument deleted successfully',
+                data: result,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to delete the processDocument');
+            }
+        }
     }
 };
 exports.ProcessDocumentController = ProcessDocumentController;
 __decorate([
     (0, common_1.Post)('process-document'),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [process_document_dto_1.UpsertProcessDocumentDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ProcessDocumentController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], ProcessDocumentController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], ProcessDocumentController.prototype, "findOne", null);
-__decorate([
-    (0, common_1.Put)(':processId/processdocument/:pdId'),
-    __param(0, (0, common_1.Param)('processId')),
-    __param(1, (0, common_1.Param)('pdId')),
-    __param(2, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Object]),
-    __metadata("design:returntype", Promise)
-], ProcessDocumentController.prototype, "updateProcessDocument", null);
-__decorate([
     (0, common_1.Put)(':processId/pd-delete/:pdId'),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('pdId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], ProcessDocumentController.prototype, "updateProcessDocumentIsDeleted", null);
-__decorate([
-    (0, common_1.Put)(':processId/pd-soft-delete/:pdId'),
-    __param(0, (0, common_1.Param)('processId')),
-    __param(1, (0, common_1.Param)('pdId')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", Promise)
-], ProcessDocumentController.prototype, "updateProcessDocumentsIsSoftDeleted", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], ProcessDocumentController.prototype, "remove", null);
 exports.ProcessDocumentController = ProcessDocumentController = __decorate([
     (0, common_1.Controller)('v1/process'),
-    __metadata("design:paramtypes", [process_document_service_1.ProcessDocumentService])
+    __metadata("design:paramtypes", [process_document_service_1.ProcessDocumentService,
+        process_archive_service_1.ProcessArchiveService])
 ], ProcessDocumentController);
 //# sourceMappingURL=process-document.controller.js.map

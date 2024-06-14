@@ -18,6 +18,9 @@ let AutomationScenarioService = class AutomationScenarioService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     async updateAutomationScenario(processId, automationScenarioId, automationScenarioDto) {
         const auditData = {
             last_modified_by: automationScenarioDto.last_modified_by,

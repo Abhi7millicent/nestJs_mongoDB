@@ -20,6 +20,9 @@ let AuditTrailScenariosService = class AuditTrailScenariosService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     async updateAuditTrailScenarios(processId, AuditTrailScenariosId, auditTrailScenariosDto) {
         const auditData = {
             last_modified_by: auditTrailScenariosDto.last_modified_by,

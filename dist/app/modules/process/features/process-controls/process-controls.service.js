@@ -19,6 +19,9 @@ let ProcessControlsService = class ProcessControlsService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     async upsert(createProcessControlsDto) {
         const processId = createProcessControlsDto._id;
         const processControlsDto = createProcessControlsDto.process_controls;

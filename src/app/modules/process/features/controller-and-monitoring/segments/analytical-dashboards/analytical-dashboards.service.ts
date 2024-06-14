@@ -16,6 +16,10 @@ import {
 export class AnalyticalDashboardsService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   async updateAnalyticalDashboards(
     processId: string,
     AnalyticalDashboardsId: string,

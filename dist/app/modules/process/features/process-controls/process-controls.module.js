@@ -13,6 +13,7 @@ const process_controls_controller_1 = require("./process-controls.controller");
 const process_repository_1 = require("../../process.repository");
 const mongoose_1 = require("@nestjs/mongoose");
 const process_schema_1 = require("../../process.schema");
+const process_archive_module_1 = require("../../../archive/process-archive/process-archive.module");
 let ProcessControlsModule = class ProcessControlsModule {
 };
 exports.ProcessControlsModule = ProcessControlsModule;
@@ -20,6 +21,7 @@ exports.ProcessControlsModule = ProcessControlsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: process_schema_1.Process.name, schema: process_schema_1.ProcessSchema }]),
+            process_archive_module_1.ProcessArchiveModule,
         ],
         controllers: [process_controls_controller_1.ProcessControlsController],
         providers: [process_controls_service_1.ProcessControlsService, process_repository_1.ProcessRepository],

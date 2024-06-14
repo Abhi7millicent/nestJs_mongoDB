@@ -256,63 +256,6 @@ class QueriesAndResponses {
   is_deleted!: boolean;
 }
 
-// class MDO {
-//   @Prop({ required: true, type: String })
-//   _id: string;
-
-//   @Prop({ required: true })
-//   title!: string;
-
-//   // @Prop({ required: true })
-//   // description!: string;
-
-//   // @Prop({ type: [String], required: true })
-//   // activity_id!: string;
-
-//   @Prop({ required: true, default: false })
-//   is_deleted!: boolean;
-// }
-
-// class DataManagement {
-//   // @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
-//   // data_management_id: MongooseSchema.Types.ObjectId;
-
-//   @Prop({ required: true })
-//   public _id: string;
-
-//   @Prop({ required: true })
-//   public average_transactions_year!: string;
-
-//   @Prop({ required: true })
-//   public maximum_transactions_month!: string;
-
-//   @Prop({ required: true })
-//   public maximum_transactions_day!: string;
-
-//   @Prop({ required: true })
-//   public average_line_items!: string;
-
-//   @Prop({ required: true })
-//   public data_security!: string;
-
-//   @Prop({ required: true })
-//   public data_retention!: string;
-
-//   @Prop({ required: true })
-//   public data_residency!: string;
-
-//   @Prop({ type: [String], required: true })
-//   public activity_id!: string[];
-// }
-
-// class DataManagementData {
-//   @Prop({ type: [MDO], default: [] })
-//   master_data_objects!: MDO[];
-
-//   @Prop({ type: DataManagement, required: true })
-//   public data_management_info!: DataManagement;
-// }
-
 class DataManagementData {
   @Prop({ required: true, type: String })
   _id: string;
@@ -548,10 +491,9 @@ class ProcessControl {
   is_deleted!: boolean;
 }
 
-@Schema({ collection: 'process_basic_data3' })
-export class Process extends Document {
-  @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
-  _id: MongooseSchema.Types.ObjectId;
+class Process {
+  @Prop({ required: true })
+  public _id!: string;
 
   @Prop({ type: [String], required: true })
   public function_id!: string[];
@@ -632,4 +574,17 @@ export class Process extends Document {
   public controls!: ProcessControl[];
 }
 
-export const ProcessSchema = SchemaFactory.createForClass(Process);
+@Schema({ collection: 'process_archive' })
+export class ProcessArchive extends Document {
+  @Prop({ type: MongooseSchema.Types.ObjectId, auto: true })
+  _id: MongooseSchema.Types.ObjectId;
+
+  @Prop({ default: Date.now })
+  deleted_at: Date;
+
+  @Prop({ type: Process, required: false })
+  public process?: Process;
+}
+
+export const ProcessArchiveSchema =
+  SchemaFactory.createForClass(ProcessArchive);

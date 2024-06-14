@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const activities_service_1 = require("./activities.service");
 const activities_dto_1 = require("./dto/activities.dto");
 const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
+const process_archive_service_1 = require("../../../archive/process-archive/process-archive.service");
 let ActivitiesController = class ActivitiesController {
-    constructor(activitiesService) {
+    constructor(activitiesService, processArchiveService) {
         this.activitiesService = activitiesService;
+        this.processArchiveService = processArchiveService;
     }
     async addActivity(createActivityDto) {
         try {
@@ -45,7 +47,12 @@ let ActivitiesController = class ActivitiesController {
     }
     async updateActivityIsDeleted(processId, activityId) {
         try {
+            const archiveData = await this.activitiesService.getByProcessById(processId);
             const result = await this.activitiesService.updateActivityIsDeleted(processId, activityId);
+            if (result) {
+                const data = await this.processArchiveService.create(archiveData);
+                console.log('object:', data);
+            }
             return {
                 statusCode: common_1.HttpStatus.OK,
                 message: 'Activity deleted successfully',
@@ -83,6 +90,7 @@ __decorate([
 ], ActivitiesController.prototype, "updateActivityIsDeleted", null);
 exports.ActivitiesController = ActivitiesController = __decorate([
     (0, common_1.Controller)('v1/process'),
-    __metadata("design:paramtypes", [activities_service_1.ActivitiesService])
+    __metadata("design:paramtypes", [activities_service_1.ActivitiesService,
+        process_archive_service_1.ProcessArchiveService])
 ], ActivitiesController);
 //# sourceMappingURL=activities.controller.js.map

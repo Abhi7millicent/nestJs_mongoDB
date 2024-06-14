@@ -15,10 +15,14 @@ import { ActivitiesService } from './activities.service';
 import { UpsertActivityDto } from './dto/activities.dto';
 import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import { error } from 'console';
+import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 
 @Controller('v1/process')
 export class ActivitiesController {
-  constructor(private readonly activitiesService: ActivitiesService) {}
+  constructor(
+    private readonly activitiesService: ActivitiesService,
+    private readonly processArchiveService: ProcessArchiveService,
+  ) {}
 
   @Post('/activities')
   @ResponseHandler()
@@ -63,10 +67,18 @@ export class ActivitiesController {
     @Param('activityId') activityId: string,
   ) {
     try {
+      const archiveData =
+        await this.activitiesService.getByProcessById(processId);
+
       const result = await this.activitiesService.updateActivityIsDeleted(
         processId,
         activityId,
       );
+
+      if (result) {
+        const data = await this.processArchiveService.create(archiveData);
+        console.log('object:', data);
+      }
 
       return {
         statusCode: HttpStatus.OK,

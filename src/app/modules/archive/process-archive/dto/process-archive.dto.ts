@@ -1,3 +1,6 @@
+import { IsDate, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+
 export class IoInfo {
   public inputs: string = '';
   public outputs: string = '';
@@ -193,7 +196,8 @@ export class ProcessControl {
   public is_deleted: boolean = false;
 }
 
-export class CreateProcessDto {
+class ProcessDto {
+  public _id: string = '';
   public function_id: string[] = [];
   public sub_function_id: string[] = [];
   public title: string = '';
@@ -221,4 +225,13 @@ export class CreateProcessDto {
   public automation_scenarios: AutomationScenario[] = [];
   public compliance_scenarios: ComplianceScenario = new ComplianceScenario();
   public controls: ProcessControl[] = [];
+}
+
+export class CreateProcessArchiveDto {
+  @ValidateNested()
+  @Type(() => ProcessDto)
+  process: ProcessDto;
+
+  @IsDate()
+  deleted_at: Date;
 }

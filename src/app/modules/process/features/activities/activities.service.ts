@@ -8,6 +8,10 @@ import { ProcessRepository } from '../../process.repository';
 export class ActivitiesService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   async updateActivity(
     processId: string,
     activityId: string,

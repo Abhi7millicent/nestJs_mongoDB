@@ -6,17 +6,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Modules = void 0;
+exports.ArchiveModule = void 0;
 const common_1 = require("@nestjs/common");
-const process_module_1 = require("./process/process.module");
-const role_module_1 = require("./role/role.module");
-const archive_module_1 = require("./archive/archive.module");
-let Modules = class Modules {
+const process_archive_module_1 = require("./process-archive/process-archive.module");
+let ArchiveModule = class ArchiveModule {
 };
-exports.Modules = Modules;
-exports.Modules = Modules = __decorate([
+exports.ArchiveModule = ArchiveModule;
+exports.ArchiveModule = ArchiveModule = __decorate([
     (0, common_1.Module)({
-        imports: [process_module_1.ProcessModule, role_module_1.RolesModule, archive_module_1.ArchiveModule],
+        imports: [process_archive_module_1.ProcessArchiveModule],
     })
-], Modules);
-//# sourceMappingURL=modules.js.map
+], ArchiveModule);
+//# sourceMappingURL=archive.module.js.map

@@ -18,6 +18,9 @@ let ActivitiesService = class ActivitiesService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     async updateActivity(processId, activityId, activityDto) {
         const auditData = {
             last_modified_by: activityDto.last_modified_by,

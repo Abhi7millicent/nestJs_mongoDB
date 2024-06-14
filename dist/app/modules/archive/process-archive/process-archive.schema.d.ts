@@ -1,4 +1,30 @@
-export declare class IoInfo {
+/// <reference types="mongoose/types/aggregate" />
+/// <reference types="mongoose/types/callback" />
+/// <reference types="mongoose/types/collection" />
+/// <reference types="mongoose/types/connection" />
+/// <reference types="mongoose/types/cursor" />
+/// <reference types="mongoose/types/document" />
+/// <reference types="mongoose/types/error" />
+/// <reference types="mongoose/types/expressions" />
+/// <reference types="mongoose/types/helpers" />
+/// <reference types="mongoose/types/middlewares" />
+/// <reference types="mongoose/types/indexes" />
+/// <reference types="mongoose/types/models" />
+/// <reference types="mongoose/types/mongooseoptions" />
+/// <reference types="mongoose/types/pipelinestage" />
+/// <reference types="mongoose/types/populate" />
+/// <reference types="mongoose/types/query" />
+/// <reference types="mongoose/types/schemaoptions" />
+/// <reference types="mongoose/types/schematypes" />
+/// <reference types="mongoose/types/session" />
+/// <reference types="mongoose/types/types" />
+/// <reference types="mongoose/types/utility" />
+/// <reference types="mongoose/types/validation" />
+/// <reference types="mongoose/types/virtuals" />
+/// <reference types="mongoose/types/inferschematype" />
+/// <reference types="mongoose/types/inferrawdoctype" />
+import { Document, Schema as MongooseSchema } from 'mongoose';
+declare class IoInfo {
     inputs: string;
     outputs: string;
     business_outcome: string;
@@ -10,7 +36,7 @@ declare class Transaction_volumes_data {
     maximum_transactions_day: string;
     average_line_items: string;
 }
-export declare class Activity {
+declare class Activity {
     _id: string;
     sr_no: string;
     description: string;
@@ -21,7 +47,7 @@ export declare class Activity {
     accounts_postings: string;
     is_deleted: boolean;
 }
-export declare class Workflow {
+declare class Workflow {
     _id: string;
     title: string;
     description: string;
@@ -33,7 +59,7 @@ export declare class Workflow {
     integration_scenario_id: string[];
     is_deleted: boolean;
 }
-export declare class Kpi {
+declare class Kpi {
     _id: string;
     title: string;
     description: string;
@@ -45,23 +71,23 @@ export declare class Kpi {
     bench_mark: string;
     is_deleted: boolean;
 }
-export declare class Report {
+declare class Report {
     _id: string;
     title: string;
     description: string;
-    calculation_logic: string;
     attachments: string[];
     complexity_level: string[];
     type: string[];
     application: string[];
     source_data: string[];
     role: string[];
+    calculation_logic: string;
     activity_id: string[];
     automation_id: string[];
     integration_scenario_id: string[];
     is_deleted: boolean;
 }
-export declare class AnalyticalDashboard {
+declare class AnalyticalDashboard {
     _id: string;
     title: string;
     description: string;
@@ -78,19 +104,19 @@ export declare class AnalyticalDashboard {
     integration_scenario_id: string[];
     is_deleted: boolean;
 }
-export declare class ProcessControlAndMonitoring {
+declare class ProcessControlAndMonitoring {
     workflows: Workflow[];
     kpis: Kpi[];
     reports: Report[];
     analytical_dashboards: AnalyticalDashboard[];
 }
-export declare class QueriesAndResponses {
+declare class QueriesAndResponses {
     _id: string;
     query: string;
     response: string;
     is_deleted: boolean;
 }
-export declare class DataManagementData {
+declare class DataManagementData {
     _id: string;
     title: string[];
     transaction_volumes: Transaction_volumes_data;
@@ -98,7 +124,7 @@ export declare class DataManagementData {
     data_retention: string;
     data_residency: string;
 }
-export declare class IntegrationScenario {
+declare class IntegrationScenario {
     _id: string;
     title: string;
     description: string;
@@ -119,7 +145,7 @@ export declare class IntegrationScenario {
     activity_id: string[];
     mdo_id: string[];
 }
-export declare class ProcessDocument {
+declare class ProcessDocument {
     _id: string;
     title: string;
     desc: string;
@@ -131,7 +157,7 @@ export declare class ProcessDocument {
     activity_id: string[];
     is_deleted: boolean;
 }
-export declare class AutomationScenario {
+declare class AutomationScenario {
     _id: string;
     type: string;
     title: string;
@@ -142,7 +168,7 @@ export declare class AutomationScenario {
     integration_scenario_id: string[];
     is_deleted: boolean;
 }
-export declare class ComplianceScenarioData {
+declare class ComplianceScenarioData {
     _id: string;
     title: string;
     description: string;
@@ -152,7 +178,7 @@ export declare class ComplianceScenarioData {
     integration_scenario_id: string[];
     is_deleted: boolean;
 }
-export declare class AuditTrailScenarios {
+declare class AuditTrailScenarios {
     _id: string;
     title: string;
     description: string;
@@ -163,11 +189,11 @@ export declare class AuditTrailScenarios {
     role: string[];
     is_deleted: boolean;
 }
-export declare class ComplianceScenario {
+declare class ComplianceScenario {
     compliance_scenario_data: ComplianceScenarioData[];
     audit_trail_scenarios: AuditTrailScenarios[];
 }
-export declare class ProcessControl {
+declare class ProcessControl {
     _id: string;
     title: string;
     description: string;
@@ -175,7 +201,8 @@ export declare class ProcessControl {
     mdo_id: string[];
     is_deleted: boolean;
 }
-export declare class CreateProcessDto {
+declare class Process {
+    _id: string;
     function_id: string[];
     sub_function_id: string[];
     title: string;
@@ -194,7 +221,7 @@ export declare class CreateProcessDto {
     is_deleted: boolean;
     io_info: IoInfo;
     activities: Activity[];
-    control_and_monitoring: ProcessControlAndMonitoring;
+    control_and_monitoring?: ProcessControlAndMonitoring;
     queries_and_responses: QueriesAndResponses[];
     data_management: DataManagementData;
     integration_scenario: IntegrationScenario;
@@ -203,4 +230,14 @@ export declare class CreateProcessDto {
     compliance_scenarios: ComplianceScenario;
     controls: ProcessControl[];
 }
+export declare class ProcessArchive extends Document {
+    _id: MongooseSchema.Types.ObjectId;
+    deleted_at: Date;
+    process?: Process;
+}
+export declare const ProcessArchiveSchema: MongooseSchema<ProcessArchive, import("mongoose").Model<ProcessArchive, any, any, any, Document<unknown, any, ProcessArchive> & ProcessArchive & Required<{
+    _id: MongooseSchema.Types.ObjectId;
+}>, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, ProcessArchive, Document<unknown, {}, import("mongoose").FlatRecord<ProcessArchive>> & import("mongoose").FlatRecord<ProcessArchive> & Required<{
+    _id: MongooseSchema.Types.ObjectId;
+}>>;
 export {};

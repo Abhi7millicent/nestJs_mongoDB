@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessSchema = exports.Process = void 0;
+exports.ProcessArchiveSchema = exports.ProcessArchive = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 class IoInfo {
@@ -618,12 +618,11 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
 ], ProcessControl.prototype, "is_deleted", void 0);
-let Process = class Process extends mongoose_2.Document {
-};
-exports.Process = Process;
+class Process {
+}
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.Schema.Types.ObjectId, auto: true }),
-    __metadata("design:type", mongoose_2.Schema.Types.ObjectId)
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
 ], Process.prototype, "_id", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: [String], required: true }),
@@ -729,8 +728,23 @@ __decorate([
     (0, mongoose_1.Prop)({ type: [ProcessControl], default: [] }),
     __metadata("design:type", Array)
 ], Process.prototype, "controls", void 0);
-exports.Process = Process = __decorate([
-    (0, mongoose_1.Schema)({ collection: 'process_basic_data3' })
-], Process);
-exports.ProcessSchema = mongoose_1.SchemaFactory.createForClass(Process);
-//# sourceMappingURL=process.schema.js.map
+let ProcessArchive = class ProcessArchive extends mongoose_2.Document {
+};
+exports.ProcessArchive = ProcessArchive;
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.Schema.Types.ObjectId, auto: true }),
+    __metadata("design:type", mongoose_2.Schema.Types.ObjectId)
+], ProcessArchive.prototype, "_id", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: Date.now }),
+    __metadata("design:type", Date)
+], ProcessArchive.prototype, "deleted_at", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: Process, required: false }),
+    __metadata("design:type", Process)
+], ProcessArchive.prototype, "process", void 0);
+exports.ProcessArchive = ProcessArchive = __decorate([
+    (0, mongoose_1.Schema)({ collection: 'process_archive' })
+], ProcessArchive);
+exports.ProcessArchiveSchema = mongoose_1.SchemaFactory.createForClass(ProcessArchive);
+//# sourceMappingURL=process-archive.schema.js.map

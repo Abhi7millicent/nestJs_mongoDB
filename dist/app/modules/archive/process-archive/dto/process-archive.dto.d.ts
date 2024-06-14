@@ -175,7 +175,8 @@ export declare class ProcessControl {
     mdo_id: string[];
     is_deleted: boolean;
 }
-export declare class CreateProcessDto {
+declare class ProcessDto {
+    _id: string;
     function_id: string[];
     sub_function_id: string[];
     title: string;
@@ -202,5 +203,9 @@ export declare class CreateProcessDto {
     automation_scenarios: AutomationScenario[];
     compliance_scenarios: ComplianceScenario;
     controls: ProcessControl[];
+}
+export declare class CreateProcessArchiveDto {
+    process: ProcessDto;
+    deleted_at: Date;
 }
 export {};

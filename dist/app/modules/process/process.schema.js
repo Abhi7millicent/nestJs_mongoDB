@@ -335,7 +335,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ type: [String], required: true }),
     __metadata("design:type", Array)
-], DataManagementData.prototype, "title", void 0);
+], DataManagementData.prototype, "mdo", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: Transaction_volumes_data, required: false }),
     __metadata("design:type", Transaction_volumes_data)

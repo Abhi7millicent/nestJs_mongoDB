@@ -20,7 +20,7 @@ export class DataManagementDto {
   public _id: string;
 
   @IsString()
-  public title: string[];
+  public mdo: string[];
 
   @ValidateNested()
   @Type(() => TransactionVolumesDataDto)

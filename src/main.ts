@@ -1,8 +1,22 @@
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
+import { setupRedoc } from './core/middleware/redoc.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const options = new DocumentBuilder()
+    .setTitle('CVS-BPM')
+    .setDescription('SAP APIS')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
+
+  setupRedoc(app);
+
   app.enableCors();
   await app.listen(3236);
 }

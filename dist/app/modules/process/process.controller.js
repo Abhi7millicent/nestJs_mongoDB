@@ -16,29 +16,106 @@ exports.ProcessController = void 0;
 const common_1 = require("@nestjs/common");
 const process_service_1 = require("./process.service");
 const process_dto_1 = require("./dto/process.dto");
+const process_archive_service_1 = require("../archive/process-archive/process-archive.service");
+const response_handler_decorator_1 = require("../../../core/decorator/response-handler.decorator");
 let ProcessController = class ProcessController {
-    constructor(processService) {
+    constructor(processService, processArchiveService) {
         this.processService = processService;
+        this.processArchiveService = processArchiveService;
     }
     async createProcess(createProcessDto) {
-        return this.processService.createProcess(createProcessDto);
+        try {
+            const data = await this.processService.createProcess(createProcessDto);
+            return {
+                statusCode: common_1.HttpStatus.CREATED,
+                success: true,
+                message: 'Process created successfully',
+                data: data,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else if (error instanceof common_1.BadRequestException) {
+                throw new common_1.BadRequestException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to create the Process');
+            }
+        }
     }
     async getAll() {
-        return this.processService.getAllProcess();
+        const data = await this.processService.getAllProcess();
+        try {
+            return {
+                statusCode: common_1.HttpStatus.OK,
+                success: true,
+                message: 'Processes retrieved successfully',
+                data: data,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else if (error instanceof common_1.BadRequestException) {
+                throw new common_1.BadRequestException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to retrieved the Process');
+            }
+        }
     }
     async getById(id) {
-        return this.processService.getProcessById(id);
+        try {
+            const data = await this.processService.getProcessById(id);
+            return {
+                statusCode: common_1.HttpStatus.OK,
+                success: true,
+                message: 'Process retrieved successfully',
+                data: data,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else if (error instanceof common_1.BadRequestException) {
+                throw new common_1.BadRequestException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to retrieved the Process');
+            }
+        }
     }
     async delete(id) {
-        return this.processService.deleteProcess(id);
-    }
-    async softDelete(id) {
-        return this.processService.softDeleteProcess(id);
+        try {
+            const archiveData = await this.processService.getByProcessById(id);
+            const result = await this.processService.deleteProcess(id);
+            if (result) {
+                const data = await this.processArchiveService.create(archiveData);
+            }
+            return {
+                statusCode: common_1.HttpStatus.OK,
+                message: `processId: ${id} deleted successfully`,
+                data: { processId: id },
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to delete the process');
+            }
+        }
     }
 };
 exports.ProcessController = ProcessController;
 __decorate([
     (0, common_1.Post)(),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [process_dto_1.CreateProcessDto]),
@@ -46,12 +123,14 @@ __decorate([
 ], ProcessController.prototype, "createProcess", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProcessController.prototype, "getAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -59,20 +138,15 @@ __decorate([
 ], ProcessController.prototype, "getById", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ProcessController.prototype, "delete", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], ProcessController.prototype, "softDelete", null);
 exports.ProcessController = ProcessController = __decorate([
     (0, common_1.Controller)('v1/process'),
-    __metadata("design:paramtypes", [process_service_1.ProcessService])
+    __metadata("design:paramtypes", [process_service_1.ProcessService,
+        process_archive_service_1.ProcessArchiveService])
 ], ProcessController);
 //# sourceMappingURL=process.controller.js.map

@@ -223,6 +223,11 @@ export abstract class GenericRepository<T> {
    */
   async delete(id: string): Promise<T> {
     try {
+      const data = await this.model.findById(id).exec();
+      console.log('data:', data);
+      if (!data) {
+        throw new NotFoundException(ErrorMessage.NOT_FOUND);
+      }
       return await this.model.findByIdAndDelete(id).exec();
     } catch (error) {
       throw error;

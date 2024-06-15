@@ -77,13 +77,16 @@ export class ActivitiesController {
 
       if (result) {
         const data = await this.processArchiveService.create(archiveData);
-        console.log('object:', data);
       }
 
       return {
         statusCode: HttpStatus.OK,
         message: 'Activity deleted successfully',
-        data: result,
+        // data: result,
+        data: {
+          processId: processId,
+          activityId: activityId,
+        },
       };
     } catch (error) {
       if (error instanceof NotFoundException) {

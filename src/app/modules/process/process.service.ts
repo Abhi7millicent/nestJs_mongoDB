@@ -16,6 +16,9 @@ export class ProcessService {
   //     throw new Error(`Error creating process: ${error}`);
   //   }
   // }
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
 
   async createProcess(createProcessDto: CreateProcessDto): Promise<Process> {
     try {

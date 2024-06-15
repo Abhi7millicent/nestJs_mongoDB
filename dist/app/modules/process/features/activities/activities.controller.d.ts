@@ -15,6 +15,9 @@ export declare class ActivitiesController {
     updateActivityIsDeleted(processId: string, activityId: string): Promise<{
         statusCode: HttpStatus;
         message: string;
-        data: any;
+        data: {
+            processId: string;
+            activityId: string;
+        };
     }>;
 }

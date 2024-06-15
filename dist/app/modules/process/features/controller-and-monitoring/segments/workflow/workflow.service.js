@@ -20,6 +20,9 @@ let WorkflowsService = class WorkflowsService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     async updateWorkflow(processId, workflowId, workflowsDto) {
         const auditData = {
             last_modified_by: workflowsDto.last_modified_by,

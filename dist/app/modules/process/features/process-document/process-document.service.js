@@ -59,6 +59,9 @@ let ProcessDocumentService = class ProcessDocumentService {
             }
         }
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     findAll() {
         return `This action returns all processDocument`;
     }

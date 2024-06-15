@@ -40,6 +40,9 @@ let QueriesResponsesService = class QueriesResponsesService {
     async updateQueriesResponsesIsSoftDeleted(processId, workflowId) {
         return this.processRepository.softDeleteByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, process_constants_1.queries_and_responses), workflowId);
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     remove(id) {
         return `This action removes a #${id} queriesResponse`;
     }

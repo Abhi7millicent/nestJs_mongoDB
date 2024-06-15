@@ -16,6 +16,10 @@ import { ProcessRepository } from '../../process.repository';
 export class ProcessControlsService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   async upsert(
     createProcessControlsDto: UpsertProcessControlsDto,
   ): Promise<any> {

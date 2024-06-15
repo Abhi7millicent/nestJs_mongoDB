@@ -118,7 +118,7 @@ declare class QueriesAndResponses {
 }
 declare class DataManagementData {
     _id: string;
-    title: string[];
+    mdo: string[];
     transaction_volumes: Transaction_volumes_data;
     data_security: string;
     data_retention: string;

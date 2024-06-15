@@ -141,6 +141,11 @@ export class QueriesResponsesService {
       workflowId,
     );
   }
+
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   remove(id: number) {
     return `This action removes a #${id} queriesResponse`;
   }

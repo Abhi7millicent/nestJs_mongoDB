@@ -4,6 +4,7 @@ export declare class ProcessDocumentService {
     private readonly processRepository;
     constructor(processRepository: ProcessRepository);
     upsert(createProcessDocumentDto: UpsertProcessDocumentDto): Promise<any>;
+    getByProcessById(processId: string): Promise<any>;
     findAll(): string;
     findOne(id: number): string;
     updateProcessDocument(processId: string, pdId: string, updateProcessDocumentDto: ProcessDocumentDto): Promise<any>;

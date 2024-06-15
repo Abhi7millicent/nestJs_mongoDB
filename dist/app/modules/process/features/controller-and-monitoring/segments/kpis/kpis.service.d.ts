@@ -3,6 +3,7 @@ import { KPIsDto, UpsertKPIsDto } from './dto/kpis.dto';
 export declare class KPIsService {
     private readonly processRepository;
     constructor(processRepository: ProcessRepository);
+    getByProcessById(processId: string): Promise<any>;
     updateKPIs(processId: string, kpisId: string, kpisDto: KPIsDto): Promise<any>;
     Upsert(createkpisDto: UpsertKPIsDto): Promise<any>;
     updateKPIsIsDeleted(processId: string, kpisId: string): Promise<any>;

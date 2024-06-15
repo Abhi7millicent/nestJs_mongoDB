@@ -121,7 +121,7 @@ class QueriesAndResponses {
 exports.QueriesAndResponses = QueriesAndResponses;
 class DataManagementData {
     constructor() {
-        this.title = [];
+        this.mdo = [];
         this.transaction_volumes = new Transaction_volumes_data();
     }
 }

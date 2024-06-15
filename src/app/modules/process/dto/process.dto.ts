@@ -101,7 +101,7 @@ export class QueriesAndResponses {
 
 export class DataManagementData {
   public _id: string;
-  public title: string[] = [];
+  public mdo: string[] = [];
   public transaction_volumes: Transaction_volumes_data =
     new Transaction_volumes_data();
   public data_security: string;

@@ -318,7 +318,7 @@ class DataManagementData {
   _id: string;
 
   @Prop({ type: [String], required: true })
-  title!: string[];
+  mdo!: string[];
 
   @Prop({ type: Transaction_volumes_data, required: false })
   transaction_volumes!: Transaction_volumes_data;

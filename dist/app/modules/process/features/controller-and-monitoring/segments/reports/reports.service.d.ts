@@ -3,6 +3,7 @@ import { ReportsDto, UpsertReportsDto } from './dto/reports.dto';
 export declare class ReportsService {
     private readonly processRepository;
     constructor(processRepository: ProcessRepository);
+    getByProcessById(processId: string): Promise<any>;
     updateReports(processId: string, reportId: string, reportsDto: ReportsDto): Promise<any>;
     Upsert(createReportsDto: UpsertReportsDto): Promise<any>;
     updateReportsIsDeleted(processId: string, reportId: string): Promise<any>;

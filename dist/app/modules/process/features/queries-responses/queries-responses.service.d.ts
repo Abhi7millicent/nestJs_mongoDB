@@ -6,6 +6,7 @@ export declare class QueriesResponsesService {
     update(processId: string, qrId: string, updateQueriesResponseDto: QueriesResponseDto): Promise<any>;
     updatequeriesresponseIsDeleted(processId: string, qrId: string): Promise<any>;
     updateQueriesResponsesIsSoftDeleted(processId: string, workflowId: string): Promise<any>;
+    getByProcessById(processId: string): Promise<any>;
     remove(id: number): string;
     Upsert(createQueriesResponseDto: UpsertQueriesResponseDto): Promise<any>;
 }

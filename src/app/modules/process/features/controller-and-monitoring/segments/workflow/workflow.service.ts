@@ -13,6 +13,10 @@ import {
 export class WorkflowsService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   async updateWorkflow(
     processId: string,
     workflowId: string,

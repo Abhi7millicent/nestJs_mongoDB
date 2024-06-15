@@ -11,6 +11,10 @@ import {
 export class AutomationScenarioService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   async updateAutomationScenario(
     processId: string,
     automationScenarioId: string,

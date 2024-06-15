@@ -1,13 +1,20 @@
+import { HttpStatus } from '@nestjs/common';
 import { ProcessDocumentService } from './process-document.service';
 import { UpsertProcessDocumentDto } from './dto/process-document.dto';
+import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 export declare class ProcessDocumentController {
     private readonly processDocumentService;
-    constructor(processDocumentService: ProcessDocumentService);
-    create(createProcessDocumentDto: UpsertProcessDocumentDto): Promise<any>;
-    findAll(): string;
-    findOne(id: string): string;
-    updateProcessDocument(processId: string, pdId: string, processDocumentData: any): Promise<any>;
-    updateProcessDocumentIsDeleted(processId: string, pdId: string): Promise<any>;
-    updateProcessDocumentsIsSoftDeleted(processId: string, pdId: string): Promise<any>;
-    remove(id: string): string;
+    private readonly processArchiveService;
+    constructor(processDocumentService: ProcessDocumentService, processArchiveService: ProcessArchiveService);
+    create(createProcessDocumentDto: UpsertProcessDocumentDto): Promise<{
+        statusCode: HttpStatus;
+        success: boolean;
+        message: string;
+        data: any;
+    }>;
+    updateProcessDocumentIsDeleted(processId: string, pdId: string): Promise<{
+        statusCode: HttpStatus;
+        message: string;
+        data: any;
+    }>;
 }

@@ -13,6 +13,10 @@ import { KPIsDto, UpsertKPIsDto } from './dto/kpis.dto';
 export class KPIsService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   async updateKPIs(
     processId: string,
     kpisId: string,

@@ -3,6 +3,7 @@ import { AuditTrailScenariosDto, UpsertAuditTrailScenariosDto } from './dto/audi
 export declare class AuditTrailScenariosService {
     private readonly processRepository;
     constructor(processRepository: ProcessRepository);
+    getByProcessById(processId: string): Promise<any>;
     updateAuditTrailScenarios(processId: string, AuditTrailScenariosId: string, auditTrailScenariosDto: AuditTrailScenariosDto): Promise<any>;
     upsertAuditTrailScenarios(createAuditTrailScenariosDto: UpsertAuditTrailScenariosDto): Promise<any>;
     updateAuditTrailScenariosIsDeleted(processId: string, AuditTrailScenariosId: string): Promise<any>;

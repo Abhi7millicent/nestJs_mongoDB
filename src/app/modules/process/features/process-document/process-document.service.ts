@@ -114,6 +114,10 @@ export class ProcessDocumentService {
     }
   }
 
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   findAll() {
     return `This action returns all processDocument`;
   }

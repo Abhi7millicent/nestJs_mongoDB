@@ -20,6 +20,9 @@ let ReportsService = class ReportsService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     async updateReports(processId, reportId, reportsDto) {
         const auditData = {
             last_modified_by: reportsDto.last_modified_by,

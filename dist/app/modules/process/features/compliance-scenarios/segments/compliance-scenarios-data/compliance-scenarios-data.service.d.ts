@@ -3,6 +3,7 @@ import { ComplianceScenarioDataDto, UpsertComplianceScenarioDataDto } from './dt
 export declare class ComplianceScenariosDataService {
     private readonly processRepository;
     constructor(processRepository: ProcessRepository);
+    getByProcessById(processId: string): Promise<any>;
     updateComplianceScenariosData(processId: string, complianceScenarioDataId: string, complianceScenarioDataDto: ComplianceScenarioDataDto): Promise<any>;
     upsertComplianceScenariosData(createComplianceScenarioDataDto: UpsertComplianceScenarioDataDto): Promise<any>;
     updateComplianceScenariosDataIsDeleted(processId: string, complianceScenarioDataId: string): Promise<any>;

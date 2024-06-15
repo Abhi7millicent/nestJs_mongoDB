@@ -16,6 +16,10 @@ import {
 export class AuditTrailScenariosService {
   constructor(private readonly processRepository: ProcessRepository) {}
 
+  async getByProcessById(processId: string): Promise<any> {
+    return this.processRepository.findById(processId);
+  }
+
   async updateAuditTrailScenarios(
     processId: string,
     AuditTrailScenariosId: string,

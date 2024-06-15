@@ -24,7 +24,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-@ApiTags('Process')
+@ApiTags('Activities')
 @Controller('v1/process')
 export class ActivitiesController {
   constructor(

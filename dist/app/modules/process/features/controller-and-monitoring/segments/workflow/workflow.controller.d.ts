@@ -15,6 +15,9 @@ export declare class WorkflowsController {
     updateWorkflowsIsDeleted(processId: string, workflowId: string): Promise<{
         statusCode: HttpStatus;
         message: string;
-        data: any;
+        data: {
+            processId: string;
+            workflowId: string;
+        };
     }>;
 }

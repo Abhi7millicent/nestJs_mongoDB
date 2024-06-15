@@ -10,7 +10,9 @@ import {
 } from '@nestjs/common';
 import { DataManagementDto } from './dto/data-management.dto';
 import { DataManagementService } from './data-management.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Data-management')
 @Controller('v1/process')
 export class DataManagementController {
   constructor(private readonly dataManagementService: DataManagementService) {}

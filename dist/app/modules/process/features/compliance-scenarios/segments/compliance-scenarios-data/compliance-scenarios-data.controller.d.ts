@@ -15,6 +15,9 @@ export declare class ComplianceScenariosDataController {
     updateComplianceScenariosDataIsDeleted(processId: string, complianceScenarioDataId: string): Promise<{
         statusCode: HttpStatus;
         message: string;
-        data: any;
+        data: {
+            processId: string;
+            complianceScenarioDataId: string;
+        };
     }>;
 }

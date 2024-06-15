@@ -10,7 +10,9 @@ import {
 } from '@nestjs/common';
 import { IntegrationScenarioService } from './integration-scenarios.service';
 import { UpdateIntegrationScenarioDto } from './dto/integration-scenarios.dto';
+import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Integration-scenarios')
 @Controller('v1/process')
 export class IntegrationScenarioController {
   constructor(

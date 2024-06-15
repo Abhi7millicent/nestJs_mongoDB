@@ -15,6 +15,9 @@ export declare class QueriesResponsesController {
     updatequeriesresponseIsDeleted(processId: string, qrId: string): Promise<{
         statusCode: HttpStatus;
         message: string;
-        data: any;
+        data: {
+            processId: string;
+            qrId: string;
+        };
     }>;
 }

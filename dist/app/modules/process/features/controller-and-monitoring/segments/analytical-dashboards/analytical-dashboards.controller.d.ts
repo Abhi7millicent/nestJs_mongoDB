@@ -15,6 +15,9 @@ export declare class AnalyticalDashboardsController {
     updateAnalyticalDashboardsIsDeleted(processId: string, analyticalDashboardsId: string): Promise<{
         statusCode: HttpStatus;
         message: string;
-        data: any;
+        data: {
+            processId: string;
+            analyticalDashboardsId: string;
+        };
     }>;
 }

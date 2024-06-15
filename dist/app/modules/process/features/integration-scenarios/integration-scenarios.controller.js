@@ -16,6 +16,7 @@ exports.IntegrationScenarioController = void 0;
 const common_1 = require("@nestjs/common");
 const integration_scenarios_service_1 = require("./integration-scenarios.service");
 const integration_scenarios_dto_1 = require("./dto/integration-scenarios.dto");
+const swagger_1 = require("@nestjs/swagger");
 let IntegrationScenarioController = class IntegrationScenarioController {
     constructor(integrationScenarioService) {
         this.integrationScenarioService = integrationScenarioService;
@@ -34,6 +35,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], IntegrationScenarioController.prototype, "updateIntegrationScenario", null);
 exports.IntegrationScenarioController = IntegrationScenarioController = __decorate([
+    (0, swagger_1.ApiTags)('Integration-scenarios'),
     (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [integration_scenarios_service_1.IntegrationScenarioService])
 ], IntegrationScenarioController);

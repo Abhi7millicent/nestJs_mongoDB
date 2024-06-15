@@ -18,6 +18,7 @@ const analytical_dashboards_service_1 = require("./analytical-dashboards.service
 const analytical_dashboards_dto_1 = require("./dto/analytical-dashboards.dto");
 const response_handler_decorator_1 = require("../../../../../../../core/decorator/response-handler.decorator");
 const process_archive_service_1 = require("../../../../../archive/process-archive/process-archive.service");
+const swagger_1 = require("@nestjs/swagger");
 let AnalyticalDashboardsController = class AnalyticalDashboardsController {
     constructor(analyticalDashboardsService, processArchiveService) {
         this.analyticalDashboardsService = analyticalDashboardsService;
@@ -56,7 +57,10 @@ let AnalyticalDashboardsController = class AnalyticalDashboardsController {
             return {
                 statusCode: common_1.HttpStatus.OK,
                 message: 'analyticalDashboards deleted successfully',
-                data: result,
+                data: {
+                    processId: processId,
+                    analyticalDashboardsId: analyticalDashboardsId,
+                },
             };
         }
         catch (error) {
@@ -72,6 +76,239 @@ let AnalyticalDashboardsController = class AnalyticalDashboardsController {
 exports.AnalyticalDashboardsController = AnalyticalDashboardsController;
 __decorate([
     (0, common_1.Post)('analytical-dashboards'),
+    (0, swagger_1.ApiOperation)({ summary: 'Post Analytical dashboard' }),
+    (0, swagger_1.ApiBody)({
+        schema: {
+            type: 'object',
+            properties: {
+                _id: {
+                    type: 'string',
+                    example: '666d417093b9df8f829b22a3',
+                    description: 'Identifier for the activity',
+                },
+                analytical_dashboards: {
+                    type: 'array',
+                    items: {
+                        type: 'object',
+                        properties: {
+                            title: {
+                                type: 'string',
+                                example: 'analytical Dashboard',
+                                description: 'Title of the analytical dashboard',
+                            },
+                            description: {
+                                type: 'string',
+                                example: 'A comprehensive dashboard for sales analytics.',
+                                description: 'Description of the analytical dashboard',
+                            },
+                            calculation_logic: {
+                                type: 'string',
+                                example: 'Current month sales - Previous month sales / Previous month sales * 100',
+                                description: 'Logic used for calculations in the dashboard',
+                            },
+                            attachments: {
+                                type: 'array',
+                                items: {
+                                    type: 'string',
+                                    example: 'report.pdf',
+                                },
+                                description: 'Array of attachment filenames',
+                            },
+                            complexity_level: {
+                                type: 'array',
+                                items: {
+                                    type: 'string',
+                                    example: 'High',
+                                },
+                                description: 'Array of complexity levels',
+                            },
+                            type: {
+                                type: 'array',
+                                items: {
+                                    type: 'string',
+                                    example: 'Analytical',
+                                },
+                                description: 'Array of dashboard types',
+                            },
+                            dashboard_application: {
+                                type: 'array',
+                                items: {
+                                    type: 'string',
+                                    example: 'PowerBI',
+                                },
+                                description: 'Array of dashboard applications',
+                            },
+                            source_data: {
+                                type: 'array',
+                                items: {
+                                    type: 'string',
+                                    example: 'CRM',
+                                },
+                                description: 'Array of data sources',
+                            },
+                            role: {
+                                type: 'array',
+                                items: {
+                                    type: 'string',
+                                    example: 'Analyst',
+                                },
+                                description: 'Array of roles',
+                            },
+                            application: {
+                                type: 'array',
+                                items: {
+                                    type: 'string',
+                                    example: 'test',
+                                },
+                                description: 'Array of applications',
+                            },
+                            activity_id: {
+                                type: 'array',
+                                items: {
+                                    type: 'string',
+                                    example: 'activity1',
+                                },
+                                description: 'Array of associated activity IDs',
+                            },
+                            last_modified_by: {
+                                type: 'string',
+                                example: 'john.doe',
+                                description: 'User who last modified the analytical dashboard',
+                            },
+                            is_deleted: {
+                                type: 'boolean',
+                                example: false,
+                                description: 'Flag indicating whether the analytical dashboard is deleted or not',
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'AnalyticalDashboards created successfully',
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object',
+                    properties: {
+                        statusCode: { type: 'number', example: 201 },
+                        success: { type: 'boolean', example: true },
+                        message: {
+                            type: 'string',
+                            example: 'AnalyticalDashboards created successfully',
+                        },
+                        data: {
+                            type: 'object',
+                            properties: {
+                                created: {
+                                    type: 'array',
+                                    items: {
+                                        type: 'object',
+                                        properties: {
+                                            title: {
+                                                type: 'string',
+                                                example: 'analytical Dashboard',
+                                            },
+                                            description: {
+                                                type: 'string',
+                                                example: 'A comprehensive dashboard for sales analytics.',
+                                            },
+                                            calculation_logic: {
+                                                type: 'string',
+                                                example: 'Current month sales - Previous month sales / Previous month sales * 100',
+                                            },
+                                            attachments: {
+                                                type: 'array',
+                                                items: { type: 'string', example: 'report.pdf' },
+                                            },
+                                            complexity_level: {
+                                                type: 'array',
+                                                items: { type: 'string', example: 'High' },
+                                            },
+                                            type: {
+                                                type: 'array',
+                                                items: { type: 'string', example: 'Analytical' },
+                                            },
+                                            dashboard_application: {
+                                                type: 'array',
+                                                items: { type: 'string', example: 'PowerBI' },
+                                            },
+                                            source_data: {
+                                                type: 'array',
+                                                items: { type: 'string', example: 'CRM' },
+                                            },
+                                            role: {
+                                                type: 'array',
+                                                items: { type: 'string', example: 'Analyst' },
+                                            },
+                                            application: {
+                                                type: 'array',
+                                                items: { type: 'string', example: 'test' },
+                                            },
+                                            activity_id: {
+                                                type: 'array',
+                                                items: { type: 'string', example: 'activity1' },
+                                            },
+                                            is_deleted: { type: 'boolean', example: false },
+                                            _id: { type: 'string', example: 'ad_r5vnypwae' },
+                                        },
+                                    },
+                                },
+                                updated: { type: 'array', items: { type: 'object' } },
+                            },
+                        },
+                    },
+                },
+                example: {
+                    statusCode: 201,
+                    success: true,
+                    message: 'AnalyticalDashboards created successfully',
+                    data: {
+                        created: [
+                            {
+                                title: 'analytical Dashboard',
+                                description: 'A comprehensive dashboard for sales analytics.',
+                                calculation_logic: 'Current month sales - Previous month sales / Previous month sales * 100',
+                                attachments: ['report.pdf', 'chart.png'],
+                                complexity_level: ['High'],
+                                type: ['Analytical', 'Strategic'],
+                                dashboard_application: ['PowerBI', 'Tableau'],
+                                source_data: ['CRM', 'ERP'],
+                                role: ['Analyst', 'Manager'],
+                                application: ['test', 'test2'],
+                                activity_id: ['activity1', 'activity2'],
+                                is_deleted: false,
+                                _id: 'ad_r5vnypwae',
+                            },
+                        ],
+                        updated: [],
+                    },
+                },
+            },
+        },
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 500,
+        description: 'Failed to delete analytical dashboard',
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object',
+                    properties: {
+                        statusCode: { type: 'number', example: 500 },
+                        success: { type: 'boolean', example: false },
+                        error: {
+                            type: 'string',
+                            example: 'Failed to delete analytical dashboard',
+                        },
+                    },
+                },
+            },
+        },
+    }),
     (0, response_handler_decorator_1.ResponseHandler)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
@@ -81,6 +318,72 @@ __decorate([
 ], AnalyticalDashboardsController.prototype, "upsertAnalyticalDashboards", null);
 __decorate([
     (0, common_1.Put)(':processId/analytical-dashboards-delete/:analyticalDashboardsId'),
+    (0, swagger_1.ApiOperation)({ summary: 'Delete analytical dashboard' }),
+    (0, swagger_1.ApiParam)({
+        name: 'processId',
+        required: true,
+        description: 'Process ID',
+        example: '6667e1246e91ff27e948a0e9',
+    }),
+    (0, swagger_1.ApiParam)({
+        name: 'analyticalDashboardId',
+        required: true,
+        description: 'Analytical dashboard ID',
+        example: 'ad_ruyuwn69e',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Analytical dashboard deleted',
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object',
+                    properties: {
+                        statusCode: { type: 'number', example: 200 },
+                        success: { type: 'boolean', example: true },
+                        message: {
+                            type: 'string',
+                            example: 'Analytical dashboard deleted',
+                        },
+                        data: {
+                            type: 'object',
+                            properties: {
+                                _id: {
+                                    type: 'string',
+                                    example: '6667e1246e91ff27e948a0e9',
+                                    description: 'Process id',
+                                },
+                                analytical_dashboard_id: {
+                                    type: 'string',
+                                    example: 'ad_ruyuwn69e',
+                                    description: 'Analytical dashboard id',
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 500,
+        description: 'Failed to delete analytical dashboard',
+        content: {
+            'application/json': {
+                schema: {
+                    type: 'object',
+                    properties: {
+                        statusCode: { type: 'number', example: 500 },
+                        success: { type: 'boolean', example: false },
+                        error: {
+                            type: 'string',
+                            example: 'Failed to delete analytical dashboard',
+                        },
+                    },
+                },
+            },
+        },
+    }),
     (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('analyticalDashboardsId')),
@@ -89,6 +392,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AnalyticalDashboardsController.prototype, "updateAnalyticalDashboardsIsDeleted", null);
 exports.AnalyticalDashboardsController = AnalyticalDashboardsController = __decorate([
+    (0, swagger_1.ApiTags)('Analytical-dashboard'),
     (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [analytical_dashboards_service_1.AnalyticalDashboardsService,
         process_archive_service_1.ProcessArchiveService])

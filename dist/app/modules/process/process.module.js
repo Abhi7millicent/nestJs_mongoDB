@@ -23,6 +23,7 @@ const process_repository_1 = require("./process.repository");
 const integration_scenarios_module_1 = require("./features/integration-scenarios/integration-scenarios.module");
 const automation_scenarios_module_1 = require("./features/automation-scenarios/automation-scenarios.module");
 const data_management_module_1 = require("./features/data-management1/data-management.module");
+const process_archive_module_1 = require("../archive/process-archive/process-archive.module");
 let ProcessModule = class ProcessModule {
 };
 exports.ProcessModule = ProcessModule;
@@ -30,6 +31,7 @@ exports.ProcessModule = ProcessModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: process_schema_1.Process.name, schema: process_schema_1.ProcessSchema }]),
+            process_archive_module_1.ProcessArchiveModule,
             activities_module_1.ActivitiesModule,
             basic_data_module_1.BasicDataModule,
             controller_and_monitoring_module_1.ControllerMonitoringModule,

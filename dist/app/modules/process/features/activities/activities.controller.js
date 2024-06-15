@@ -52,7 +52,6 @@ let ActivitiesController = class ActivitiesController {
             const result = await this.activitiesService.updateActivityIsDeleted(processId, activityId);
             if (result) {
                 const data = await this.processArchiveService.create(archiveData);
-                console.log('object:', data);
             }
             return {
                 statusCode: common_1.HttpStatus.OK,

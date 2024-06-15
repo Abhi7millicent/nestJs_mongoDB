@@ -1,4 +1,7 @@
-import { MongooseModuleOptions, MongooseOptionsFactory } from '@nestjs/mongoose';
+import {
+  MongooseModuleOptions,
+  MongooseOptionsFactory,
+} from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { AppConfig } from 'src/config/app.config';
 import { Connection } from 'mongoose';

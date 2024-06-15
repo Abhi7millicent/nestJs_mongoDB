@@ -15,63 +15,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BasicDataController = void 0;
 const common_1 = require("@nestjs/common");
 const basic_data_service_1 = require("./basic-data.service");
-const process_schema_1 = require("../../process.schema");
+const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
 let BasicDataController = class BasicDataController {
     constructor(basicDataService) {
         this.basicDataService = basicDataService;
     }
-    async create(createProcessDto) {
-        return this.basicDataService.createProcessBasicData(createProcessDto);
-    }
-    async getAll() {
-        return this.basicDataService.getAllProcessBasicData();
-    }
-    async getById(id) {
-        return this.basicDataService.getProcessBasicDataById(id);
-    }
     async update(id, data) {
-        return this.basicDataService.updateProcessBasicData(id, data);
-    }
-    async delete(id) {
-        return this.basicDataService.deleteProcessBasicData(id);
+        try {
+            const vlaue = await this.basicDataService.updateProcessBasicData(id, data);
+            return {
+                statusCode: common_1.HttpStatus.CREATED,
+                success: true,
+                message: 'Activity not updated successfully',
+                data: vlaue,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else if (error instanceof common_1.BadRequestException) {
+                throw new common_1.BadRequestException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to update the activity');
+            }
+        }
     }
 };
 exports.BasicDataController = BasicDataController;
 __decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [process_schema_1.Process]),
-    __metadata("design:returntype", Promise)
-], BasicDataController.prototype, "create", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], BasicDataController.prototype, "getAll", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], BasicDataController.prototype, "getById", null);
-__decorate([
-    (0, common_1.Put)('update/:id'),
+    (0, common_1.Put)('basic-data/:id'),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], BasicDataController.prototype, "update", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], BasicDataController.prototype, "delete", null);
 exports.BasicDataController = BasicDataController = __decorate([
     (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [basic_data_service_1.BasicDataService])

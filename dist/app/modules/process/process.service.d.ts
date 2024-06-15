@@ -4,6 +4,7 @@ import { Process } from './process.schema';
 export declare class ProcessService {
     private readonly processRepository;
     constructor(processRepository: ProcessRepository);
+    getByProcessById(processId: string): Promise<any>;
     createProcess(createProcessDto: CreateProcessDto): Promise<Process>;
     getAllProcess(): Promise<Process[]>;
     getProcessById(id: string): Promise<Process>;

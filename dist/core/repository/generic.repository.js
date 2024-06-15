@@ -129,6 +129,11 @@ class GenericRepository {
     }
     async delete(id) {
         try {
+            const data = await this.model.findById(id).exec();
+            console.log('data:', data);
+            if (!data) {
+                throw new common_1.NotFoundException(error_message_1.ErrorMessage.NOT_FOUND);
+            }
             return await this.model.findByIdAndDelete(id).exec();
         }
         catch (error) {

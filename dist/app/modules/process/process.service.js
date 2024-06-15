@@ -16,6 +16,9 @@ let ProcessService = class ProcessService {
     constructor(processRepository) {
         this.processRepository = processRepository;
     }
+    async getByProcessById(processId) {
+        return this.processRepository.findById(processId);
+    }
     async createProcess(createProcessDto) {
         try {
             console.log('createProcessDto:', createProcessDto);

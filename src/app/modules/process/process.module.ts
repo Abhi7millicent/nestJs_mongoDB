@@ -14,10 +14,12 @@ import { ProcessRepository } from './process.repository';
 import { IntegrationScenarioModule } from './features/integration-scenarios/integration-scenarios.module';
 import { AutomationScenarioModule } from './features/automation-scenarios/automation-scenarios.module';
 import { DataManagementModule } from './features/data-management1/data-management.module';
+import { ProcessArchiveModule } from '../archive/process-archive/process-archive.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Process.name, schema: ProcessSchema }]),
+    ProcessArchiveModule,
     ActivitiesModule,
     BasicDataModule,
     ControllerMonitoringModule,

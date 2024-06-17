@@ -351,7 +351,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ActivitiesController.prototype, "updateActivityIsDeleted", null);
 exports.ActivitiesController = ActivitiesController = __decorate([
-    (0, swagger_1.ApiTags)('Process'),
+    (0, swagger_1.ApiTags)('Activities'),
     (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [activities_service_1.ActivitiesService,
         process_archive_service_1.ProcessArchiveService])

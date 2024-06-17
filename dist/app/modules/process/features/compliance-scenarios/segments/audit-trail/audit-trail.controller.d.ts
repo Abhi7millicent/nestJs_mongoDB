@@ -15,6 +15,9 @@ export declare class AuditTrailScenariosController {
     updateWorkflowsIsDeleted(processId: string, auditTrailScenariosId: string): Promise<{
         statusCode: HttpStatus;
         message: string;
-        data: any;
+        data: {
+            processId: string;
+            auditTrailScenariosId: string;
+        };
     }>;
 }

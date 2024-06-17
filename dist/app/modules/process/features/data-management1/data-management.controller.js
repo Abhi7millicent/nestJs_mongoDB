@@ -16,6 +16,7 @@ exports.DataManagementController = void 0;
 const common_1 = require("@nestjs/common");
 const data_management_dto_1 = require("./dto/data-management.dto");
 const data_management_service_1 = require("./data-management.service");
+const swagger_1 = require("@nestjs/swagger");
 let DataManagementController = class DataManagementController {
     constructor(dataManagementService) {
         this.dataManagementService = dataManagementService;
@@ -34,6 +35,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], DataManagementController.prototype, "updateIntegrationScenario", null);
 exports.DataManagementController = DataManagementController = __decorate([
+    (0, swagger_1.ApiTags)('Data-management'),
     (0, common_1.Controller)('v1/process'),
     __metadata("design:paramtypes", [data_management_service_1.DataManagementService])
 ], DataManagementController);

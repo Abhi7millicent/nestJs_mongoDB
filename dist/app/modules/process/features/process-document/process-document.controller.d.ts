@@ -15,6 +15,9 @@ export declare class ProcessDocumentController {
     updateProcessDocumentIsDeleted(processId: string, pdId: string): Promise<{
         statusCode: HttpStatus;
         message: string;
-        data: any;
+        data: {
+            processId: string;
+            pdId: string;
+        };
     }>;
 }

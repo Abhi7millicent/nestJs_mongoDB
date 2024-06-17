@@ -15,6 +15,9 @@ export declare class AutomationScenarioController {
     updateAutomationScenarioIsDeleted(processId: string, automationScenarioId: string): Promise<{
         statusCode: HttpStatus;
         message: string;
-        data: any;
+        data: {
+            processId: string;
+            automationScenarioId: string;
+        };
     }>;
 }

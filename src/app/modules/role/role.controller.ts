@@ -21,6 +21,7 @@ export class RolesController {
 
   @Post()
   @ResponseHandler()
+  //create role
   async create(@Body() createRoleDto: CreateRoleDto): Promise<any> {
     try {
       const data = await this.rolesService.create(createRoleDto);

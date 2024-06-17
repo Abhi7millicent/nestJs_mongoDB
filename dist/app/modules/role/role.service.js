@@ -17,10 +17,20 @@ let RolesService = class RolesService {
         this.rolesRepository = rolesRepository;
     }
     async create(createRoleDto) {
-        return this.rolesRepository.create(createRoleDto);
+        try {
+            return this.rolesRepository.create(createRoleDto);
+        }
+        catch (error) {
+            throw error;
+        }
     }
     async findAll() {
-        return this.rolesRepository.findAll();
+        try {
+            return this.rolesRepository.findAll();
+        }
+        catch (error) {
+            throw error;
+        }
     }
 };
 exports.RolesService = RolesService;

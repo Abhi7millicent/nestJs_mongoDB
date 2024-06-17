@@ -16,20 +16,60 @@ exports.RolesController = void 0;
 const common_1 = require("@nestjs/common");
 const role_service_1 = require("./role.service");
 const role_dto_1 = require("./dto/role.dto");
+const response_handler_decorator_1 = require("../../../core/decorator/response-handler.decorator");
 let RolesController = class RolesController {
     constructor(rolesService) {
         this.rolesService = rolesService;
     }
     async create(createRoleDto) {
-        return this.rolesService.create(createRoleDto);
+        try {
+            const data = await this.rolesService.create(createRoleDto);
+            return {
+                statusCode: common_1.HttpStatus.CREATED,
+                success: true,
+                message: 'Role created successfully',
+                data: data,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else if (error instanceof common_1.BadRequestException) {
+                throw new common_1.BadRequestException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to create the Role');
+            }
+        }
     }
     async findAll() {
-        return this.rolesService.findAll();
+        try {
+            const data = await this.rolesService.findAll();
+            return {
+                statusCode: common_1.HttpStatus.OK,
+                success: true,
+                message: 'Role retrieved successfully',
+                data: data,
+            };
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            else if (error instanceof common_1.BadRequestException) {
+                throw new common_1.BadRequestException(error.message);
+            }
+            else {
+                throw new common_1.InternalServerErrorException('Failed to retrieved the Role');
+            }
+        }
     }
 };
 exports.RolesController = RolesController;
 __decorate([
     (0, common_1.Post)(),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [role_dto_1.CreateRoleDto]),
@@ -37,6 +77,7 @@ __decorate([
 ], RolesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, response_handler_decorator_1.ResponseHandler)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

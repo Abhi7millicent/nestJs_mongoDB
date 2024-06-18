@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   ProcessDocumentDto,
+  ProcessDocumentRequestBodyDto,
   UpsertProcessDocumentDto,
 } from './dto/process-document.dto';
 import {
@@ -47,7 +48,7 @@ export class ProcessDocumentService {
   // }
 
   async upsert(
-    createProcessDocumentDto: UpsertProcessDocumentDto,
+    createProcessDocumentDto: ProcessDocumentRequestBodyDto,
   ): Promise<any> {
     const processId = createProcessDocumentDto._id;
     const processDocumentDto = createProcessDocumentDto.process_document;

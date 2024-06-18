@@ -77,118 +77,12 @@ exports.QueriesResponsesController = QueriesResponsesController;
 __decorate([
     (0, common_1.Post)('queries-responses'),
     (0, swagger_1.ApiOperation)({ summary: 'Post queries and response' }),
-    (0, swagger_1.ApiBody)({
-        schema: {
-            type: 'object',
-            properties: {
-                _id: {
-                    type: 'string',
-                    example: '666d417093b9df8f829b22a3',
-                    description: 'Identifier for the activity',
-                },
-                queries_response: {
-                    type: 'array',
-                    items: {
-                        type: 'object',
-                        properties: {
-                            query: {
-                                type: 'string',
-                                example: 'What is NestJS?',
-                                description: 'The query text',
-                            },
-                            response: {
-                                type: 'string',
-                                example: 'NestJS is a progressive Node.js framework.',
-                                description: 'The response to the query',
-                            },
-                            last_modified_by: {
-                                type: 'string',
-                                example: 'manthan',
-                                description: 'User who last modified the query response',
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    }),
-    (0, swagger_1.ApiResponse)({
-        status: 201,
-        description: 'queries-responses created successfully',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 201 },
-                        success: { type: 'boolean', example: true },
-                        message: {
-                            type: 'string',
-                            example: 'queries-responses created successfully',
-                        },
-                        data: {
-                            type: 'object',
-                            properties: {
-                                created: {
-                                    type: 'array',
-                                    items: {
-                                        type: 'object',
-                                        properties: {
-                                            query: { type: 'string', example: 'What is NestJS?' },
-                                            response: {
-                                                type: 'string',
-                                                example: 'NestJS is a progressive Node.js framework.',
-                                            },
-                                            _id: { type: 'string', example: 'qr_eas75e3zu' },
-                                        },
-                                    },
-                                },
-                                updated: { type: 'array', items: { type: 'object' } },
-                            },
-                        },
-                    },
-                },
-                example: {
-                    statusCode: 201,
-                    success: true,
-                    message: 'queries-responses created successfully',
-                    data: {
-                        created: [
-                            {
-                                query: 'What is NestJS?',
-                                response: 'NestJS is a progressive Node.js framework.',
-                                _id: 'qr_eas75e3zu',
-                            },
-                            {
-                                query: 'What is NestJS1?',
-                                response: 'NestJS is a progressive Node.js framework1.',
-                                _id: 'qr_6l787j054',
-                            },
-                        ],
-                        updated: [],
-                    },
-                },
-            },
-        },
-    }),
+    (0, swagger_1.ApiBody)({ type: queries_response_dto_1.CreateQueryResponseDto }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: queries_response_dto_1.CreateQueryResponseResponseDto }),
     (0, swagger_1.ApiResponse)({
         status: 500,
-        description: 'Failed to delete queries and response',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 500 },
-                        success: { type: 'boolean', example: false },
-                        error: {
-                            type: 'string',
-                            example: 'Failed to delete queries and response',
-                        },
-                    },
-                },
-            },
-        },
+        description: 'Failed to create queries and response',
+        type: queries_response_dto_1.DeleteQueryResponseErrorDto,
     }),
     (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Body)()),
@@ -211,58 +105,11 @@ __decorate([
         description: 'Queries and response ID',
         example: 'qr_ruyuwn69e',
     }),
-    (0, swagger_1.ApiResponse)({
-        status: 200,
-        description: 'Queries and response deleted',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 200 },
-                        success: { type: 'boolean', example: true },
-                        message: {
-                            type: 'string',
-                            example: 'Queries and response deleted',
-                        },
-                        data: {
-                            type: 'object',
-                            properties: {
-                                _id: {
-                                    type: 'string',
-                                    example: '6667e1246e91ff27e948a0e9',
-                                    description: 'Process id',
-                                },
-                                queries_response_id: {
-                                    type: 'string',
-                                    example: 'qr_ruyuwn69e',
-                                    description: 'Queries and response id',
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: queries_response_dto_1.DeleteQueriesResponseSuccessDto }),
     (0, swagger_1.ApiResponse)({
         status: 500,
         description: 'Failed to delete queries and response',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 500 },
-                        success: { type: 'boolean', example: false },
-                        error: {
-                            type: 'string',
-                            example: 'Failed to delete queries and response',
-                        },
-                    },
-                },
-            },
-        },
+        type: queries_response_dto_1.DeleteQueryPutResponseErrorDto,
     }),
     (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('processId')),

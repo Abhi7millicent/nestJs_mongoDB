@@ -73,226 +73,16 @@ exports.WorkflowsController = WorkflowsController;
 __decorate([
     (0, common_1.Post)('reports'),
     (0, swagger_1.ApiOperation)({ summary: 'Post report' }),
-    (0, swagger_1.ApiBody)({
-        schema: {
-            type: 'object',
-            properties: {
-                _id: {
-                    type: 'string',
-                    example: '666d417093b9df8f829b22a3',
-                    description: 'Identifier for the activity',
-                },
-                reports: {
-                    type: 'array',
-                    items: {
-                        type: 'object',
-                        properties: {
-                            title: {
-                                type: 'string',
-                                example: 'Report Financial Report',
-                                description: 'Title of the report',
-                            },
-                            description: {
-                                type: 'string',
-                                example: 'A detailed report of the financial performance for the quarter.',
-                                description: 'Description of the report',
-                            },
-                            attachments: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'financial-summary.pdf',
-                                },
-                                description: 'Array of attachment filenames',
-                            },
-                            complexity_level: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'High',
-                                },
-                                description: 'Array of complexity levels',
-                            },
-                            calculation_logic: {
-                                type: 'string',
-                                example: 'Current month sales - Previous month sales / Previous month sales * 100',
-                                description: 'Calculation logic used in the report',
-                            },
-                            type: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'Financial',
-                                },
-                                description: 'Array of report types',
-                            },
-                            application: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'Excel',
-                                },
-                                description: 'Array of applications used',
-                            },
-                            source_data: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'ERP',
-                                },
-                                description: 'Array of source data systems',
-                            },
-                            role: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'Financial Analyst',
-                                },
-                                description: 'Array of roles associated with the report',
-                            },
-                            activity_id: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'activity1',
-                                },
-                                description: 'Array of associated activity IDs',
-                            },
-                            last_modified_by: {
-                                type: 'string',
-                                example: 'alex.smith',
-                                description: 'User who last modified the report',
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    }),
+    (0, swagger_1.ApiBody)({ type: reports_dto_1.ReportData }),
     (0, swagger_1.ApiResponse)({
         status: 201,
         description: 'Reports created successfully',
-        schema: {
-            type: 'object',
-            properties: {
-                statusCode: {
-                    type: 'number',
-                    example: 201,
-                },
-                success: {
-                    type: 'boolean',
-                    example: true,
-                },
-                message: {
-                    type: 'string',
-                    example: 'reports created successfully',
-                },
-                data: {
-                    type: 'object',
-                    properties: {
-                        created: {
-                            type: 'array',
-                            items: {
-                                type: 'object',
-                                properties: {
-                                    title: {
-                                        type: 'string',
-                                        example: 'Report Financial Report',
-                                    },
-                                    description: {
-                                        type: 'string',
-                                        example: 'A detailed report of the financial performance for the quarter.',
-                                    },
-                                    attachments: {
-                                        type: 'array',
-                                        items: {
-                                            type: 'string',
-                                            example: 'financial-summary.pdf',
-                                        },
-                                    },
-                                    complexity_level: {
-                                        type: 'array',
-                                        items: {
-                                            type: 'string',
-                                            example: 'High',
-                                        },
-                                    },
-                                    calculation_logic: {
-                                        type: 'string',
-                                        example: 'Current month sales - Previous month sales / Previous month sales * 100',
-                                    },
-                                    type: {
-                                        type: 'array',
-                                        items: {
-                                            type: 'string',
-                                            example: 'Financial',
-                                        },
-                                    },
-                                    application: {
-                                        type: 'array',
-                                        items: {
-                                            type: 'string',
-                                            example: 'Excel',
-                                        },
-                                    },
-                                    source_data: {
-                                        type: 'array',
-                                        items: {
-                                            type: 'string',
-                                            example: 'ERP',
-                                        },
-                                    },
-                                    role: {
-                                        type: 'array',
-                                        items: {
-                                            type: 'string',
-                                            example: 'Financial Analyst',
-                                        },
-                                    },
-                                    activity_id: {
-                                        type: 'array',
-                                        items: {
-                                            type: 'string',
-                                            example: 'activity1',
-                                        },
-                                    },
-                                    _id: {
-                                        type: 'string',
-                                        example: 'report_li2jrnnin',
-                                    },
-                                },
-                            },
-                        },
-                        updated: {
-                            type: 'array',
-                            items: {
-                                type: 'object',
-                            },
-                            example: [],
-                        },
-                    },
-                },
-            },
-        },
+        type: reports_dto_1.CreatedReportResponse,
     }),
     (0, swagger_1.ApiResponse)({
         status: 500,
         description: 'Failed to delete report',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 500 },
-                        success: { type: 'boolean', example: false },
-                        error: {
-                            type: 'string',
-                            example: 'Failed to delete report',
-                        },
-                    },
-                },
-            },
-        },
+        type: reports_dto_1.FailedReportResponse,
     }),
     (0, response_handler_decorator_1.ResponseHandler)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
@@ -319,55 +109,12 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Report deleted',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 200 },
-                        success: { type: 'boolean', example: true },
-                        message: {
-                            type: 'string',
-                            example: 'Report deleted',
-                        },
-                        data: {
-                            type: 'object',
-                            properties: {
-                                _id: {
-                                    type: 'string',
-                                    example: '6667e1246e91ff27e948a0e9',
-                                    description: 'Process id',
-                                },
-                                kpis_id: {
-                                    type: 'string',
-                                    example: 'report_ruyuwn69e',
-                                    description: 'Report id',
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
+        type: reports_dto_1.DeletedReportResponse,
     }),
     (0, swagger_1.ApiResponse)({
         status: 500,
         description: 'Failed to delete report',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 500 },
-                        success: { type: 'boolean', example: false },
-                        error: {
-                            type: 'string',
-                            example: 'Failed to delete report',
-                        },
-                    },
-                },
-            },
-        },
+        type: reports_dto_1.FailedReportDeletionResponse,
     }),
     (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('processId')),

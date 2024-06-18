@@ -1,7 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { findPath, generateId } from '../../utils/process.utils';
 import { PROCESS } from '../../constant/process.constants';
-import { ActivityDto, UpsertActivityDto } from './dto/activities.dto';
+import {
+  ActivityDto,
+  CreateActivityDto,
+  UpsertActivityDto,
+} from './dto/activities.dto';
 import { ProcessRepository } from '../../process.repository';
 
 @Injectable()
@@ -100,7 +104,8 @@ export class ActivitiesService {
 
   async Upsert(
     // processId: string,
-    createActivityDto: UpsertActivityDto,
+    // createActivityDto: UpsertActivityDto,
+    createActivityDto: CreateActivityDto,
   ): Promise<any> {
     const processId = createActivityDto._id;
     const activitiesDto = createActivityDto.activity;

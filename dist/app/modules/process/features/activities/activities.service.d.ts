@@ -1,4 +1,4 @@
-import { ActivityDto, UpsertActivityDto } from './dto/activities.dto';
+import { ActivityDto, CreateActivityDto } from './dto/activities.dto';
 import { ProcessRepository } from '../../process.repository';
 export declare class ActivitiesService {
     private readonly processRepository;
@@ -7,5 +7,5 @@ export declare class ActivitiesService {
     updateActivity(processId: string, activityId: string, activityDto: ActivityDto): Promise<any>;
     updateActivityIsDeleted(processId: string, activityId: string): Promise<any>;
     updateActivityIsSoftDeleted(processId: string, activityId: string): Promise<any>;
-    Upsert(createActivityDto: UpsertActivityDto): Promise<any>;
+    Upsert(createActivityDto: CreateActivityDto): Promise<any>;
 }

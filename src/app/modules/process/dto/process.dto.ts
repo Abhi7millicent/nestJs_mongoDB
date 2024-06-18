@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class IoInfo {
   public inputs: string = '';
   public outputs: string = '';
@@ -221,4 +223,238 @@ export class CreateProcessDto {
   public automation_scenarios: AutomationScenario[] = [];
   public compliance_scenarios: ComplianceScenario = new ComplianceScenario();
   public controls: ProcessControl[] = [];
+}
+
+export class IoInfoDto {
+  @ApiProperty({ description: 'Input information', example: '' })
+  inputs: string;
+
+  @ApiProperty({ description: 'Output information', example: '' })
+  outputs: string;
+
+  @ApiProperty({ description: 'Business outcome', example: '' })
+  business_outcome: string;
+
+  @ApiProperty({ description: 'Major requirements', example: '' })
+  major_requirements: string;
+}
+
+export class ControlAndMonitoringDto {
+  @ApiProperty({ description: 'Workflows', example: [] })
+  workflows: any[];
+
+  @ApiProperty({ description: 'KPIs', example: [] })
+  kpis: any[];
+
+  @ApiProperty({ description: 'Reports', example: [] })
+  reports: any[];
+
+  @ApiProperty({ description: 'Analytical dashboards', example: [] })
+  analytical_dashboards: any[];
+}
+
+export class ComplianceScenariosDto {
+  @ApiProperty({ description: 'Compliance scenario data', example: [] })
+  compliance_scenario_data: any[];
+
+  @ApiProperty({ description: 'Audit trail scenarios', example: [] })
+  audit_trail_scenarios: any[];
+}
+
+export class TransactionVolumesDataDto {
+  @ApiProperty({ description: 'Volume description', example: 'High' })
+  volume_description: string;
+
+  @ApiProperty({
+    description: 'Volume details',
+    example: 'Details about the volume',
+  })
+  volume_details: string;
+}
+
+export class DataManagementDto {
+  @ApiProperty({ description: 'Data management ID', example: '' })
+  _id: string;
+
+  @ApiProperty({ description: 'MDO', example: '' })
+  mdo: string[];
+
+  @ApiProperty({
+    description: 'Transaction volumes',
+    type: TransactionVolumesDataDto,
+    example: {
+      volume_description: 'High',
+      volume_details: 'Details about the volume',
+    },
+  })
+  transaction_volumes: TransactionVolumesDataDto;
+
+  @ApiProperty({ description: 'Data security', example: '' })
+  data_security: string;
+
+  @ApiProperty({ description: 'Data retention', example: '' })
+  data_retention: string;
+
+  @ApiProperty({ description: 'Data residency', example: '' })
+  data_residency: string;
+}
+
+export class IntegrationScenarioDto {
+  @ApiProperty({ description: 'Integration scenario ID', example: '' })
+  _id: string;
+}
+
+export class CreateProcessDataDto {
+  @ApiProperty({
+    type: [String],
+    description: 'Function identifiers',
+    example: ['F004'],
+  })
+  function_id: string[];
+
+  @ApiProperty({
+    type: [String],
+    description: 'Sub-function identifiers',
+    example: ['SF004'],
+  })
+  sub_function_id: string[];
+
+  @ApiProperty({
+    description: 'Title of the process',
+    example: 'Process Title',
+  })
+  title: string;
+
+  @ApiProperty({ description: 'Type of the version', example: 'Final' })
+  version_type: string;
+
+  @ApiProperty({ description: 'Version identifier', example: 'v4.0' })
+  version_id: string;
+
+  @ApiProperty({ description: 'SOP reference number', example: 'SOP12675' })
+  sop_reference: string;
+
+  @ApiProperty({
+    description: 'Name of the process owner',
+    example: 'John Doe',
+  })
+  owner_name: string;
+
+  @ApiProperty({
+    description: 'Role designation of the process owner',
+    example: 'Process Owner',
+  })
+  owner_role_designation: string;
+
+  @ApiProperty({ description: 'Release status', example: 'Released' })
+  release_status: string;
+
+  @ApiProperty({
+    description: 'Description of the process',
+    example: 'Detailed description of the process.',
+  })
+  description: string;
+
+  @ApiProperty({
+    description: 'Description of the trigger event',
+    example: 'Trigger event description',
+  })
+  trigger: string;
+
+  @ApiProperty({ description: 'Creator of the process', example: 'Admin' })
+  created_by: string;
+
+  @ApiProperty({
+    description: 'Creation date',
+    example: new Date().toISOString(),
+  })
+  created_on: Date;
+
+  @ApiProperty({ description: 'Last modified by', example: '' })
+  last_modified_by: string;
+
+  @ApiProperty({
+    description: 'Last modified date',
+    example: new Date().toISOString(),
+  })
+  last_modified_on: Date;
+
+  @ApiProperty({ description: 'Deletion flag', example: false })
+  is_deleted: boolean;
+
+  @ApiProperty({ type: IoInfoDto, description: 'IO Information' })
+  io_info: IoInfoDto;
+
+  @ApiProperty({
+    type: [Object],
+    description: 'List of activities',
+    example: [],
+  })
+  activities: any[];
+
+  @ApiProperty({
+    type: ControlAndMonitoringDto,
+    description: 'Control and Monitoring',
+  })
+  control_and_monitoring: ControlAndMonitoringDto;
+
+  @ApiProperty({
+    type: [Object],
+    description: 'Queries and responses',
+    example: [],
+  })
+  queries_and_responses: any[];
+
+  @ApiProperty({ type: DataManagementDto, description: 'Data management' })
+  data_management: DataManagementDto;
+
+  @ApiProperty({
+    type: IntegrationScenarioDto,
+    description: 'Integration scenario',
+  })
+  integration_scenario: IntegrationScenarioDto;
+
+  @ApiProperty({
+    type: [Object],
+    description: 'List of documents',
+    example: [],
+  })
+  documents: any[];
+
+  @ApiProperty({
+    type: [Object],
+    description: 'Automation scenarios',
+    example: [],
+  })
+  automation_scenarios: any[];
+
+  @ApiProperty({
+    type: ComplianceScenariosDto,
+    description: 'Compliance scenarios',
+  })
+  compliance_scenarios: ComplianceScenariosDto;
+
+  @ApiProperty({ type: [Object], description: 'Controls', example: [] })
+  controls: any[];
+}
+
+// DTO for response body
+export class CreateProcessResponseDto {
+  @ApiProperty({ description: 'HTTP status code', example: 201 })
+  statusCode: number;
+
+  @ApiProperty({
+    description: 'Flag indicating the success of the operation',
+    example: true,
+  })
+  success: boolean;
+
+  @ApiProperty({
+    description: 'Message describing the result of the operation',
+    example: 'Process created successfully',
+  })
+  message: string;
+
+  @ApiProperty({ description: 'Data returned from the operation' })
+  data: any;
 }

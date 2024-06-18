@@ -13,7 +13,15 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { AuditTrailScenariosService } from './audit-trail.service';
-import { UpsertAuditTrailScenariosDto } from './dto/audit-trail.dto';
+import {
+  ApiResponseDto,
+  AuditTrailDto,
+  // AuditTrailScenarioDto,
+  CreateAuditTrailErrorResponseDto,
+  DeleteAuditTrailErrorResponseDto,
+  DeleteAuditTrailResponseDto,
+  UpsertAuditTrailScenariosDto,
+} from './dto/audit-trail.dto';
 import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 import {
@@ -34,215 +42,16 @@ export class AuditTrailScenariosController {
 
   @Post('audit-trail-scenarios')
   @ApiOperation({ summary: 'Post Audit trail' })
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        _id: {
-          type: 'string',
-          example: '6667e1246e91ff27e948a0e9',
-          description: 'Identifier for the activity',
-        },
-        audit_trail_scenarios: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              title: {
-                type: 'string',
-                example: 'System Audit Trail 1',
-                description: 'System Audit Trail 1',
-              },
-              description: {
-                type: 'string',
-                example:
-                  'Scenario for tracking changes and activities in the system for audit purposes.',
-                description: 'Description of the scenario',
-              },
-              activity_id: {
-                type: 'array',
-                items: {
-                  type: 'string',
-                  example: 'activity101',
-                },
-                description: 'Array of activities',
-              },
-              automation_id: {
-                type: 'array',
-                items: {
-                  type: 'string',
-                  example: 'automation101',
-                },
-                description: 'Array of automation ids',
-              },
-              attachments: {
-                type: 'array',
-                items: {
-                  type: 'string',
-                  example: 'log1.txt',
-                },
-                description: 'Array of attachments',
-              },
-              integration_scenario_id: {
-                type: 'array',
-                items: {
-                  type: 'string',
-                  example: 'integration101',
-                },
-                description: 'Array of integration scenario ids',
-              },
-              role: {
-                type: 'array',
-                items: {
-                  type: 'string',
-                  example: 'admin',
-                },
-                description: 'Array of roles',
-              },
-              last_modified_by: {
-                type: 'string',
-                example: 'admin1',
-                description: 'User who last modified the activity',
-              },
-              is_deleted: {
-                type: 'boolean',
-                example: false,
-                description:
-                  'Flag indicating whether the activity is deleted or not',
-              },
-            },
-          },
-        },
-      },
-    },
-  })
+  @ApiBody({ type: AuditTrailDto })
   @ApiResponse({
     status: 201,
-    description: 'AuditTrailScenarios created successfully',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          properties: {
-            statusCode: { type: 'number', example: 201 },
-            success: { type: 'boolean', example: true },
-            message: {
-              type: 'string',
-              example: 'AuditTrailScenarios created successfully',
-            },
-            data: {
-              type: 'object',
-              properties: {
-                created: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      title: {
-                        type: 'string',
-                        example: 'System Audit Trail 1',
-                      },
-                      description: {
-                        type: 'string',
-                        example:
-                          'Scenario for tracking changes and activities in the system for audit purposes.',
-                      },
-                      activity_id: {
-                        type: 'array',
-                        items: { type: 'string', example: 'activity101' },
-                      },
-                      automation_id: {
-                        type: 'array',
-                        items: { type: 'string', example: 'automation101' },
-                      },
-                      attachments: {
-                        type: 'array',
-                        items: { type: 'string', example: 'log1.txt' },
-                      },
-                      integration_scenario_id: {
-                        type: 'array',
-                        items: { type: 'string', example: 'integration101' },
-                      },
-                      role: {
-                        type: 'array',
-                        items: { type: 'string', example: 'admin' },
-                      },
-                      is_deleted: { type: 'boolean', example: false },
-                      _id: { type: 'string', example: 'at_ruyuwn69e' },
-                    },
-                  },
-                },
-                updated: {
-                  type: 'array',
-                  items: { type: 'object' },
-                },
-              },
-            },
-          },
-        },
-        example: {
-          statusCode: 201,
-          success: true,
-          message: 'AuditTrailScenarios created successfully',
-          data: {
-            created: [
-              {
-                title: 'System Audit Trail 1',
-                description:
-                  'Scenario for tracking changes and activities in the system for audit purposes.',
-                activity_id: ['activity101', 'activity202', 'activity303'],
-                automation_id: ['automation101', 'automation202'],
-                attachments: ['log1.txt', 'log2.txt', 'log3.txt'],
-                integration_scenario_id: [
-                  'integration101',
-                  'integration202',
-                  'integration303',
-                ],
-                role: ['admin', 'auditor'],
-                is_deleted: false,
-                _id: 'at_ruyuwn69e',
-              },
-              {
-                title: 'System Audit Trail 2',
-                description:
-                  'Scenario for tracking changes and activities in the system for audit purposes.',
-                activity_id: ['activity101', 'activity202', 'activity303'],
-                automation_id: ['automation101', 'automation202'],
-                attachments: ['log1.txt', 'log2.txt', 'log3.txt'],
-                integration_scenario_id: [
-                  'integration101',
-                  'integration202',
-                  'integration303',
-                ],
-                role: ['admin', 'auditor'],
-                is_deleted: false,
-                _id: 'at_d807m5n15',
-              },
-            ],
-            updated: [],
-          },
-        },
-      },
-    },
+    description: 'Audit trail created',
+    type: ApiResponseDto,
   })
   @ApiResponse({
     status: 500,
     description: 'Failed to create audit trail',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          properties: {
-            statusCode: { type: 'number', example: 500 },
-            success: { type: 'boolean', example: false },
-            message: {
-              type: 'string',
-              example: 'Failed to create audit trail',
-            },
-          },
-        },
-      },
-    },
+    type: CreateAuditTrailErrorResponseDto,
   })
   @ResponseHandler()
   @HttpCode(HttpStatus.CREATED)
@@ -304,55 +113,12 @@ export class AuditTrailScenariosController {
   @ApiResponse({
     status: 200,
     description: 'Audit trail deleted',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          properties: {
-            statusCode: { type: 'number', example: 200 },
-            success: { type: 'boolean', example: true },
-            message: {
-              type: 'string',
-              example: 'Audit trail deleted',
-            },
-            data: {
-              type: 'object',
-              properties: {
-                _id: {
-                  type: 'string',
-                  example: '6667e1246e91ff27e948a0e9',
-                  description: 'Process id',
-                },
-                audit_trail_id: {
-                  type: 'string',
-                  example: 'at_ruyuwn69e',
-                  description: 'Audit trail id',
-                },
-              },
-            },
-          },
-        },
-      },
-    },
+    type: DeleteAuditTrailResponseDto,
   })
   @ApiResponse({
     status: 500,
     description: 'Failed to delete audit trail',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          properties: {
-            statusCode: { type: 'number', example: 500 },
-            success: { type: 'boolean', example: false },
-            error: {
-              type: 'string',
-              example: 'Failed to delete audit trail',
-            },
-          },
-        },
-      },
-    },
+    type: DeleteAuditTrailErrorResponseDto,
   })
   async updateWorkflowsIsDeleted(
     @Param('processId') processId: string,

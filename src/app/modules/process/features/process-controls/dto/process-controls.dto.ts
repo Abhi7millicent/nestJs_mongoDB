@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class ProcessControlsDto {
   _id: string;
   title: string;

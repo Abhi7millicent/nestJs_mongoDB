@@ -76,182 +76,16 @@ exports.ComplianceScenariosDataController = ComplianceScenariosDataController;
 __decorate([
     (0, common_1.Post)('compliance-scenario-data'),
     (0, swagger_1.ApiOperation)({ summary: 'Post Compliance scenario data' }),
-    (0, swagger_1.ApiBody)({
-        schema: {
-            type: 'object',
-            properties: {
-                _id: {
-                    type: 'string',
-                    example: '666d417093b9df8f829b22a3',
-                    description: 'Identifier for the activity',
-                },
-                compliance_scenario: {
-                    type: 'array',
-                    items: {
-                        type: 'object',
-                        properties: {
-                            title: {
-                                type: 'string',
-                                example: 'GDPR Compliance 1',
-                                description: 'GDPR Compliance 1',
-                            },
-                            description: {
-                                type: 'string',
-                                example: 'Scenario for reviewing and ensuring compliance with GDPR regulations.',
-                                description: 'Description of the scenario',
-                            },
-                            attachments: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'file1.pdf',
-                                },
-                                description: 'Array of attachments',
-                            },
-                            activity_id: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'activity123',
-                                },
-                                description: 'Array of activities',
-                            },
-                            automation_id: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'automation123',
-                                },
-                                description: 'Array of automation ids',
-                            },
-                            integration_scenario_id: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'integration123',
-                                },
-                                description: 'Array of integration scenario ids',
-                            },
-                            last_modified_by: {
-                                type: 'string',
-                                example: 'user456',
-                                description: 'User who last modified the activity',
-                            },
-                            is_deleted: {
-                                type: 'boolean',
-                                example: false,
-                                description: 'Flag indicating whether the activity is deleted or not',
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    }),
+    (0, swagger_1.ApiBody)({ type: compliance_scenarios_data_dto_1.ComplianceScenarioDto }),
     (0, swagger_1.ApiResponse)({
         status: 201,
         description: 'ComplianceScenario created successfully',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 201 },
-                        success: { type: 'boolean', example: true },
-                        message: {
-                            type: 'string',
-                            example: 'ComplianceScenario created successfully',
-                        },
-                        data: {
-                            type: 'object',
-                            properties: {
-                                created: {
-                                    type: 'array',
-                                    items: {
-                                        type: 'object',
-                                        properties: {
-                                            title: {
-                                                type: 'string',
-                                                example: 'GDPR Compliance 1',
-                                            },
-                                            description: {
-                                                type: 'string',
-                                                example: 'Scenario for reviewing and ensuring compliance with GDPR regulations.',
-                                            },
-                                            attachments: {
-                                                type: 'array',
-                                                items: { type: 'string', example: 'file1.pdf' },
-                                            },
-                                            activity_id: {
-                                                type: 'array',
-                                                items: { type: 'string', example: 'activity123' },
-                                            },
-                                            automation_id: {
-                                                type: 'array',
-                                                items: { type: 'string', example: 'automation123' },
-                                            },
-                                            integration_scenario_id: {
-                                                type: 'array',
-                                                items: { type: 'string', example: 'integration123' },
-                                            },
-                                            is_deleted: { type: 'boolean', example: false },
-                                            _id: { type: 'string', example: 'cs_6fqzgve8u' },
-                                        },
-                                    },
-                                },
-                                updated: {
-                                    type: 'array',
-                                    items: { type: 'object' },
-                                },
-                            },
-                        },
-                    },
-                },
-                example: {
-                    statusCode: 201,
-                    success: true,
-                    message: 'ComplianceScenario created successfully',
-                    data: {
-                        created: [
-                            {
-                                title: 'GDPR Compliance 1',
-                                description: 'Scenario for reviewing and ensuring compliance with GDPR regulations.',
-                                attachments: ['file1.pdf', 'file2.docx', 'file3.xlsx'],
-                                activity_id: ['activity123', 'activity456', 'activity789'],
-                                automation_id: ['automation123', 'automation456'],
-                                integration_scenario_id: [
-                                    'integration123',
-                                    'integration456',
-                                    'integration789',
-                                ],
-                                is_deleted: false,
-                                _id: 'cs_6fqzgve8u',
-                            },
-                        ],
-                        updated: [],
-                    },
-                },
-            },
-        },
+        type: compliance_scenarios_data_dto_1.ComplianceScenarioApiResponseDto,
     }),
     (0, swagger_1.ApiResponse)({
         status: 500,
         description: 'Failed to delete compliance scenario',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 500 },
-                        success: { type: 'boolean', example: false },
-                        error: {
-                            type: 'string',
-                            example: 'Failed to delete compliance scenario',
-                        },
-                    },
-                },
-            },
-        },
+        type: compliance_scenarios_data_dto_1.ComplianceScenarioErrorResponseDto,
     }),
     (0, response_handler_decorator_1.ResponseHandler)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
@@ -278,55 +112,12 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Compliance scenario deleted',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 200 },
-                        success: { type: 'boolean', example: true },
-                        message: {
-                            type: 'string',
-                            example: 'Compliance scenario deleted',
-                        },
-                        data: {
-                            type: 'object',
-                            properties: {
-                                _id: {
-                                    type: 'string',
-                                    example: '6667e1246e91ff27e948a0e9',
-                                    description: 'Process id',
-                                },
-                                compliance_scenario_id: {
-                                    type: 'string',
-                                    example: 'cs_ruyuwn69e',
-                                    description: 'Compliance scenario id',
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
+        type: compliance_scenarios_data_dto_1.DeleteComplianceScenarioResponseDto,
     }),
     (0, swagger_1.ApiResponse)({
         status: 500,
-        description: 'Failed to delete audit trail',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 500 },
-                        success: { type: 'boolean', example: false },
-                        error: {
-                            type: 'string',
-                            example: 'Failed to delete audit trail',
-                        },
-                    },
-                },
-            },
-        },
+        description: 'Failed to delete compliance scenario',
+        type: compliance_scenarios_data_dto_1.ComplianceScenarioDeleteResponseDto,
     }),
     (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Param)('processId')),

@@ -24,8 +24,8 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
 import { Model } from 'mongoose';
-import { GenericRepository } from 'src/core/repository/generic.repository';
 import { Role } from './role.schema';
+import { GenericRepository } from 'src/core/repository/mongoose-repository/generic.repository';
 export declare class RolesRepository extends GenericRepository<Role> {
     constructor(userModel: Model<Role>);
 }

@@ -13,7 +13,6 @@ export class DatabaseConnection implements MongooseOptionsFactory {
 
   createMongooseOptions(): MongooseModuleOptions {
     const mongoUri = this.configService.get<string>('mongoUri');
-    console.log('mongoUri:', mongoUri);
     return {
       uri: mongoUri,
     };

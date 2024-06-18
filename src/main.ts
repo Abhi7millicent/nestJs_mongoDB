@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
-import { setupRedoc } from './core/middleware/redoc.middleware';
+import { setupRedoc } from './core/middlewares/redoc.middleware';
 import * as dotenv from 'dotenv';
 
 async function bootstrap() {

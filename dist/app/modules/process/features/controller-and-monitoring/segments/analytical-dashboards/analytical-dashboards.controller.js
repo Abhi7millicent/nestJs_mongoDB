@@ -16,9 +16,9 @@ exports.AnalyticalDashboardsController = void 0;
 const common_1 = require("@nestjs/common");
 const analytical_dashboards_service_1 = require("./analytical-dashboards.service");
 const analytical_dashboards_dto_1 = require("./dto/analytical-dashboards.dto");
-const response_handler_decorator_1 = require("../../../../../../../core/decorator/response-handler.decorator");
 const process_archive_service_1 = require("../../../../../archive/process-archive/process-archive.service");
 const swagger_1 = require("@nestjs/swagger");
+const http_response_handler_decorator_1 = require("../../../../../../../core/decorator/http-response-handler.decorator");
 let AnalyticalDashboardsController = class AnalyticalDashboardsController {
     constructor(analyticalDashboardsService, processArchiveService) {
         this.analyticalDashboardsService = analyticalDashboardsService;
@@ -88,7 +88,7 @@ __decorate([
         description: 'Failed to delete analytical dashboard',
         type: analytical_dashboards_dto_1.AnalyticalDashboardErrorResponseDto,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -120,7 +120,7 @@ __decorate([
         description: 'Failed to delete analytical dashboard',
         type: analytical_dashboards_dto_1.AnalyticalDashboardDeleteErrorResponseDto,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('analyticalDashboardsId')),
     __metadata("design:type", Function),

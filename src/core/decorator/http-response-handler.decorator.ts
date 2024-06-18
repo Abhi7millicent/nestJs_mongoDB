@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 
-export function ResponseHandler() {
+export function HttpResponse() {
   return function (
     target: any,
     key: string | symbol,

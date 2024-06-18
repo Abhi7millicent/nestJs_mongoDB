@@ -9,7 +9,7 @@ import {
   process_document,
   process_document_id,
 } from '../../constant/process.constants';
-import { generateId } from 'src/shared/helper/generate-id.helper';
+import { generateId } from 'src/shared/helper/string.helper';
 import { ProcessRepository } from '../../process.repository';
 import { findPath } from '../../utils/process.utils';
 

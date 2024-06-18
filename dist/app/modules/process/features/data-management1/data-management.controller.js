@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const data_management_dto_1 = require("./dto/data-management.dto");
 const data_management_service_1 = require("./data-management.service");
 const swagger_1 = require("@nestjs/swagger");
+const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
 let DataManagementController = class DataManagementController {
     constructor(dataManagementService) {
         this.dataManagementService = dataManagementService;
@@ -543,6 +544,7 @@ __decorate([
             },
         },
     }),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),

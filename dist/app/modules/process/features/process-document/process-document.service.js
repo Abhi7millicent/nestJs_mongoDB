@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProcessDocumentService = void 0;
 const common_1 = require("@nestjs/common");
 const process_constants_1 = require("../../constant/process.constants");
-const generate_id_helper_1 = require("../../../../../shared/helper/generate-id.helper");
+const string_helper_1 = require("../../../../../shared/helper/string.helper");
 const process_repository_1 = require("../../process.repository");
 const process_utils_1 = require("../../utils/process.utils");
 let ProcessDocumentService = class ProcessDocumentService {
@@ -29,7 +29,7 @@ let ProcessDocumentService = class ProcessDocumentService {
         const processToCreate = processDocumentDto.filter((activityDto) => !activityDto._id);
         const processToUpdate = processDocumentDto.filter((activityDto) => activityDto._id);
         processToCreate.forEach((activityDto) => {
-            activityDto._id = (0, generate_id_helper_1.generateId)(process_constants_1.process_document_id);
+            activityDto._id = (0, string_helper_1.generateId)(process_constants_1.process_document_id);
             delete activityDto.last_modified_by;
         });
         try {

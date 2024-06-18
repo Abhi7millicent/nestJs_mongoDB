@@ -8,14 +8,14 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ProcessArchiveService } from './process-archive.service';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @Controller('v1/process-archive')
 export class ProcessArchiveController {
   constructor(private readonly processArchiveService: ProcessArchiveService) {}
 
   @Get()
-  @ResponseHandler()
+  @HttpResponse()
   async getAll(): Promise<any> {
     const processArchives = await this.processArchiveService.findAll();
     return {
@@ -26,7 +26,7 @@ export class ProcessArchiveController {
   }
 
   @Get(':id')
-  @ResponseHandler()
+  @HttpResponse()
   async getById(@Param('id') id: string): Promise<any> {
     try {
       const processArchive = await this.processArchiveService.findById(id);

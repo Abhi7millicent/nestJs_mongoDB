@@ -17,8 +17,8 @@ const common_1 = require("@nestjs/common");
 const automation_scenarios_service_1 = require("./automation-scenarios.service");
 const automation_scenarios_dto_1 = require("./dto/automation-scenarios.dto");
 const process_archive_service_1 = require("../../../archive/process-archive/process-archive.service");
-const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
 const swagger_1 = require("@nestjs/swagger");
+const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
 let AutomationScenarioController = class AutomationScenarioController {
     constructor(automationScenarioService, processArchiveService) {
         this.automationScenarioService = automationScenarioService;
@@ -87,7 +87,7 @@ __decorate([
         description: 'Failed to create the automation process',
         type: automation_scenarios_dto_1.AutomationScenarioErrorResponseDto,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -119,7 +119,7 @@ __decorate([
         description: 'Failed to delete automation scenario',
         type: automation_scenarios_dto_1.AutomationScenarioErrorPutDto,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('automationScenarioId')),
     __metadata("design:type", Function),

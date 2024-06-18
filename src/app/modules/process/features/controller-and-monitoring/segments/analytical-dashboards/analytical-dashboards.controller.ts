@@ -19,7 +19,6 @@ import {
   AnalyticalDashboardErrorResponseDto,
   UpsertAnalyticalDashboardsDto,
 } from './dto/analytical-dashboards.dto';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 import {
   ApiBody,
@@ -28,6 +27,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Analytical-dashboard')
 @Controller('v1/process')
@@ -50,7 +50,7 @@ export class AnalyticalDashboardsController {
     description: 'Failed to delete analytical dashboard',
     type: AnalyticalDashboardErrorResponseDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   @HttpCode(HttpStatus.CREATED)
   async upsertAnalyticalDashboards(
     @Body() createAnalyticalDashboardsDto: UpsertAnalyticalDashboardsDto,
@@ -115,7 +115,7 @@ export class AnalyticalDashboardsController {
     description: 'Failed to delete analytical dashboard',
     type: AnalyticalDashboardDeleteErrorResponseDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   async updateAnalyticalDashboardsIsDeleted(
     @Param('processId') processId: string,
     @Param('analyticalDashboardsId') analyticalDashboardsId: string,

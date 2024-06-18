@@ -5,4 +5,4 @@ function generateId(prefix) {
     return prefix + Math.random().toString(36).substring(2, 11);
 }
 exports.generateId = generateId;
-//# sourceMappingURL=generate-id.helper.js.map
+//# sourceMappingURL=string.helper.js.map

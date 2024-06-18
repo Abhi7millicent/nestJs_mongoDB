@@ -16,8 +16,8 @@ exports.ProcessArchiveRepository = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
-const generic_repository_1 = require("../../../../core/repository/generic.repository");
 const process_archive_schema_1 = require("./process-archive.schema");
+const generic_repository_1 = require("../../../../core/repository/mongoose-repository/generic.repository");
 let ProcessArchiveRepository = class ProcessArchiveRepository extends generic_repository_1.GenericRepository {
     constructor(userModel) {
         super(userModel);

@@ -23,7 +23,6 @@ import {
   UpsertQueriesResponseDto,
 } from './dto/queries-response.dto';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import {
   ApiBody,
   ApiOperation,
@@ -31,6 +30,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Queries-responses')
 @Controller('v1/process')
@@ -49,7 +49,7 @@ export class QueriesResponsesController {
     description: 'Failed to create queries and response',
     type: DeleteQueryResponseErrorDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   async create(@Body() createQueriesResponseDto: UpsertQueriesResponseDto) {
     try {
       const data = await this.queriesResponsesService.Upsert(
@@ -103,7 +103,7 @@ export class QueriesResponsesController {
     description: 'Failed to delete queries and response',
     type: DeleteQueryPutResponseErrorDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   async updatequeriesresponseIsDeleted(
     @Param('processId') processId: string,
     @Param('qrId') qrId: string,

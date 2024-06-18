@@ -16,9 +16,9 @@ exports.AuditTrailScenariosController = void 0;
 const common_1 = require("@nestjs/common");
 const audit_trail_service_1 = require("./audit-trail.service");
 const audit_trail_dto_1 = require("./dto/audit-trail.dto");
-const response_handler_decorator_1 = require("../../../../../../../core/decorator/response-handler.decorator");
 const process_archive_service_1 = require("../../../../../archive/process-archive/process-archive.service");
 const swagger_1 = require("@nestjs/swagger");
+const http_response_handler_decorator_1 = require("../../../../../../../core/decorator/http-response-handler.decorator");
 let AuditTrailScenariosController = class AuditTrailScenariosController {
     constructor(auditTrailScenariosService, processArchiveService) {
         this.auditTrailScenariosService = auditTrailScenariosService;
@@ -87,7 +87,7 @@ __decorate([
         description: 'Failed to create audit trail',
         type: audit_trail_dto_1.CreateAuditTrailErrorResponseDto,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -119,6 +119,7 @@ __decorate([
         description: 'Failed to delete audit trail',
         type: audit_trail_dto_1.DeleteAuditTrailErrorResponseDto,
     }),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('auditTrailScenariosId')),
     __metadata("design:type", Function),

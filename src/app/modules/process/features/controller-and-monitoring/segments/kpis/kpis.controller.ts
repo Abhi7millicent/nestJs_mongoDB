@@ -22,7 +22,6 @@ import {
   UpsertKPIsDataDto,
   UpsertKPIsDto,
 } from './dto/kpis.dto';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 import {
   ApiBody,
@@ -31,6 +30,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Kpis')
 @Controller('v1/process')
@@ -53,7 +53,7 @@ export class KPIsController {
     description: 'Failed to delete kpis',
     type: KPIsErrorResponseDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   @HttpCode(HttpStatus.CREATED)
   async addKPIs(@Body() createkpisDto: UpsertKPIsDto) {
     try {
@@ -108,7 +108,7 @@ export class KPIsController {
     description: 'Failed to delete kpis',
     type: KPIsDeleteErrorResponseDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   async updateKPIsIsDeleted(
     @Param('processId') processId: string,
     @Param('kpisId') kpisId: string,

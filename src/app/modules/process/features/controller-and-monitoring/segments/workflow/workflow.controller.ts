@@ -14,7 +14,6 @@ import {
 } from '@nestjs/common';
 import { WorkflowsService } from './workflow.service';
 import { UpsertWorkflowsDto } from './dto/workflows.dto';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 import {
   ApiBody,
@@ -23,6 +22,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Workflow')
 @Controller('v1/process')
@@ -251,7 +251,7 @@ export class WorkflowsController {
       },
     },
   })
-  @ResponseHandler()
+  @HttpResponse()
   @HttpCode(HttpStatus.CREATED)
   async addWorkflows(@Body() createWorkflowsDto: UpsertWorkflowsDto) {
     try {
@@ -355,7 +355,7 @@ export class WorkflowsController {
       },
     },
   })
-  @ResponseHandler()
+  @HttpResponse()
   async updateWorkflowsIsDeleted(
     @Param('processId') processId: string,
     @Param('workflowId') workflowId: string,

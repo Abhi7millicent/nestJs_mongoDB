@@ -1,13 +1,9 @@
 import { Module } from '@nestjs/common';
-// import { MongooseModule } from '@nestjs/mongoose';
-// import { AppConfig } from 'src/core/config/app.config';
-// import { DatabaseConfig } from 'src/database/database.config';
-import { Modules } from './modules/modules';
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import configurations from 'src/core/config/configurations';
 import { MongooseModule } from '@nestjs/mongoose';
+import { DatabaseModule } from 'src/database/database.module';
+import configurations from 'src/core/config/app.config';
+import { Modules } from './modules/modules';
 import { DatabaseConnection } from 'src/database/database.connection';
 
 @Module({
@@ -16,17 +12,14 @@ import { DatabaseConnection } from 'src/database/database.connection';
       isGlobal: true,
       load: [configurations],
       ignoreEnvFile: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
+
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, DatabaseModule],
       useClass: DatabaseConnection,
       inject: [ConfigService],
     }),
-    // MongooseModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   useClass: DatabaseConfig,
-    //   inject: [AppConfig],
-    // }),
     Modules,
   ],
   // controllers: [AppController],

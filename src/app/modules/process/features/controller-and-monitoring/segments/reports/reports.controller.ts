@@ -22,7 +22,6 @@ import {
   ReportsDto,
   UpsertReportsDto,
 } from './dto/reports.dto';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 import {
   ApiBody,
@@ -31,6 +30,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Reports')
 @Controller('v1/process')
@@ -53,7 +53,7 @@ export class WorkflowsController {
     description: 'Failed to delete report',
     type: FailedReportResponse,
   })
-  @ResponseHandler()
+  @HttpResponse()
   @HttpCode(HttpStatus.CREATED)
   async addReports(@Body() createReportsDto: UpsertReportsDto) {
     try {
@@ -108,7 +108,7 @@ export class WorkflowsController {
     description: 'Failed to delete report',
     type: FailedReportDeletionResponse,
   })
-  @ResponseHandler()
+  @HttpResponse()
   async updateReportsIsDeleted(
     @Param('processId') processId: string,
     @Param('reportsId') reportsId: string,

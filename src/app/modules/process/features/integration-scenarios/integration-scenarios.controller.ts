@@ -21,6 +21,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Integration-scenarios')
 @Controller('v1/process')
@@ -588,6 +589,7 @@ export class IntegrationScenarioController {
       },
     },
   })
+  @HttpResponse()
   async updateIntegrationScenario(
     @Param('processId') processId: string,
     // @Param('integrationScenarioId') integrationScenarioId: string,

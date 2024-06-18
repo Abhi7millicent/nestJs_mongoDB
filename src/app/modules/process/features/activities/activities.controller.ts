@@ -20,7 +20,6 @@ import {
   ErrorResponsePutDto,
   UpsertActivityDto,
 } from './dto/activities.dto';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import { error } from 'console';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 import {
@@ -30,6 +29,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Activities')
 @Controller('v1/process')
@@ -272,6 +272,7 @@ export class ActivitiesController {
     description: 'Failed to create the activity',
     type: ErrorResponseDto,
   })
+  @HttpResponse()
   async addActivity(@Body() createActivityDto: CreateActivityDto) {
     try {
       const data = await this.activitiesService.Upsert(createActivityDto);
@@ -321,7 +322,7 @@ export class ActivitiesController {
   })
   @ApiResponse({ status: 200, type: ActivityDeletedResponseDto })
   @ApiResponse({ status: 500, type: ErrorResponsePutDto })
-  @ResponseHandler()
+  @HttpResponse()
   async updateActivityIsDeleted(
     @Param('processId') processId: string,
     @Param('activityId') activityId: string,

@@ -24,7 +24,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
 import { Model, FilterQuery, QueryOptions, PopulatedDoc } from 'mongoose';
-import { UpdateResponseDto } from '../dto/update-response.dto';
+import { UpdateResponseDto } from 'src/core/dto/update-response.dto';
 interface FindAllOptions<T> extends QueryOptions {
     sort?: any;
     limit?: number;

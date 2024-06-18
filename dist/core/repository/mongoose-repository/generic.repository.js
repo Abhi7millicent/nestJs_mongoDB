@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenericRepository = void 0;
 const common_1 = require("@nestjs/common");
-const error_message_1 = require("../../shared/constants/message/error.message");
+const error_message_1 = require("../../../shared/constants/message/error.message");
 class GenericRepository {
     constructor(model) {
         this.model = model;
@@ -48,7 +48,6 @@ class GenericRepository {
             value.markModified(updatePath);
             await value.save();
             const pushedPart = keyPath.reduce((obj, key) => obj[key], value);
-            console.log('data:', pushedPart[pushedPart.length - 1]);
             return pushedPart[pushedPart.length - 1];
         }
         catch (error) {

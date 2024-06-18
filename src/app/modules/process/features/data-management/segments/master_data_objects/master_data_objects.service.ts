@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
 import { findPath } from 'src/app/modules/process/utils/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
-import { generateId } from 'src/shared/helper/generate-id.helper';
+import { generateId } from 'src/shared/helper/string.helper';
 import { data_management_info } from '../../constant/data-management.constant';
 import { MDODto, UpsertMDODto } from './dto/master_data_objects';
 

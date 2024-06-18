@@ -17,8 +17,8 @@ const common_1 = require("@nestjs/common");
 const queries_responses_service_1 = require("./queries-responses.service");
 const queries_response_dto_1 = require("./dto/queries-response.dto");
 const process_archive_service_1 = require("../../../archive/process-archive/process-archive.service");
-const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
 const swagger_1 = require("@nestjs/swagger");
+const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
 let QueriesResponsesController = class QueriesResponsesController {
     constructor(queriesResponsesService, processArchiveService) {
         this.queriesResponsesService = queriesResponsesService;
@@ -84,7 +84,7 @@ __decorate([
         description: 'Failed to create queries and response',
         type: queries_response_dto_1.DeleteQueryResponseErrorDto,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [queries_response_dto_1.UpsertQueriesResponseDto]),
@@ -111,7 +111,7 @@ __decorate([
         description: 'Failed to delete queries and response',
         type: queries_response_dto_1.DeleteQueryPutResponseErrorDto,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('qrId')),
     __metadata("design:type", Function),

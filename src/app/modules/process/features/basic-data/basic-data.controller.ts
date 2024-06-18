@@ -13,7 +13,6 @@ import {
 } from '@nestjs/common';
 import { BasicDataService } from './basic-data.service';
 import { Process } from '../../process.schema';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import {
   ApiBody,
   ApiOperation,
@@ -22,6 +21,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { DeleteProcessErrorDto, UpdatedDataDto } from './dto/basic-data.dto';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Basic process')
 @Controller('v1/process')
@@ -668,7 +668,7 @@ export class BasicDataController {
     description: 'Failed to delete basic process',
     type: DeleteProcessErrorDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   async update(
     @Param('id') id: string,
     @Body() data: Partial<Process>,

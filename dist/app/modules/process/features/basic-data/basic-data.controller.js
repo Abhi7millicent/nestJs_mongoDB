@@ -15,9 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BasicDataController = void 0;
 const common_1 = require("@nestjs/common");
 const basic_data_service_1 = require("./basic-data.service");
-const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
 const swagger_1 = require("@nestjs/swagger");
 const basic_data_dto_1 = require("./dto/basic-data.dto");
+const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
 let BasicDataController = class BasicDataController {
     constructor(basicDataService) {
         this.basicDataService = basicDataService;
@@ -73,7 +73,7 @@ __decorate([
         description: 'Failed to delete basic process',
         type: basic_data_dto_1.DeleteProcessErrorDto,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),

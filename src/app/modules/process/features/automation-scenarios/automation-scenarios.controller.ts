@@ -22,7 +22,6 @@ import {
   UpsertAutomationScenarioDto,
 } from './dto/automation-scenarios.dto';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import {
   ApiBody,
   ApiOperation,
@@ -30,6 +29,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Automation-process')
 @Controller('v1/process')
@@ -52,7 +52,7 @@ export class AutomationScenarioController {
     description: 'Failed to create the automation process',
     type: AutomationScenarioErrorResponseDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   @HttpCode(HttpStatus.CREATED)
   async addAutomationScenario(
     @Body() createAutomationScenarioDto: UpsertAutomationScenarioDto,
@@ -105,7 +105,7 @@ export class AutomationScenarioController {
     description: 'Failed to delete automation scenario',
     type: AutomationScenarioErrorPutDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   async updateAutomationScenarioIsDeleted(
     @Param('processId') processId: string,
     @Param('automationScenarioId') automationScenarioId: string,

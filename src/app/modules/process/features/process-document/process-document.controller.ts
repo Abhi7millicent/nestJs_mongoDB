@@ -22,7 +22,6 @@ import {
   UpsertProcessDocumentDto,
 } from './dto/process-document.dto';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import {
   ApiBody,
   ApiOperation,
@@ -30,6 +29,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Process-document')
 @Controller('v1/process')
@@ -289,7 +289,7 @@ export class ProcessDocumentController {
       },
     },
   })
-  @ResponseHandler()
+  @HttpResponse()
   async create(
     @Body() createProcessDocumentDto: ProcessDocumentRequestBodyDto,
   ) {
@@ -484,7 +484,7 @@ export class ProcessDocumentController {
       },
     },
   })
-  @ResponseHandler()
+  @HttpResponse()
   async updateProcessDocumentIsDeleted(
     @Param() params: UpdateProcessDocumentRequestBodyDto, // Using the request body DTO
   ) {

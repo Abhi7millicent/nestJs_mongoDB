@@ -10,17 +10,16 @@ import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { Role } from './role.schema';
 import { RolesService } from './role.service';
 import { CreateRoleDto } from './dto/role.dto';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @Controller('v1/roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
-  @ResponseHandler()
+  @HttpResponse()
   //create role
   async create(@Body() createRoleDto: CreateRoleDto): Promise<any> {
     try {
@@ -43,7 +42,7 @@ export class RolesController {
   }
 
   @Get()
-  @ResponseHandler()
+  @HttpResponse()
   async findAll(): Promise<any> {
     try {
       const data = await this.rolesService.findAll();

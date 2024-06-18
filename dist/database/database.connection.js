@@ -18,7 +18,6 @@ let DatabaseConnection = class DatabaseConnection {
     }
     createMongooseOptions() {
         const mongoUri = this.configService.get('mongoUri');
-        console.log('mongoUri:', mongoUri);
         return {
             uri: mongoUri,
         };

@@ -24,8 +24,8 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="mongoose/types/inferrawdoctype" />
 import { Model } from 'mongoose';
-import { GenericRepository } from 'src/core/repository/generic.repository';
 import { ProcessArchive } from './process-archive.schema';
+import { GenericRepository } from 'src/core/repository/mongoose-repository/generic.repository';
 export declare class ProcessArchiveRepository extends GenericRepository<ProcessArchive> {
     constructor(userModel: Model<ProcessArchive>);
 }

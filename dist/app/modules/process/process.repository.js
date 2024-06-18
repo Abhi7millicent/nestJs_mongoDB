@@ -16,8 +16,8 @@ exports.ProcessRepository = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
-const generic_repository_1 = require("../../../core/repository/generic.repository");
 const process_schema_1 = require("./process.schema");
+const generic_repository_1 = require("../../../core/repository/mongoose-repository/generic.repository");
 let ProcessRepository = class ProcessRepository extends generic_repository_1.GenericRepository {
     constructor(userModel) {
         super(userModel);

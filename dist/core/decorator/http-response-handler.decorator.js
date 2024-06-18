@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResponseHandler = void 0;
+exports.HttpResponse = void 0;
 const common_1 = require("@nestjs/common");
-function ResponseHandler() {
+function HttpResponse() {
     return function (target, key, descriptor) {
         const originalMethod = descriptor.value;
         descriptor.value = async function (...args) {
@@ -53,5 +53,5 @@ function ResponseHandler() {
         return descriptor;
     };
 }
-exports.ResponseHandler = ResponseHandler;
-//# sourceMappingURL=response-handler.decorator.js.map
+exports.HttpResponse = HttpResponse;
+//# sourceMappingURL=http-response-handler.decorator.js.map

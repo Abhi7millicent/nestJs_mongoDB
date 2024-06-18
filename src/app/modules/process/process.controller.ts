@@ -19,7 +19,6 @@ import {
 } from './dto/process.dto';
 import { Process } from './process.schema';
 import { ProcessArchiveService } from '../archive/process-archive/process-archive.service';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import {
   ApiBody,
   ApiOperation,
@@ -27,6 +26,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Process')
 @Controller('v1/process')
@@ -728,7 +728,7 @@ export class ProcessController {
       },
     },
   })
-  @ResponseHandler()
+  @HttpResponse()
   async getAll(): Promise<any> {
     const data = await this.processService.getAllProcess();
     try {
@@ -972,7 +972,7 @@ export class ProcessController {
       },
     },
   })
-  @ResponseHandler()
+  @HttpResponse()
   async getById(@Param('id') id: string): Promise<any> {
     try {
       const data = await this.processService.getProcessById(id);
@@ -1059,7 +1059,7 @@ export class ProcessController {
       },
     },
   })
-  @ResponseHandler()
+  @HttpResponse()
   async delete(@Param('id') id: string): Promise<any> {
     try {
       const archiveData = await this.processService.getByProcessById(id);

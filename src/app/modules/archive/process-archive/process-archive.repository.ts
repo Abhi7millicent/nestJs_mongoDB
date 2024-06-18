@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { GenericRepository } from 'src/core/repository/generic.repository';
 import { ProcessArchive } from './process-archive.schema';
+import { GenericRepository } from 'src/core/repository/mongoose-repository/generic.repository';
 
 @Injectable()
 export class ProcessArchiveRepository extends GenericRepository<ProcessArchive> {

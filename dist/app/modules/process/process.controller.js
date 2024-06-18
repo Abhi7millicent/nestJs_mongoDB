@@ -16,8 +16,8 @@ exports.ProcessController = void 0;
 const common_1 = require("@nestjs/common");
 const process_service_1 = require("./process.service");
 const process_archive_service_1 = require("../archive/process-archive/process-archive.service");
-const response_handler_decorator_1 = require("../../../core/decorator/response-handler.decorator");
 const swagger_1 = require("@nestjs/swagger");
+const http_response_handler_decorator_1 = require("../../../core/decorator/http-response-handler.decorator");
 let ProcessController = class ProcessController {
     constructor(processService, processArchiveService) {
         this.processService = processService;
@@ -312,7 +312,7 @@ __decorate([
             },
         },
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -539,7 +539,7 @@ __decorate([
             },
         },
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -609,7 +609,7 @@ __decorate([
             },
         },
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

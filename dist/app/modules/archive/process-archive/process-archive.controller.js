@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProcessArchiveController = void 0;
 const common_1 = require("@nestjs/common");
 const process_archive_service_1 = require("./process-archive.service");
-const response_handler_decorator_1 = require("../../../../core/decorator/response-handler.decorator");
+const http_response_handler_decorator_1 = require("../../../../core/decorator/http-response-handler.decorator");
 let ProcessArchiveController = class ProcessArchiveController {
     constructor(processArchiveService) {
         this.processArchiveService = processArchiveService;
@@ -48,14 +48,14 @@ let ProcessArchiveController = class ProcessArchiveController {
 exports.ProcessArchiveController = ProcessArchiveController;
 __decorate([
     (0, common_1.Get)(),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProcessArchiveController.prototype, "getAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

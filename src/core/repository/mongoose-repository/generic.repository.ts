@@ -1,6 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 import { Model, FilterQuery, QueryOptions, PopulatedDoc } from 'mongoose';
-import { UpdateResponseDto } from '../dto/update-response.dto';
+import { UpdateResponseDto } from 'src/core/dto/update-response.dto';
 import { ErrorMessage } from 'src/shared/constants/message/error.message';
 
 interface FindAllOptions<T> extends QueryOptions {
@@ -79,7 +79,6 @@ export abstract class GenericRepository<T> {
       await value.save();
 
       const pushedPart = keyPath.reduce((obj, key) => obj[key], value);
-      console.log('data:', pushedPart[pushedPart.length - 1]);
       return pushedPart[pushedPart.length - 1];
     } catch (error) {
       if (error instanceof NotFoundException) {

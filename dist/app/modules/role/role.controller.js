@@ -16,7 +16,7 @@ exports.RolesController = void 0;
 const common_1 = require("@nestjs/common");
 const role_service_1 = require("./role.service");
 const role_dto_1 = require("./dto/role.dto");
-const response_handler_decorator_1 = require("../../../core/decorator/response-handler.decorator");
+const http_response_handler_decorator_1 = require("../../../core/decorator/http-response-handler.decorator");
 let RolesController = class RolesController {
     constructor(rolesService) {
         this.rolesService = rolesService;
@@ -69,7 +69,7 @@ let RolesController = class RolesController {
 exports.RolesController = RolesController;
 __decorate([
     (0, common_1.Post)(),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [role_dto_1.CreateRoleDto]),
@@ -77,7 +77,7 @@ __decorate([
 ], RolesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

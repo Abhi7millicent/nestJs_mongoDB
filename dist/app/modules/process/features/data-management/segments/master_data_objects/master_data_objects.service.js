@@ -14,7 +14,7 @@ const common_1 = require("@nestjs/common");
 const process_repository_1 = require("../../../../process.repository");
 const process_utils_1 = require("../../../../utils/process.utils");
 const process_constants_1 = require("../../../../constant/process.constants");
-const generate_id_helper_1 = require("../../../../../../../shared/helper/generate-id.helper");
+const string_helper_1 = require("../../../../../../../shared/helper/string.helper");
 let MDOService = class MDOService {
     constructor(processRepository) {
         this.processRepository = processRepository;
@@ -51,7 +51,7 @@ let MDOService = class MDOService {
         const mdoToUpdate = mdoDto.filter((dataDto) => dataDto._id);
         let createdData = [];
         for (const dataDto of mdoToCreate) {
-            dataDto._id = (0, generate_id_helper_1.generateId)('mdo_');
+            dataDto._id = (0, string_helper_1.generateId)('mdo_');
             delete dataDto.last_modified_by;
             const value = this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, 'master_data_objects'), dataDto);
             createdData.push(value);

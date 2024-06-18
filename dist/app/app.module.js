@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const modules_1 = require("./modules/modules");
 const config_1 = require("@nestjs/config");
-const configurations_1 = require("../core/config/configurations");
 const mongoose_1 = require("@nestjs/mongoose");
+const database_module_1 = require("../database/database.module");
+const app_config_1 = require("../core/config/app.config");
+const modules_1 = require("./modules/modules");
 const database_connection_1 = require("../database/database.connection");
 let AppModule = class AppModule {
 };
@@ -21,11 +22,12 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
-                load: [configurations_1.default],
+                load: [app_config_1.default],
                 ignoreEnvFile: true,
+                envFilePath: `.env.${process.env.NODE_ENV}`,
             }),
             mongoose_1.MongooseModule.forRootAsync({
-                imports: [config_1.ConfigModule],
+                imports: [config_1.ConfigModule, database_module_1.DatabaseModule],
                 useClass: database_connection_1.DatabaseConnection,
                 inject: [config_1.ConfigService],
             }),

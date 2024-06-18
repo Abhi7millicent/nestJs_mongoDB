@@ -16,9 +16,9 @@ exports.ActivitiesController = void 0;
 const common_1 = require("@nestjs/common");
 const activities_service_1 = require("./activities.service");
 const activities_dto_1 = require("./dto/activities.dto");
-const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
 const process_archive_service_1 = require("../../../archive/process-archive/process-archive.service");
 const swagger_1 = require("@nestjs/swagger");
+const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
 let ActivitiesController = class ActivitiesController {
     constructor(activitiesService, processArchiveService) {
         this.activitiesService = activitiesService;
@@ -87,6 +87,7 @@ __decorate([
         description: 'Failed to create the activity',
         type: activities_dto_1.ErrorResponseDto,
     }),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [activities_dto_1.CreateActivityDto]),
@@ -109,7 +110,7 @@ __decorate([
     }),
     (0, swagger_1.ApiResponse)({ status: 200, type: activities_dto_1.ActivityDeletedResponseDto }),
     (0, swagger_1.ApiResponse)({ status: 500, type: activities_dto_1.ErrorResponsePutDto }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('activityId')),
     __metadata("design:type", Function),

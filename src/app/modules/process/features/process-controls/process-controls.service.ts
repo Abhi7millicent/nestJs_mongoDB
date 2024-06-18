@@ -8,7 +8,7 @@ import {
   process_controls,
   process_controls_id,
 } from '../../constant/process.constants';
-import { generateId } from 'src/shared/helper/generate-id.helper';
+import { generateId } from 'src/shared/helper/string.helper';
 import { findPath } from '../../utils/process.utils';
 import { ProcessRepository } from '../../process.repository';
 

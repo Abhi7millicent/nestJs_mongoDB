@@ -13,7 +13,7 @@ exports.AnalyticalDashboardsService = void 0;
 const common_1 = require("@nestjs/common");
 const process_utils_1 = require("../../../../utils/process.utils");
 const process_constants_1 = require("../../../../constant/process.constants");
-const generate_id_helper_1 = require("../../../../../../../shared/helper/generate-id.helper");
+const string_helper_1 = require("../../../../../../../shared/helper/string.helper");
 const process_repository_1 = require("../../../../process.repository");
 const controller_and_monitoring_constant_1 = require("../../constant/controller-and-monitoring.constant");
 let AnalyticalDashboardsService = class AnalyticalDashboardsService {
@@ -49,7 +49,7 @@ let AnalyticalDashboardsService = class AnalyticalDashboardsService {
         const analyticalDashboardsToUpdate = analyticalDashboardsDto.filter((dataDto) => dataDto._id);
         let createdData = [];
         for (const dataDto of analyticalDashboardsToCreate) {
-            dataDto._id = (0, generate_id_helper_1.generateId)(controller_and_monitoring_constant_1.analytical_dashboards);
+            dataDto._id = (0, string_helper_1.generateId)(controller_and_monitoring_constant_1.analytical_dashboards);
             delete dataDto.last_modified_by;
             const value = await this.processRepository.createByKey(processId, (0, process_utils_1.findPath)(process_constants_1.PROCESS, controller_and_monitoring_constant_1.controlAndMonitoring['analytical_dashboards']), dataDto);
             createdData.push(value);

@@ -22,7 +22,6 @@ import {
   DeleteComplianceScenarioResponseDto,
   UpsertComplianceScenarioDataDto,
 } from './dto/compliance-scenarios-data.dto';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 import {
   ApiBody,
@@ -31,6 +30,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Compliance-scenario')
 @Controller('v1/process')
@@ -53,7 +53,7 @@ export class ComplianceScenariosDataController {
     description: 'Failed to delete compliance scenario',
     type: ComplianceScenarioErrorResponseDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   @HttpCode(HttpStatus.CREATED)
   async addComplianceScenariosData(
     @Body() createComplianceScenarioDataDto: UpsertComplianceScenarioDataDto,
@@ -119,7 +119,7 @@ export class ComplianceScenariosDataController {
     description: 'Failed to delete compliance scenario',
     type: ComplianceScenarioDeleteResponseDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   async updateComplianceScenariosDataIsDeleted(
     @Param('processId') processId: string,
     @Param('complianceScenarioDataId') complianceScenarioDataId: string,

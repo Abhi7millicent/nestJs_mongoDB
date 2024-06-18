@@ -17,8 +17,8 @@ const common_1 = require("@nestjs/common");
 const process_document_service_1 = require("./process-document.service");
 const process_document_dto_1 = require("./dto/process-document.dto");
 const process_archive_service_1 = require("../../../archive/process-archive/process-archive.service");
-const response_handler_decorator_1 = require("../../../../../core/decorator/response-handler.decorator");
 const swagger_1 = require("@nestjs/swagger");
+const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
 let ProcessDocumentController = class ProcessDocumentController {
     constructor(processDocumentService, processArchiveService) {
         this.processDocumentService = processDocumentService;
@@ -98,7 +98,7 @@ __decorate([
             },
         },
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [process_document_dto_1.ProcessDocumentRequestBodyDto]),
@@ -143,7 +143,7 @@ __decorate([
             },
         },
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [process_document_dto_1.UpdateProcessDocumentRequestBodyDto]),

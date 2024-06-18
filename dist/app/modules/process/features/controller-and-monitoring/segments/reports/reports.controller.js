@@ -16,9 +16,9 @@ exports.WorkflowsController = void 0;
 const common_1 = require("@nestjs/common");
 const reports_service_1 = require("./reports.service");
 const reports_dto_1 = require("./dto/reports.dto");
-const response_handler_decorator_1 = require("../../../../../../../core/decorator/response-handler.decorator");
 const process_archive_service_1 = require("../../../../../archive/process-archive/process-archive.service");
 const swagger_1 = require("@nestjs/swagger");
+const http_response_handler_decorator_1 = require("../../../../../../../core/decorator/http-response-handler.decorator");
 let WorkflowsController = class WorkflowsController {
     constructor(reportsService, processArchiveService) {
         this.reportsService = reportsService;
@@ -84,7 +84,7 @@ __decorate([
         description: 'Failed to delete report',
         type: reports_dto_1.FailedReportResponse,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -116,7 +116,7 @@ __decorate([
         description: 'Failed to delete report',
         type: reports_dto_1.FailedReportDeletionResponse,
     }),
-    (0, response_handler_decorator_1.ResponseHandler)(),
+    (0, http_response_handler_decorator_1.HttpResponse)(),
     __param(0, (0, common_1.Param)('processId')),
     __param(1, (0, common_1.Param)('reportsId')),
     __metadata("design:type", Function),

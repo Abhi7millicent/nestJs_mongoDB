@@ -18,7 +18,6 @@ import {
   UpsertProcessControlsDto,
 } from './dto/process-controls.dto';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import {
   ApiBody,
   ApiOperation,
@@ -26,6 +25,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Process-controls')
 @Controller('v1/process')
@@ -171,7 +171,7 @@ export class ProcessControlsController {
       },
     },
   })
-  @ResponseHandler()
+  @HttpResponse()
   async create(@Body() upsertProcessControlsDto: UpsertProcessControlsDto) {
     try {
       const data = await this.processControlsService.upsert(
@@ -282,7 +282,7 @@ export class ProcessControlsController {
       },
     },
   })
-  @ResponseHandler()
+  @HttpResponse()
   async updatequeriesresponseIsDeleted(
     @Param('processId') processId: string,
     @Param('qrId') qrId: string,

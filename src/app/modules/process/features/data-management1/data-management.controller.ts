@@ -17,6 +17,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Data-management')
 @Controller('v1/process')
@@ -630,6 +631,7 @@ export class DataManagementController {
       },
     },
   })
+  @HttpResponse()
   async updateIntegrationScenario(
     @Param('processId') processId: string,
     dataManagementId: string,

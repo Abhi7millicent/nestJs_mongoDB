@@ -22,7 +22,6 @@ import {
   DeleteAuditTrailResponseDto,
   UpsertAuditTrailScenariosDto,
 } from './dto/audit-trail.dto';
-import { ResponseHandler } from 'src/core/decorator/response-handler.decorator';
 import { ProcessArchiveService } from 'src/app/modules/archive/process-archive/process-archive.service';
 import {
   ApiBody,
@@ -31,6 +30,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
 
 @ApiTags('Audit-trail')
 @Controller('v1/process')
@@ -53,7 +53,7 @@ export class AuditTrailScenariosController {
     description: 'Failed to create audit trail',
     type: CreateAuditTrailErrorResponseDto,
   })
-  @ResponseHandler()
+  @HttpResponse()
   @HttpCode(HttpStatus.CREATED)
   async upsertAuditTrailScenarios(
     @Body() createAuditTrailScenariosDto: UpsertAuditTrailScenariosDto,
@@ -120,6 +120,7 @@ export class AuditTrailScenariosController {
     description: 'Failed to delete audit trail',
     type: DeleteAuditTrailErrorResponseDto,
   })
+  @HttpResponse()
   async updateWorkflowsIsDeleted(
     @Param('processId') processId: string,
     @Param('auditTrailScenariosId') auditTrailScenariosId: string,

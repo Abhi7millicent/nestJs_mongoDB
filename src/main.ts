@@ -2,9 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
 import { setupRedoc } from './core/middleware/redoc.middleware';
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  dotenv.config();
 
   const options = new DocumentBuilder()
     .setTitle('CVS-BPM')

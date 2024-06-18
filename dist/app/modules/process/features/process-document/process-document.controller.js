@@ -18,7 +18,7 @@ const process_document_service_1 = require("./process-document.service");
 const process_document_dto_1 = require("./dto/process-document.dto");
 const process_archive_service_1 = require("../../../archive/process-archive/process-archive.service");
 const swagger_1 = require("@nestjs/swagger");
-const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
+const http_response_handler_decorator_1 = require("../../../../../core/decorators/http-response-handler.decorator");
 let ProcessDocumentController = class ProcessDocumentController {
     constructor(processDocumentService, processArchiveService) {
         this.processDocumentService = processDocumentService;

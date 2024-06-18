@@ -18,7 +18,7 @@ const kpis_service_1 = require("./kpis.service");
 const kpis_dto_1 = require("./dto/kpis.dto");
 const process_archive_service_1 = require("../../../../../archive/process-archive/process-archive.service");
 const swagger_1 = require("@nestjs/swagger");
-const http_response_handler_decorator_1 = require("../../../../../../../core/decorator/http-response-handler.decorator");
+const http_response_handler_decorator_1 = require("../../../../../../../core/decorators/http-response-handler.decorator");
 let KPIsController = class KPIsController {
     constructor(kpisService, processArchiveService) {
         this.kpisService = kpisService;

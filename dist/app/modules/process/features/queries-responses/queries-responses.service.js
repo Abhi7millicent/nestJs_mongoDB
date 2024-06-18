@@ -12,8 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueriesResponsesService = void 0;
 const common_1 = require("@nestjs/common");
 const process_constants_1 = require("../../constant/process.constants");
-const string_helper_1 = require("../../../../../shared/helper/string.helper");
-const process_utils_1 = require("../../utils/process.utils");
+const process_utils_1 = require("../../helper/process.utils");
 const process_repository_1 = require("../../process.repository");
 let QueriesResponsesService = class QueriesResponsesService {
     constructor(processRepository) {
@@ -56,7 +55,7 @@ let QueriesResponsesService = class QueriesResponsesService {
         const queriesResponseToCreate = QueriesResponseDto.filter((dataDto) => !dataDto._id);
         const queriesResponseToUpdate = QueriesResponseDto.filter((dataDto) => dataDto._id);
         queriesResponseToCreate.forEach((dataDto) => {
-            dataDto._id = (0, string_helper_1.generateId)(process_constants_1.queries_and_responses_id);
+            dataDto._id = (0, process_utils_1.generateId)(process_constants_1.queries_and_responses_id);
             delete dataDto.last_modified_by;
         });
         try {

@@ -18,7 +18,7 @@ const activities_service_1 = require("./activities.service");
 const activities_dto_1 = require("./dto/activities.dto");
 const process_archive_service_1 = require("../../../archive/process-archive/process-archive.service");
 const swagger_1 = require("@nestjs/swagger");
-const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
+const http_response_handler_decorator_1 = require("../../../../../core/decorators/http-response-handler.decorator");
 let ActivitiesController = class ActivitiesController {
     constructor(activitiesService, processArchiveService) {
         this.activitiesService = activitiesService;

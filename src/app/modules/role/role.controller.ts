@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { RolesService } from './role.service';
 import { CreateRoleDto } from './dto/role.dto';
-import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
+import { HttpResponse } from 'src/core/decorators/http-response-handler.decorator';
 
 @Controller('v1/roles')
 export class RolesController {

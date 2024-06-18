@@ -21,7 +21,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { DeleteProcessErrorDto, UpdatedDataDto } from './dto/basic-data.dto';
-import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
+import { HttpResponse } from 'src/core/decorators/http-response-handler.decorator';
 
 @ApiTags('Basic process')
 @Controller('v1/process')

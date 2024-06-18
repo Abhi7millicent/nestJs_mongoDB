@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
 import { DataManagementDto } from './dto/data_management_info.dto';
-import { findPath } from 'src/app/modules/process/utils/process.utils';
+import { findPath } from 'src/app/modules/process/helper/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
 
 @Injectable()

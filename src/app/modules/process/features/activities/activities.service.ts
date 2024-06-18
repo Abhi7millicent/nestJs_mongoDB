@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { findPath, generateId } from '../../utils/process.utils';
 import { PROCESS } from '../../constant/process.constants';
 import {
   ActivityDto,
@@ -7,6 +6,7 @@ import {
   UpsertActivityDto,
 } from './dto/activities.dto';
 import { ProcessRepository } from '../../process.repository';
+import { findPath, generateId } from '../../helper/process.utils';
 
 @Injectable()
 export class ActivitiesService {

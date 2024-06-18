@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import { Model, FilterQuery, QueryOptions, PopulatedDoc } from 'mongoose';
+import { ErrorMessage } from 'src/common/constants/message/error.message';
 import { UpdateResponseDto } from 'src/core/dto/update-response.dto';
-import { ErrorMessage } from 'src/shared/constants/message/error.message';
 
 interface FindAllOptions<T> extends QueryOptions {
   sort?: any;

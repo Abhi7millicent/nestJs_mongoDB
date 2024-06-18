@@ -17,7 +17,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
+import { HttpResponse } from 'src/core/decorators/http-response-handler.decorator';
 
 @ApiTags('Data-management')
 @Controller('v1/process')

@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KPIsService = void 0;
 const common_1 = require("@nestjs/common");
-const process_utils_1 = require("../../../../utils/process.utils");
+const process_utils_1 = require("../../../../helper/process.utils");
 const process_constants_1 = require("../../../../constant/process.constants");
-const string_helper_1 = require("../../../../../../../shared/helper/string.helper");
 const process_repository_1 = require("../../../../process.repository");
 const controller_and_monitoring_constant_1 = require("../../constant/controller-and-monitoring.constant");
+const string_helper_1 = require("../../../../../../../common/helpers/string.helper");
 let KPIsService = class KPIsService {
     constructor(processRepository) {
         this.processRepository = processRepository;

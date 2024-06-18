@@ -8,7 +8,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ProcessArchiveService } from './process-archive.service';
-import { HttpResponse } from 'src/core/decorator/http-response-handler.decorator';
+import { HttpResponse } from 'src/core/decorators/http-response-handler.decorator';
 
 @Controller('v1/process-archive')
 export class ProcessArchiveController {

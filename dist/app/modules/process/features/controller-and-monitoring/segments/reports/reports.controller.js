@@ -18,7 +18,7 @@ const reports_service_1 = require("./reports.service");
 const reports_dto_1 = require("./dto/reports.dto");
 const process_archive_service_1 = require("../../../../../archive/process-archive/process-archive.service");
 const swagger_1 = require("@nestjs/swagger");
-const http_response_handler_decorator_1 = require("../../../../../../../core/decorator/http-response-handler.decorator");
+const http_response_handler_decorator_1 = require("../../../../../../../core/decorators/http-response-handler.decorator");
 let WorkflowsController = class WorkflowsController {
     constructor(reportsService, processArchiveService) {
         this.reportsService = reportsService;

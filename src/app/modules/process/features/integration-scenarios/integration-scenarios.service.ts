@@ -3,7 +3,7 @@ import {
   PROCESS,
   integration_scenario,
 } from '../../constant/process.constants';
-import { findPath } from '../../utils/process.utils';
+import { findPath } from '../../helper/process.utils';
 import { ProcessRepository } from '../../process.repository';
 import { UpdateIntegrationScenarioDto } from './dto/integration-scenarios.dto';
 

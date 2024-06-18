@@ -8,8 +8,7 @@ import {
   queries_and_responses,
   queries_and_responses_id,
 } from '../../constant/process.constants';
-import { generateId } from 'src/shared/helper/string.helper';
-import { findPath } from '../../utils/process.utils';
+import { findPath, generateId } from '../../helper/process.utils';
 import { ProcessRepository } from '../../process.repository';
 import { controlAndMonitoring } from '../controller-and-monitoring/constant/controller-and-monitoring.constant';
 

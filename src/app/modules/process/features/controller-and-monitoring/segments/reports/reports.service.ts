@@ -1,13 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { findPath } from 'src/app/modules/process/utils/process.utils';
+import { findPath } from 'src/app/modules/process/helper/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
-import { generateId } from 'src/shared/helper/string.helper';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
 import {
   controlAndMonitoring,
   reports,
 } from '../../constant/controller-and-monitoring.constant';
 import { ReportsDto, UpsertReportsDto } from './dto/reports.dto';
+import { generateId } from 'src/common/helpers/string.helper';
 
 @Injectable()
 export class ReportsService {

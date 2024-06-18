@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenericRepository = void 0;
 const common_1 = require("@nestjs/common");
-const error_message_1 = require("../../../shared/constants/message/error.message");
+const error_message_1 = require("../../../common/constants/message/error.message");
 class GenericRepository {
     constructor(model) {
         this.model = model;

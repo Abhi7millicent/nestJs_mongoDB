@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const data_management_dto_1 = require("./dto/data-management.dto");
 const data_management_service_1 = require("./data-management.service");
 const swagger_1 = require("@nestjs/swagger");
-const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
+const http_response_handler_decorator_1 = require("../../../../../core/decorators/http-response-handler.decorator");
 let DataManagementController = class DataManagementController {
     constructor(dataManagementService) {
         this.dataManagementService = dataManagementService;

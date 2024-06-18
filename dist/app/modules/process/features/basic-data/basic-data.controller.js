@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const basic_data_service_1 = require("./basic-data.service");
 const swagger_1 = require("@nestjs/swagger");
 const basic_data_dto_1 = require("./dto/basic-data.dto");
-const http_response_handler_decorator_1 = require("../../../../../core/decorator/http-response-handler.decorator");
+const http_response_handler_decorator_1 = require("../../../../../core/decorators/http-response-handler.decorator");
 let BasicDataController = class BasicDataController {
     constructor(basicDataService) {
         this.basicDataService = basicDataService;

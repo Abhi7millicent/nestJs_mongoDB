@@ -4,7 +4,7 @@ import {
   data_management,
   integration_scenario,
 } from '../../constant/process.constants';
-import { findPath } from '../../utils/process.utils';
+import { findPath } from '../../helper/process.utils';
 import { ProcessRepository } from '../../process.repository';
 import { DataManagementDto } from './dto/data-management.dto';
 

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { findPath, generateId } from '../../utils/process.utils';
+import { findPath, generateId } from '../../helper/process.utils';
 import { PROCESS } from '../../constant/process.constants';
 import { ProcessRepository } from '../../process.repository';
 import {

@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MDOService = void 0;
 const common_1 = require("@nestjs/common");
 const process_repository_1 = require("../../../../process.repository");
-const process_utils_1 = require("../../../../utils/process.utils");
+const process_utils_1 = require("../../../../helper/process.utils");
 const process_constants_1 = require("../../../../constant/process.constants");
-const string_helper_1 = require("../../../../../../../shared/helper/string.helper");
+const string_helper_1 = require("../../../../../../../common/helpers/string.helper");
 let MDOService = class MDOService {
     constructor(processRepository) {
         this.processRepository = processRepository;

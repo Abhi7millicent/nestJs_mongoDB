@@ -9,9 +9,8 @@ import {
   process_document,
   process_document_id,
 } from '../../constant/process.constants';
-import { generateId } from 'src/shared/helper/string.helper';
 import { ProcessRepository } from '../../process.repository';
-import { findPath } from '../../utils/process.utils';
+import { findPath, generateId } from '../../helper/process.utils';
 
 @Injectable()
 export class ProcessDocumentService {

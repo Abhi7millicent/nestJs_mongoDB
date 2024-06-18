@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProcessArchiveController = void 0;
 const common_1 = require("@nestjs/common");
 const process_archive_service_1 = require("./process-archive.service");
-const http_response_handler_decorator_1 = require("../../../../core/decorator/http-response-handler.decorator");
+const http_response_handler_decorator_1 = require("../../../../core/decorators/http-response-handler.decorator");
 let ProcessArchiveController = class ProcessArchiveController {
     constructor(processArchiveService) {
         this.processArchiveService = processArchiveService;

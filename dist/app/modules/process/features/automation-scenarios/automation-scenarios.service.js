@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AutomationScenarioService = void 0;
 const common_1 = require("@nestjs/common");
-const process_utils_1 = require("../../utils/process.utils");
+const process_utils_1 = require("../../helper/process.utils");
 const process_constants_1 = require("../../constant/process.constants");
 const process_repository_1 = require("../../process.repository");
 let AutomationScenarioService = class AutomationScenarioService {

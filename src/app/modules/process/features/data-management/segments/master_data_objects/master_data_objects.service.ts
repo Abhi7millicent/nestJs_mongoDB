@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProcessRepository } from 'src/app/modules/process/process.repository';
-import { findPath } from 'src/app/modules/process/utils/process.utils';
+import { findPath } from 'src/app/modules/process/helper/process.utils';
 import { PROCESS } from 'src/app/modules/process/constant/process.constants';
-import { generateId } from 'src/shared/helper/string.helper';
 import { data_management_info } from '../../constant/data-management.constant';
 import { MDODto, UpsertMDODto } from './dto/master_data_objects';
+import { generateId } from 'src/common/helpers/string.helper';
 
 @Injectable()
 export class MDOService {

@@ -8,10 +8,18 @@ export class RolesService {
   constructor(private readonly rolesRepository: RolesRepository) {}
 
   async create(createRoleDto: CreateRoleDto): Promise<Role> {
-    return this.rolesRepository.create(createRoleDto);
+    try {
+      return this.rolesRepository.create(createRoleDto);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async findAll(): Promise<Role[]> {
-    return this.rolesRepository.findAll();
+    try {
+      return this.rolesRepository.findAll();
+    } catch (error) {
+      throw error;
+    }
   }
 }

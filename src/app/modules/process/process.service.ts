@@ -33,23 +33,35 @@ export class ProcessService {
   }
 
   async getAllProcess() {
-    const process = await this.processRepository.findAll({
-      is_deleted: 'false',
-    });
-    process.forEach((process) => {
-      process.activities = process.activities.filter(
-        (activity) => activity.is_deleted === false,
-      );
-    });
-    return process;
+    try {
+      const process = await this.processRepository.findAll({
+        is_deleted: 'false',
+      });
+      process.forEach((process) => {
+        process.activities = process.activities.filter(
+          (activity) => activity.is_deleted === false,
+        );
+      });
+      return process;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getProcessById(id: string) {
-    return this.processRepository.findById(id);
+    try {
+      return this.processRepository.findById(id);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async deleteProcess(id: string) {
-    return this.processRepository.delete(id);
+    try {
+      return this.processRepository.delete(id);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async softDeleteProcess(id: string) {

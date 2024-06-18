@@ -6,7 +6,8 @@ const fs = require("fs");
 const path = require("path");
 class AppConfig {
     constructor() {
-        const environment = 'dev';
+        console.log('env:', process.env.NODE_ENV);
+        const environment = process.env.NODE_ENV;
         const envFilePath = path.resolve(__dirname, `../../${environment}.env`);
         this.envConfig = dotenv.parse(fs.readFileSync(envFilePath));
     }

@@ -203,4 +203,69 @@ export declare class CreateProcessDto {
     compliance_scenarios: ComplianceScenario;
     controls: ProcessControl[];
 }
+export declare class IoInfoDto {
+    inputs: string;
+    outputs: string;
+    business_outcome: string;
+    major_requirements: string;
+}
+export declare class ControlAndMonitoringDto {
+    workflows: any[];
+    kpis: any[];
+    reports: any[];
+    analytical_dashboards: any[];
+}
+export declare class ComplianceScenariosDto {
+    compliance_scenario_data: any[];
+    audit_trail_scenarios: any[];
+}
+export declare class TransactionVolumesDataDto {
+    volume_description: string;
+    volume_details: string;
+}
+export declare class DataManagementDto {
+    _id: string;
+    mdo: string[];
+    transaction_volumes: TransactionVolumesDataDto;
+    data_security: string;
+    data_retention: string;
+    data_residency: string;
+}
+export declare class IntegrationScenarioDto {
+    _id: string;
+}
+export declare class CreateProcessDataDto {
+    function_id: string[];
+    sub_function_id: string[];
+    title: string;
+    version_type: string;
+    version_id: string;
+    sop_reference: string;
+    owner_name: string;
+    owner_role_designation: string;
+    release_status: string;
+    description: string;
+    trigger: string;
+    created_by: string;
+    created_on: Date;
+    last_modified_by: string;
+    last_modified_on: Date;
+    is_deleted: boolean;
+    io_info: IoInfoDto;
+    activities: any[];
+    control_and_monitoring: ControlAndMonitoringDto;
+    queries_and_responses: any[];
+    data_management: DataManagementDto;
+    integration_scenario: IntegrationScenarioDto;
+    documents: any[];
+    automation_scenarios: any[];
+    compliance_scenarios: ComplianceScenariosDto;
+    controls: any[];
+}
+export declare class CreateProcessResponseDto {
+    statusCode: number;
+    success: boolean;
+    message: string;
+    data: any;
+}
 export {};

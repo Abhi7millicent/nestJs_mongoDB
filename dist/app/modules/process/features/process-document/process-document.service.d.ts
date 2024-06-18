@@ -1,9 +1,9 @@
-import { ProcessDocumentDto, UpsertProcessDocumentDto } from './dto/process-document.dto';
+import { ProcessDocumentDto, ProcessDocumentRequestBodyDto } from './dto/process-document.dto';
 import { ProcessRepository } from '../../process.repository';
 export declare class ProcessDocumentService {
     private readonly processRepository;
     constructor(processRepository: ProcessRepository);
-    upsert(createProcessDocumentDto: UpsertProcessDocumentDto): Promise<any>;
+    upsert(createProcessDocumentDto: ProcessDocumentRequestBodyDto): Promise<any>;
     getByProcessById(processId: string): Promise<any>;
     findAll(): string;
     findOne(id: number): string;

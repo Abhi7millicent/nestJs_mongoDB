@@ -1,6 +1,16 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateProcessDto = exports.ProcessControl = exports.ComplianceScenario = exports.AuditTrailScenarios = exports.ComplianceScenarioData = exports.AutomationScenario = exports.ProcessDocument = exports.IntegrationScenario = exports.DataManagementData = exports.QueriesAndResponses = exports.ProcessControlAndMonitoring = exports.AnalyticalDashboard = exports.Report = exports.Kpi = exports.Workflow = exports.Activity = exports.IoInfo = void 0;
+exports.CreateProcessResponseDto = exports.CreateProcessDataDto = exports.IntegrationScenarioDto = exports.DataManagementDto = exports.TransactionVolumesDataDto = exports.ComplianceScenariosDto = exports.ControlAndMonitoringDto = exports.IoInfoDto = exports.CreateProcessDto = exports.ProcessControl = exports.ComplianceScenario = exports.AuditTrailScenarios = exports.ComplianceScenarioData = exports.AutomationScenario = exports.ProcessDocument = exports.IntegrationScenario = exports.DataManagementData = exports.QueriesAndResponses = exports.ProcessControlAndMonitoring = exports.AnalyticalDashboard = exports.Report = exports.Kpi = exports.Workflow = exports.Activity = exports.IoInfo = void 0;
+const swagger_1 = require("@nestjs/swagger");
 class IoInfo {
     constructor() {
         this.inputs = '';
@@ -255,4 +265,294 @@ class CreateProcessDto {
     }
 }
 exports.CreateProcessDto = CreateProcessDto;
+class IoInfoDto {
+}
+exports.IoInfoDto = IoInfoDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Input information', example: '' }),
+    __metadata("design:type", String)
+], IoInfoDto.prototype, "inputs", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Output information', example: '' }),
+    __metadata("design:type", String)
+], IoInfoDto.prototype, "outputs", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Business outcome', example: '' }),
+    __metadata("design:type", String)
+], IoInfoDto.prototype, "business_outcome", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Major requirements', example: '' }),
+    __metadata("design:type", String)
+], IoInfoDto.prototype, "major_requirements", void 0);
+class ControlAndMonitoringDto {
+}
+exports.ControlAndMonitoringDto = ControlAndMonitoringDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Workflows', example: [] }),
+    __metadata("design:type", Array)
+], ControlAndMonitoringDto.prototype, "workflows", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'KPIs', example: [] }),
+    __metadata("design:type", Array)
+], ControlAndMonitoringDto.prototype, "kpis", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Reports', example: [] }),
+    __metadata("design:type", Array)
+], ControlAndMonitoringDto.prototype, "reports", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Analytical dashboards', example: [] }),
+    __metadata("design:type", Array)
+], ControlAndMonitoringDto.prototype, "analytical_dashboards", void 0);
+class ComplianceScenariosDto {
+}
+exports.ComplianceScenariosDto = ComplianceScenariosDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Compliance scenario data', example: [] }),
+    __metadata("design:type", Array)
+], ComplianceScenariosDto.prototype, "compliance_scenario_data", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Audit trail scenarios', example: [] }),
+    __metadata("design:type", Array)
+], ComplianceScenariosDto.prototype, "audit_trail_scenarios", void 0);
+class TransactionVolumesDataDto {
+}
+exports.TransactionVolumesDataDto = TransactionVolumesDataDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Volume description', example: 'High' }),
+    __metadata("design:type", String)
+], TransactionVolumesDataDto.prototype, "volume_description", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Volume details',
+        example: 'Details about the volume',
+    }),
+    __metadata("design:type", String)
+], TransactionVolumesDataDto.prototype, "volume_details", void 0);
+class DataManagementDto {
+}
+exports.DataManagementDto = DataManagementDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Data management ID', example: '' }),
+    __metadata("design:type", String)
+], DataManagementDto.prototype, "_id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'MDO', example: '' }),
+    __metadata("design:type", Array)
+], DataManagementDto.prototype, "mdo", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Transaction volumes',
+        type: TransactionVolumesDataDto,
+        example: {
+            volume_description: 'High',
+            volume_details: 'Details about the volume',
+        },
+    }),
+    __metadata("design:type", TransactionVolumesDataDto)
+], DataManagementDto.prototype, "transaction_volumes", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Data security', example: '' }),
+    __metadata("design:type", String)
+], DataManagementDto.prototype, "data_security", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Data retention', example: '' }),
+    __metadata("design:type", String)
+], DataManagementDto.prototype, "data_retention", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Data residency', example: '' }),
+    __metadata("design:type", String)
+], DataManagementDto.prototype, "data_residency", void 0);
+class IntegrationScenarioDto {
+}
+exports.IntegrationScenarioDto = IntegrationScenarioDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Integration scenario ID', example: '' }),
+    __metadata("design:type", String)
+], IntegrationScenarioDto.prototype, "_id", void 0);
+class CreateProcessDataDto {
+}
+exports.CreateProcessDataDto = CreateProcessDataDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: [String],
+        description: 'Function identifiers',
+        example: ['F004'],
+    }),
+    __metadata("design:type", Array)
+], CreateProcessDataDto.prototype, "function_id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: [String],
+        description: 'Sub-function identifiers',
+        example: ['SF004'],
+    }),
+    __metadata("design:type", Array)
+], CreateProcessDataDto.prototype, "sub_function_id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Title of the process',
+        example: 'Process Title',
+    }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "title", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Type of the version', example: 'Final' }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "version_type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Version identifier', example: 'v4.0' }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "version_id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'SOP reference number', example: 'SOP12675' }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "sop_reference", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Name of the process owner',
+        example: 'John Doe',
+    }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "owner_name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Role designation of the process owner',
+        example: 'Process Owner',
+    }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "owner_role_designation", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Release status', example: 'Released' }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "release_status", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Description of the process',
+        example: 'Detailed description of the process.',
+    }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "description", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Description of the trigger event',
+        example: 'Trigger event description',
+    }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "trigger", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Creator of the process', example: 'Admin' }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "created_by", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Creation date',
+        example: new Date().toISOString(),
+    }),
+    __metadata("design:type", Date)
+], CreateProcessDataDto.prototype, "created_on", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Last modified by', example: '' }),
+    __metadata("design:type", String)
+], CreateProcessDataDto.prototype, "last_modified_by", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Last modified date',
+        example: new Date().toISOString(),
+    }),
+    __metadata("design:type", Date)
+], CreateProcessDataDto.prototype, "last_modified_on", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Deletion flag', example: false }),
+    __metadata("design:type", Boolean)
+], CreateProcessDataDto.prototype, "is_deleted", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: IoInfoDto, description: 'IO Information' }),
+    __metadata("design:type", IoInfoDto)
+], CreateProcessDataDto.prototype, "io_info", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: [Object],
+        description: 'List of activities',
+        example: [],
+    }),
+    __metadata("design:type", Array)
+], CreateProcessDataDto.prototype, "activities", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: ControlAndMonitoringDto,
+        description: 'Control and Monitoring',
+    }),
+    __metadata("design:type", ControlAndMonitoringDto)
+], CreateProcessDataDto.prototype, "control_and_monitoring", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: [Object],
+        description: 'Queries and responses',
+        example: [],
+    }),
+    __metadata("design:type", Array)
+], CreateProcessDataDto.prototype, "queries_and_responses", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: DataManagementDto, description: 'Data management' }),
+    __metadata("design:type", DataManagementDto)
+], CreateProcessDataDto.prototype, "data_management", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: IntegrationScenarioDto,
+        description: 'Integration scenario',
+    }),
+    __metadata("design:type", IntegrationScenarioDto)
+], CreateProcessDataDto.prototype, "integration_scenario", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: [Object],
+        description: 'List of documents',
+        example: [],
+    }),
+    __metadata("design:type", Array)
+], CreateProcessDataDto.prototype, "documents", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: [Object],
+        description: 'Automation scenarios',
+        example: [],
+    }),
+    __metadata("design:type", Array)
+], CreateProcessDataDto.prototype, "automation_scenarios", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: ComplianceScenariosDto,
+        description: 'Compliance scenarios',
+    }),
+    __metadata("design:type", ComplianceScenariosDto)
+], CreateProcessDataDto.prototype, "compliance_scenarios", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [Object], description: 'Controls', example: [] }),
+    __metadata("design:type", Array)
+], CreateProcessDataDto.prototype, "controls", void 0);
+class CreateProcessResponseDto {
+}
+exports.CreateProcessResponseDto = CreateProcessResponseDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'HTTP status code', example: 201 }),
+    __metadata("design:type", Number)
+], CreateProcessResponseDto.prototype, "statusCode", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Flag indicating the success of the operation',
+        example: true,
+    }),
+    __metadata("design:type", Boolean)
+], CreateProcessResponseDto.prototype, "success", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Message describing the result of the operation',
+        example: 'Process created successfully',
+    }),
+    __metadata("design:type", String)
+], CreateProcessResponseDto.prototype, "message", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Data returned from the operation' }),
+    __metadata("design:type", Object)
+], CreateProcessResponseDto.prototype, "data", void 0);
 //# sourceMappingURL=process.dto.js.map

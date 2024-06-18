@@ -31,25 +31,21 @@ let ProcessDocumentController = class ProcessDocumentController {
                 statusCode: common_1.HttpStatus.CREATED,
                 success: true,
                 message: 'process-document created successfully',
-                data: data,
+                data,
             };
         }
         catch (error) {
-            if (error instanceof common_1.NotFoundException) {
-                throw new common_1.NotFoundException(error.message);
+            if (error instanceof common_1.NotFoundException ||
+                error instanceof common_1.BadRequestException) {
+                throw error;
             }
-            else if (error instanceof common_1.BadRequestException) {
-                throw new common_1.BadRequestException(error.message);
-            }
-            else {
-                throw new common_1.InternalServerErrorException('Failed to create the process-document');
-            }
+            throw new common_1.InternalServerErrorException('Failed to create the process document');
         }
     }
-    async updateProcessDocumentIsDeleted(processId, pdId) {
+    async updateProcessDocumentIsDeleted(params) {
         try {
-            const archiveData = await this.processDocumentService.getByProcessById(processId);
-            const result = await this.processDocumentService.updateProcessDocumentIsDeleted(processId, pdId);
+            const archiveData = await this.processDocumentService.getByProcessById(params.processId);
+            const result = await this.processDocumentService.updateProcessDocumentIsDeleted(params.processId, params.pdId);
             if (result) {
                 const data = await this.processArchiveService.create(archiveData);
                 console.log('object:', data);
@@ -58,8 +54,8 @@ let ProcessDocumentController = class ProcessDocumentController {
                 statusCode: common_1.HttpStatus.OK,
                 message: 'processDocument deleted successfully',
                 data: {
-                    processId: processId,
-                    pdId: pdId,
+                    processId: params.processId,
+                    pdId: params.pdId,
                 },
             };
         }
@@ -77,179 +73,11 @@ exports.ProcessDocumentController = ProcessDocumentController;
 __decorate([
     (0, common_1.Post)('process-document'),
     (0, swagger_1.ApiOperation)({ summary: 'Post process document' }),
-    (0, swagger_1.ApiBody)({
-        schema: {
-            type: 'object',
-            properties: {
-                _id: {
-                    type: 'string',
-                    example: '666d417093b9df8f829b22a3',
-                    description: 'Identifier for the activity',
-                },
-                process_document: {
-                    type: 'array',
-                    items: {
-                        type: 'object',
-                        properties: {
-                            title: {
-                                type: 'string',
-                                example: 'Sample Document Title',
-                                description: 'Title of the document',
-                            },
-                            desc: {
-                                type: 'string',
-                                example: 'This is a sample description of the document.',
-                                description: 'Description of the document',
-                            },
-                            type: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'type1',
-                                },
-                                description: 'Array of document types',
-                            },
-                            source: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'source1',
-                                },
-                                description: 'Array of document sources',
-                            },
-                            number_range: {
-                                type: 'string',
-                                example: '100-200',
-                                description: 'Range of document numbers',
-                            },
-                            storage_requirements: {
-                                type: 'string',
-                                example: 'Store in a cool, dry place',
-                                description: 'Storage requirements for the document',
-                            },
-                            attachments: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'attachment1',
-                                },
-                                description: 'Array of document attachments',
-                            },
-                            activity_id: {
-                                type: 'array',
-                                items: {
-                                    type: 'string',
-                                    example: 'activity1',
-                                },
-                                description: 'Array of associated activities',
-                            },
-                            is_deleted: {
-                                type: 'boolean',
-                                example: false,
-                                description: 'Flag indicating whether the document is deleted or not',
-                            },
-                            last_modified_by: {
-                                type: 'string',
-                                example: 'manthan',
-                                description: 'User who last modified the document',
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    }),
+    (0, swagger_1.ApiBody)({ type: process_document_dto_1.ProcessDocumentRequestBodyDto }),
     (0, swagger_1.ApiResponse)({
         status: 201,
         description: 'process-document created successfully',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 201 },
-                        success: { type: 'boolean', example: true },
-                        message: {
-                            type: 'string',
-                            example: 'process-document created successfully',
-                        },
-                        data: {
-                            type: 'object',
-                            properties: {
-                                created: {
-                                    type: 'array',
-                                    items: {
-                                        type: 'object',
-                                        properties: {
-                                            title: {
-                                                type: 'string',
-                                                example: 'Sample Document Title',
-                                            },
-                                            desc: {
-                                                type: 'string',
-                                                example: 'This is a sample description of the document.',
-                                            },
-                                            type: {
-                                                type: 'array',
-                                                items: { type: 'string', example: 'type1' },
-                                            },
-                                            source: {
-                                                type: 'array',
-                                                items: { type: 'string', example: 'source1' },
-                                            },
-                                            number_range: {
-                                                type: 'string',
-                                                example: '100-200',
-                                            },
-                                            storage_requirements: {
-                                                type: 'string',
-                                                example: 'Store in a cool, dry place',
-                                            },
-                                            attachments: {
-                                                type: 'array',
-                                                items: { type: 'string', example: 'attachment1' },
-                                            },
-                                            activity_id: {
-                                                type: 'array',
-                                                items: { type: 'string', example: 'activity1' },
-                                            },
-                                            is_deleted: { type: 'boolean', example: false },
-                                            _id: { type: 'string', example: 'pd_kuclxi9j6' },
-                                        },
-                                    },
-                                },
-                                updated: {
-                                    type: 'array',
-                                    items: { type: 'object' },
-                                },
-                            },
-                        },
-                    },
-                },
-                example: {
-                    statusCode: 201,
-                    success: true,
-                    message: 'process-document created successfully',
-                    data: {
-                        created: [
-                            {
-                                title: 'Sample Document Title',
-                                desc: 'This is a sample description of the document.',
-                                type: ['type1', 'type2'],
-                                source: ['source1', 'source2'],
-                                number_range: '100-200',
-                                storage_requirements: 'Store in a cool, dry place',
-                                attachments: ['attachment1', 'attachment2'],
-                                activity_id: ['activity1', 'activity2'],
-                                is_deleted: false,
-                                _id: 'pd_kuclxi9j6',
-                            },
-                        ],
-                        updated: [],
-                    },
-                },
-            },
-        },
+        type: process_document_dto_1.ProcessDocumentResponseDto,
     }),
     (0, swagger_1.ApiResponse)({
         status: 500,
@@ -273,7 +101,7 @@ __decorate([
     (0, response_handler_decorator_1.ResponseHandler)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [process_document_dto_1.UpsertProcessDocumentDto]),
+    __metadata("design:paramtypes", [process_document_dto_1.ProcessDocumentRequestBodyDto]),
     __metadata("design:returntype", Promise)
 ], ProcessDocumentController.prototype, "create", null);
 __decorate([
@@ -294,36 +122,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Process document deleted',
-        content: {
-            'application/json': {
-                schema: {
-                    type: 'object',
-                    properties: {
-                        statusCode: { type: 'number', example: 200 },
-                        success: { type: 'boolean', example: true },
-                        message: {
-                            type: 'string',
-                            example: 'Process document deleted',
-                        },
-                        data: {
-                            type: 'object',
-                            properties: {
-                                _id: {
-                                    type: 'string',
-                                    example: '6667e1246e91ff27e948a0e9',
-                                    description: 'Process id',
-                                },
-                                process_document_id: {
-                                    type: 'string',
-                                    example: 'pd_ruyuwn69e',
-                                    description: 'Process document id',
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
+        type: process_document_dto_1.UpdateProcessDocumentResponseBodyDto,
     }),
     (0, swagger_1.ApiResponse)({
         status: 500,
@@ -345,10 +144,9 @@ __decorate([
         },
     }),
     (0, response_handler_decorator_1.ResponseHandler)(),
-    __param(0, (0, common_1.Param)('processId')),
-    __param(1, (0, common_1.Param)('pdId')),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [process_document_dto_1.UpdateProcessDocumentRequestBodyDto]),
     __metadata("design:returntype", Promise)
 ], ProcessDocumentController.prototype, "updateProcessDocumentIsDeleted", null);
 exports.ProcessDocumentController = ProcessDocumentController = __decorate([

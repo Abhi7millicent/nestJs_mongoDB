@@ -29,7 +29,7 @@ import { DatabaseConnection } from 'src/database/database.connection';
     // }),
     Modules,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  // controllers: [AppController],
+  // providers: [AppService],
 })
 export class AppModule {}

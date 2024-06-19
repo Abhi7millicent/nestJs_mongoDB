@@ -23,7 +23,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 load: [app_config_1.default],
-                ignoreEnvFile: true,
+                ignoreEnvFile: false,
                 envFilePath: `.env.${process.env.NODE_ENV}`,
             }),
             mongoose_1.MongooseModule.forRootAsync({

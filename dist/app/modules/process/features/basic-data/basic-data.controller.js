@@ -28,7 +28,7 @@ let BasicDataController = class BasicDataController {
             return {
                 statusCode: common_1.HttpStatus.CREATED,
                 success: true,
-                message: 'Activity not updated successfully',
+                message: 'Activity updated successfully',
                 data: vlaue,
             };
         }

@@ -11,7 +11,7 @@ import { DatabaseConnection } from 'src/database/database.connection';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configurations],
-      ignoreEnvFile: false,
+      ignoreEnvFile: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
 

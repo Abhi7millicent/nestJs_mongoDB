@@ -681,7 +681,7 @@ export class BasicDataController {
       return {
         statusCode: HttpStatus.CREATED,
         success: true,
-        message: 'Activity not updated successfully',
+        message: 'Activity updated successfully',
         data: vlaue,
       };
     } catch (error) {
